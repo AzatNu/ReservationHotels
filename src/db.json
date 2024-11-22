@@ -1,0 +1,53 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "login": "admin",
+            "password": "123456",
+            "role_id": "0",
+            "registred_at": "2022-01-01 00:00:00"
+        },        {
+            "id": "2",
+            "login": "user",
+            "password": "123456",
+            "role_id": "0",
+            "registred_at": "2022-01-01 00:00:00"
+        },
+        {
+            "id": "3",
+            "login": "moderator",
+            "password": "123456",
+            "role_id": "1",
+            "registred_at": "2022-01-01 00:00:00"
+        }
+    ],
+    "role": [
+        {
+            "id": "0",
+            "name": "admin"
+        },
+        {
+            "id": "1",
+            "name": "moderator"
+        },
+        {
+            "id": "2",
+            "name": "reader"
+        },
+        {
+            "id": "3",
+            "name": "guest"
+        }
+    ],
+    "rooms": [
+        {
+            "id": 1,
+            "name": "Room 1",
+            "capacity": 2,
+            "reservations": [],
+            "roomType": "Single",
+            "price": 1000,
+            "image": "https://images.unsplash.com/photo-1522205408450-2eca6471d5b5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG9tZSUyMHRhcmdlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
+        }
+    ]
+}
