@@ -2,7 +2,7 @@
 const initialUserState = {
     id: null,
     login: null,
-    role_id: "2",
+    role_id: "3",
     session: null,
 };
 export const userReducer = (state = initialUserState, action) => {

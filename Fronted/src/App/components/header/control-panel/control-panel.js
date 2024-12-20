@@ -12,7 +12,6 @@ export const ControlPanel = () => {
     const userName = useSelector(userloginSelector);
     const userRole = useSelector(userRoleSelector);
     const dispatch = useDispatch();
-    console.log(userRole);
     const onLogout = () => {
         dispatch({ type: "LOGOUT" });
         sessionStorage.removeItem("userData");
@@ -25,33 +24,41 @@ export const ControlPanel = () => {
                     <img src={mainPageLogo} alt="logo" />
                 </button>
             </Link>
-            <Link to="/reservedRooms">
-                <button title="Ваши забронированные номера">
-                    <img src={rservationLogo} alt="logo" />
-                </button>
-            </Link>
-            <Link to="/allRoomStatus">
-                <button title="Статусы всех номеров">
-                    <img src={roomsStatus} alt="logo" />
-                </button>
-            </Link>
-            <Link to="/roomCreate">
-                <button title="Создание доступных номеров">
-                    <img src={createRooms} alt="logo" />
-                </button>
-            </Link>
-            {userRole === "3" ? (
+            {userRole !== "3" ? (
+                <Link to="/reservedRooms">
+                    <button title="Ваши забронированные номера">
+                        <img src={rservationLogo} alt="logo" />
+                    </button>
+                </Link>
+            ) : null}
+            {userRole === "0" || userRole === "1" ? (
+                <Link to="/allRoomStatus">
+                    <button title="Статусы всех номеров">
+                        <img src={roomsStatus} alt="logo" />
+                    </button>
+                </Link>
+            ) : null}
+            {userRole === "1" || userRole === "0" ? (
+                <Link to="/roomCreate">
+                    <button title="Создание доступных номеров">
+                        <img src={createRooms} alt="logo" />
+                    </button>
+                </Link>
+            ) : null}
+            {userRole !== "3" ? (
                 <button
                     title="Выход"
-                    onClick={() => {
-                        onLogout();
-                    }}
+                    onClick={onLogout}
+                    style={{ backgroundColor: "red" }}
                 >
                     <img src={logout} alt="logo" />
                 </button>
             ) : (
                 <Link to="/login">
-                    <button title="Авторизация">
+                    <button
+                        title="Авторизация"
+                        style={{ backgroundColor: "green" }}
+                    >
                         <img src={login} alt="logo" />
                     </button>
                 </Link>
