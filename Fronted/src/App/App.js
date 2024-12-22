@@ -1,12 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import {  ReservedRooms, AllRoomStatus, Rooms, CreateRooms, RoomId, Error404, Auth,  Registartion  } from "../Pages";
+import { ReservedRooms, AllRoomStatus, Hotels, CreateRooms, RoomId, Error404, Auth, Registartion, Greeting } from "../Pages";
 import { Header, Footer } from "./components";
 export const App = () => {
     return (
         <>
             <Header />
             <Routes>
-                <Route path="/" element={<Rooms />} />
+                <Route path="/" element={<Greeting />} />
+                <Route path="/hotels" element={<Hotels />} />
                 <Route path="/login" element={<Auth />} />
                 <Route path="/register" element={< Registartion />} />
                 <Route

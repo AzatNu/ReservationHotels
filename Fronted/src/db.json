@@ -1,53 +1,115 @@
 {
-    "users": [
-        {
-            "id": "1",
-            "login": "admin",
-            "password": "123456",
-            "role_id": "0",
-            "registred_at": "2022-01-01 00:00:00"
-        },        {
-            "id": "2",
-            "login": "user",
-            "password": "123456",
-            "role_id": "0",
-            "registred_at": "2022-01-01 00:00:00"
-        },
-        {
-            "id": "3",
-            "login": "moderator",
-            "password": "123456",
-            "role_id": "1",
-            "registred_at": "2022-01-01 00:00:00"
-        }
-    ],
-    "role": [
-        {
-            "id": "0",
-            "name": "admin"
-        },
-        {
-            "id": "1",
-            "name": "moderator"
-        },
-        {
-            "id": "2",
-            "name": "reader"
-        },
-        {
-            "id": "3",
-            "name": "guest"
-        }
-    ],
-    "rooms": [
-        {
-            "id": 1,
-            "name": "Room 1",
-            "capacity": 2,
-            "reservations": [],
-            "roomType": "Single",
-            "price": 1000,
-            "image": "https://images.unsplash.com/photo-1522205408450-2eca6471d5b5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aG9tZSUyMHRhcmdlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
-        }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "login": "admin",
+      "password": "123456",
+      "role_id": "0",
+      "registred_at": "2022-01-01 00:00:00"
+    },
+    {
+      "id": "2",
+      "login": "user",
+      "password": "123456",
+      "role_id": "0",
+      "registred_at": "2022-01-01 00:00:00"
+    },
+    {
+      "id": "3",
+      "login": "moderator",
+      "password": "123456",
+      "role_id": "1",
+      "registred_at": "2022-01-01 00:00:00"
+    },
+    {
+      "id": "3ed1",
+      "login": "admin1",
+      "password": "123456",
+      "registred_at": "21.12.2024, 12:37:03",
+      "role_id": "2"
+    },
+    {
+      "id": "f5cd",
+      "login": "admi",
+      "password": "123456",
+      "registred_at": "21.12.2024, 12:46:18",
+      "role_id": "2"
+    },
+    {
+      "id": "4b70",
+      "login": "admin34",
+      "password": "123456",
+      "registred_at": "21.12.2024, 14:03:15",
+      "role_id": "2"
+    },
+    {
+      "id": "54c4",
+      "login": "admin12431",
+      "password": "123456",
+      "registred_at": "21.12.2024, 14:43:35",
+      "role_id": "2"
+    },
+    {
+      "login": "admin232",
+      "password": "123456",
+      "registred_at": "22.12.2024, 16:16:53",
+      "role_id": "2",
+      "id": "klXUIf5"
+    },
+    {
+      "login": "admin43534",
+      "password": "123456",
+      "registred_at": "22.12.2024, 16:17:52",
+      "role_id": "2",
+      "id": "yX6onKP"
+    },
+    {
+      "login": "admin2",
+      "password": "123456",
+      "registred_at": "22.12.2024, 16:18:31",
+      "role_id": "2",
+      "id": "IdJ5rry"
+    }
+  ],
+  "role": [
+    {
+      "id": "0",
+      "name": "admin"
+    },
+    {
+      "id": "1",
+      "name": "moderator"
+    },
+    {
+      "id": "2",
+      "name": "user"
+    },
+    {
+      "id": "3",
+      "name": "guest"
+    }
+  ],
+  "hotels": [
+    {
+      "id": "1",
+      "name": "Park Hotel",
+      "stars": "5",
+      "description": "The Park Hotel is a 5-star hotel located in the heart of the city. It offers luxurious rooms with air conditioning, flat-screen TVs and free Wi-Fi. The hotel has a restaurant, a bar and a fitness center.",
+      "address": "123 Main Street, New York, NY 10001"
+    },
+    {
+      "id": "2",
+      "name": "Grand Hotel",
+      "stars": "4",
+      "description": "The Grand Hotel is a 4-star hotel located in the city center. It offers comfortable rooms with air conditioning, flat-screen TVs and free Wi-Fi. The hotel has a restaurant, a bar and a fitness center.",
+      "address": "456 Broadway, New York, NY 10001"
+    },
+    {
+      "id": "3",
+      "name": "Hotel Plaza",
+      "stars": "3",
+      "description": "The Hotel Plaza is a 3-star hotel located near the city center. It offers simple rooms with air conditioning, flat-screen TVs and free Wi-Fi. The hotel has a restaurant and a bar.",
+      "address": "789 7th Avenue, New York, NY 10001"
+    }   
+  ]
 }

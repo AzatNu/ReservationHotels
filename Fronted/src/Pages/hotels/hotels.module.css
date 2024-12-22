@@ -1,0 +1,39 @@
+.hotelsContainer {
+    padding: 0px 0px 120px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    justify-items: center;
+    align-items: center;
+    margin: 30px;
+}
+
+.hotelsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 140px 0px 0px 0px;
+}
+
+.hotelsCard {
+    width: 100%;
+    height: 1000px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+}
+
+.hotelsCard:hover {
+    animation: scale 0.5s forwards;
+}
+
+@keyframes scale {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.04);
+    }
+}
+

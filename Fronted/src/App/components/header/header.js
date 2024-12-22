@@ -4,7 +4,6 @@ import { ControlPanel } from "./control-panel/control-panel";
 export const Header = () => {
     return (
         <>
-            {" "}
             <div className={headerStyle["headerContainer"]}>
                 <div className={headerStyle["headerLogoTitleContainer"]}>
                     <img
