@@ -3,10 +3,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('./assets/bg-image/5eeb369cd9ed811cdb71bd859b7d626d.png');
-}
+  background-image: url(./assets/bg-image/5eeb369cd9ed811cdb71bd859b7d626d.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  zoom: 0.75;
+
+    }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+

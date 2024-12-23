@@ -1,115 +1,172 @@
-{
-  "users": [
     {
-      "id": "1",
-      "login": "admin",
-      "password": "123456",
-      "role_id": "0",
-      "registred_at": "2022-01-01 00:00:00"
-    },
-    {
-      "id": "2",
-      "login": "user",
-      "password": "123456",
-      "role_id": "0",
-      "registred_at": "2022-01-01 00:00:00"
-    },
-    {
-      "id": "3",
-      "login": "moderator",
-      "password": "123456",
-      "role_id": "1",
-      "registred_at": "2022-01-01 00:00:00"
-    },
-    {
-      "id": "3ed1",
-      "login": "admin1",
-      "password": "123456",
-      "registred_at": "21.12.2024, 12:37:03",
-      "role_id": "2"
-    },
-    {
-      "id": "f5cd",
-      "login": "admi",
-      "password": "123456",
-      "registred_at": "21.12.2024, 12:46:18",
-      "role_id": "2"
-    },
-    {
-      "id": "4b70",
-      "login": "admin34",
-      "password": "123456",
-      "registred_at": "21.12.2024, 14:03:15",
-      "role_id": "2"
-    },
-    {
-      "id": "54c4",
-      "login": "admin12431",
-      "password": "123456",
-      "registred_at": "21.12.2024, 14:43:35",
-      "role_id": "2"
-    },
-    {
-      "login": "admin232",
-      "password": "123456",
-      "registred_at": "22.12.2024, 16:16:53",
-      "role_id": "2",
-      "id": "klXUIf5"
-    },
-    {
-      "login": "admin43534",
-      "password": "123456",
-      "registred_at": "22.12.2024, 16:17:52",
-      "role_id": "2",
-      "id": "yX6onKP"
-    },
-    {
-      "login": "admin2",
-      "password": "123456",
-      "registred_at": "22.12.2024, 16:18:31",
-      "role_id": "2",
-      "id": "IdJ5rry"
-    }
-  ],
-  "role": [
-    {
-      "id": "0",
-      "name": "admin"
-    },
-    {
-      "id": "1",
-      "name": "moderator"
-    },
-    {
-      "id": "2",
-      "name": "user"
-    },
-    {
-      "id": "3",
-      "name": "guest"
-    }
-  ],
-  "hotels": [
-    {
-      "id": "1",
-      "name": "Park Hotel",
-      "stars": "5",
-      "description": "The Park Hotel is a 5-star hotel located in the heart of the city. It offers luxurious rooms with air conditioning, flat-screen TVs and free Wi-Fi. The hotel has a restaurant, a bar and a fitness center.",
-      "address": "123 Main Street, New York, NY 10001"
-    },
-    {
-      "id": "2",
-      "name": "Grand Hotel",
-      "stars": "4",
-      "description": "The Grand Hotel is a 4-star hotel located in the city center. It offers comfortable rooms with air conditioning, flat-screen TVs and free Wi-Fi. The hotel has a restaurant, a bar and a fitness center.",
-      "address": "456 Broadway, New York, NY 10001"
-    },
-    {
-      "id": "3",
-      "name": "Hotel Plaza",
-      "stars": "3",
-      "description": "The Hotel Plaza is a 3-star hotel located near the city center. It offers simple rooms with air conditioning, flat-screen TVs and free Wi-Fi. The hotel has a restaurant and a bar.",
-      "address": "789 7th Avenue, New York, NY 10001"
-    }   
-  ]
+    "users": [
+        {
+            "id": "1",
+            "login": "admin",
+            "password": "123456",
+            "role_id": "0",
+            "registred_at": "2022-01-01 00:00:00"
+        },
+        {
+            "id": "2",
+            "login": "user",
+            "password": "123456",
+            "role_id": "0",
+            "registred_at": "2022-01-01 00:00:00"
+        },
+        {
+            "id": "3",
+            "login": "moderator",
+            "password": "123456",
+            "role_id": "1",
+            "registred_at": "2022-01-01 00:00:00"
+        },
+        {
+            "id": "3ed1",
+            "login": "admin1",
+            "password": "123456",
+            "registred_at": "21.12.2024, 12:37:03",
+            "role_id": "2"
+        },
+        {
+            "id": "f5cd",
+            "login": "admi",
+            "password": "123456",
+            "registred_at": "21.12.2024, 12:46:18",
+            "role_id": "2"
+        },
+        {
+            "id": "4b70",
+            "login": "admin34",
+            "password": "123456",
+            "registred_at": "21.12.2024, 14:03:15",
+            "role_id": "2"
+        },
+        {
+            "id": "54c4",
+            "login": "admin12431",
+            "password": "123456",
+            "registred_at": "21.12.2024, 14:43:35",
+            "role_id": "2"
+        },
+        {
+            "login": "admin232",
+            "password": "123456",
+            "registred_at": "22.12.2024, 16:16:53",
+            "role_id": "2",
+            "id": "klXUIf5"
+        },
+        {
+            "login": "admin43534",
+            "password": "123456",
+            "registred_at": "22.12.2024, 16:17:52",
+            "role_id": "2",
+            "id": "yX6onKP"
+        },
+        {
+            "login": "admin2",
+            "password": "123456",
+            "registred_at": "22.12.2024, 16:18:31",
+            "role_id": "2",
+            "id": "IdJ5rry"
+        }
+    ],
+    "role": [
+        {
+            "id": "0",
+            "name": "admin"
+        },
+        {
+            "id": "1",
+            "name": "moderator"
+        },
+        {
+            "id": "2",
+            "name": "user"
+        },
+        {
+            "id": "3",
+            "name": "guest"
+        }
+    ],
+    "hotels": [
+        {
+            "id": "1",
+            "name": "Отель Бристоль",
+            "address": "ul. Marsza kowska 94/98, 00-693 Warszawa, Polska",
+            "title": "Отель Бристоль - это 5-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы",
+            "stars": "5",
+            "description": "Отель Бристоль - это 5-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы. Отель Бристоль - это идеальное место для отдыха в Варшаве. Отель Бристоль - это 5-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы. Отель Бристоль - это идеальное место для отдыха в Варшаве.",
+            "profileImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Warsaw_2023_096.jpg/1200px-Warsaw_2023_096.jpg?20240214155946",
+            "images": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Hotel_Bristol_w_Warszawie.JPG/1200px-Hotel_Bristol_w_Warszawie.JPG",
+            "rooms": [
+                {
+                    "id": "1",
+                    "number": "101",
+                    "type": "single",
+                    "price": "1000",
+                    "description": "Одиночный номер с одной кроватью и частной ванной.",
+                    "resevation": []
+                },
+                {
+                    "id": "2",
+                    "number": "102",
+                    "type": "double",
+                    "price": "1500",
+                    "description": "Двойной номер с двумя отдельными кроватями и частной ванной.",
+                    "resevation": [{
+                        "id": "1",
+                        "user_id": "1",
+                        "room_id": "1",
+                        "hotel_id": "1",
+                        "start": "2022-01-01 00:00:00",
+                        "end": "2022-01-02 00:00:00"}]
+                },
+                {
+                    "id": "3",
+                    "number": "103",
+                    "type": "triple",
+                    "price": "2000",
+                    "description": "Тройной номер с тремя отдельными кроватями и частной ванной.",
+                    "resevation": []
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "name": "Гранд отель",
+            "stars": "4",
+            "description": "Гранд отель - это 4-звездочный отель, расположенный в центре города, в США, Нью-Йорк. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от Таймс-Сквер и Эмпайер-Стейт-Билдинг.",
+            "address": {
+                "country": "США",
+                "city": "Нью-Йорк",
+                "street": "456 Broadway"
+            },
+            "images":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Hotel_Imperial_Bulgaria_Sunny_Beach.jpg/1200px-Hotel_Imperial_Bulgaria_Sunny_Beach.jpg",
+            "rooms": [
+                {
+                    "id": "4",
+                    "number": "201",
+                    "type": "single",
+                    "price": "80",
+                    "description": "Одиночный номер с одной кроватью и частной ванной."
+                },
+                {
+                    "id": "5",
+                    "number": "202",
+                    "type": "double",
+                    "price": "120",
+                    "description": "Двойной номер с двумя отдельными кроватями и частной ванной."
+                },
+                {
+                    "id": "6",
+                    "number": "203",
+                    "type": "triple",
+                    "price": "180",
+                    "description": "Тройной номер с тремя отдельными кроватями и частной ванной."
+                }
+            ]
+        }
+
+    ]
 }

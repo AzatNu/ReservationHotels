@@ -1,2 +1,1 @@
-export * from "./request-get-all-hotels";
 export * from "./request-get-hotel-by-id";

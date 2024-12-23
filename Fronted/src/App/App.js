@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { ReservedRooms, AllRoomStatus, Hotels, CreateRooms, RoomId, Error404, Auth, Registartion, Greeting } from "../Pages";
+import { ReservedRooms, AllRoomStatus, Hotels, CreateRooms, HotelId, Error404, Auth, Registartion, Greeting } from "../Pages";
 import { Header, Footer } from "./components";
 export const App = () => {
     return (
@@ -11,8 +11,8 @@ export const App = () => {
                 <Route path="/login" element={<Auth />} />
                 <Route path="/register" element={< Registartion />} />
                 <Route
-                    path="/rooms/:roomId"
-                    element={<RoomId />}
+                    path="/hotels/:id"
+                    element={<HotelId />}
                 />
                 <Route path="/reservedRooms" element={<ReservedRooms />} />
                 <Route path="/allRoomStatus" element={<AllRoomStatus />} />
