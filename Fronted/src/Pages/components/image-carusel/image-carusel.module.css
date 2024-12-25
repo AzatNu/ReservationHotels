@@ -1,0 +1,61 @@
+.roomImageCarusel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    min-height: 500px;
+    min-width: 1000px;
+    padding: 10px;
+    margin: 20px;
+}
+
+.roomImage {
+    object-fit: cover;
+    border-radius: 10px;
+    width: 1500px;
+    height: 800px;
+    padding: 20px;
+}
+
+.arrow-right {
+
+    border-radius: 5px;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+
+}
+
+.arrow-left {
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    background-color: transparent;
+    border: none;
+}
+
+.arrow-left img {
+    transform: rotate(180deg);
+}
+
+.arrow-left:hover {
+    animation: scale 0.2s linear forwards;
+
+}
+
+.arrow-right:hover {
+    animation: scale 0.2s linear forwards;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.2);
+    }
+}

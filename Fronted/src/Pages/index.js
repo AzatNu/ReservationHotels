@@ -7,3 +7,4 @@ export * from './hotel-id';
 export * from './error-404';
 export * from './auth-registartion';
 export * from './greeteng';
+export * from './rooms'

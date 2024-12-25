@@ -16,7 +16,6 @@ export const HotelId = () => {
     useEffect(() => {
         dispatch(getHotelById(id))
     }, []);
-    console.log(hotel.hotel?.rooms?.resevation);
     return (
         userRole !== "3" ? (
             isLoading ? (
@@ -37,12 +36,11 @@ export const HotelId = () => {
                     <div className={hotelIdStyle["hotelIdDescription"]}>
                         <h2>Отель расположен по адресу: {hotel.hotel.address}</h2>
                         <p>{hotel.hotel.description}</p>
-                        <h2>Средняя стоимость номера: ${hotel.hotel.rooms.reduce((sum, room) => sum + +room.price, 0) / hotel.hotel.rooms.length}</h2>
                     </div>
                     <div className={hotelIdStyle["hotelIdRoomsContainer"]}>
-                        <div className={hotelIdStyle["hotelIdRooms"]}>
-                        </div>
-                        <button className={hotelIdStyle["hotelIdButton"]}>Просмотреть доступные номера данного отеля </button>
+                        <Link to={`/hotels/${hotel.hotel.id}/rooms`}>
+                        <button className={hotelIdStyle["hotelIdButton"]}>Номера </button>
+                        </Link>
                     </div>
                 </div>
             </>

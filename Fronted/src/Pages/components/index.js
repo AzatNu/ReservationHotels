@@ -3,3 +3,4 @@ export * from "./warning/warning";
 export * from "./loading-spinner";
 export * from "./search/search";
 export * from "./page-title";
+export * from "./image-carusel";

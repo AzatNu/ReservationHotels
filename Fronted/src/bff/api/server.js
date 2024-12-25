@@ -24,6 +24,7 @@ export const server = {
                 login: user.login,
                 role_id: user.role_id,
                 session: sessions.create(user),
+                balance: user.balance
             },
         };
     },
@@ -41,7 +42,8 @@ export const server = {
                 id: newUser.id,
                 login: newUser.login,
                 role_id: newUser.role_id,
-                session: sessions.create(newUser),
+                session: sessions.create(newUser        ),
+                balance: newUser.balance
             },
         };
     },

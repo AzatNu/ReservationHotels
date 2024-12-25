@@ -19,7 +19,7 @@
 }
 
 .hotelCard {
-    width: 1200px;
+    width: 1100px;
     height: 800px;
     border-radius: 10px;
     background-color: #ffffff;
@@ -50,7 +50,7 @@
     font-style: italic;
     background-color: rgba(0, 0, 0, 0.487);
     border-radius: 10px;
-    padding: 10px;  
+    padding: 10px;
 }
 .hotelCard:hover {
     animation: scale 0.5s forwards;

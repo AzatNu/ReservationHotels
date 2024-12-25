@@ -41,6 +41,7 @@ export const Registartion= () => {
             dispatch({ type: "SET_USER", payload: res });
             sessionStorage.setItem("userData", JSON.stringify(res));
             navigate("/hotels");
+        }).finally(() => {
             dispatch({ type: "SET_IS_LOADING", isLoading: false });
         });
     };

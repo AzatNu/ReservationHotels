@@ -6,41 +6,51 @@
     justify-items: center;
     align-items: center;
     margin: 30px;
-   height: 100%;
+    height: 100%;
 }
-.hotelIdImage   {
+
+.hotelIdContainer a {
+    text-decoration: none;
+}
+
+.hotelIdImage {
     width: 60%;
-    height:40%;
+    height: 40%;
     display: block;
     margin-left: auto;
     margin-right: auto;
     border-radius: 5px;
 }
+
 .hotelIdHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 140px 0px 0px 0px;
 }
+
 .hotelIdDescription {
     border-radius: 10px;
     display: flex;
-    background-color: #f5f5dcce;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     flex-direction: column;
     align-items: center;
     justify-content: start;
     margin: 10px;
     font-size: 40px;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
 }
-.hotelIdDescription p{
+
+.hotelIdDescription p {
     margin: 0;
 }
-.hotelIdDescription h2{
+
+.hotelIdDescription h2 {
     font-size: 35px;
 }
-.hotelIdButton{
+
+.hotelIdButton {
     width: 700px;
     height: 100px;
     border-radius: 5px;
@@ -53,18 +63,21 @@
     justify-content: center;
     background-color: yellow;
 }
+
 .hotelIdButton:hover {
-    background-color:#3DD9EB;
-    animation: scale 0.3s linear  forwards;
+    background-color: #3DD9EB;
+    animation: scale 0.3s linear forwards;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
+
 @keyframes scale {
     0% {
         transform: scale(1);
     }
+
     100% {
         transform: scale(1.1);
-}
+    }
 }
 
 .hotelIdStars {
@@ -84,11 +97,13 @@
     border-radius: 10px;
 
 }
-.hotelIdStars span{
+
+.hotelIdStars span {
     margin: 15px;
     align-items: center;
     justify-content: center;
 }
+
 .hotelIdRoomsInfo {
     border-radius: 10px;
     display: flex;
@@ -100,9 +115,11 @@
     text-align: center;
     padding: 10px;
 }
-.hotelIdRoomsInfo h2{
+
+.hotelIdRoomsInfo h2 {
     margin: 10px;
 }
-.hotelIdRoomsInfo p{
+
+.hotelIdRoomsInfo p {
     margin: 10px;
 }

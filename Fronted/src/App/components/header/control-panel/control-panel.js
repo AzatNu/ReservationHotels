@@ -8,24 +8,28 @@ import logout from "../../../../assets/header-Icons/control-panel-Icons/icons8-�
 import backNavigation from "../../../../assets/header-Icons/control-panel-Icons/icons8-длинная-стрелка-влево-100.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { userloginSelector, userRoleSelector } from "../../../../selectors";
+import { userloginSelector, userRoleSelector, newBalanceSelector } from "../../../../selectors";
+import { useEffect } from "react";
 export const ControlPanel = () => {
     const userName = useSelector(userloginSelector);
     const userRole = useSelector(userRoleSelector);
+    const userBalance = useSelector(newBalanceSelector);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onLogout = () => {
         dispatch({ type: "LOGOUT" });
+        dispatch({type: "SET_NEW_BALANCE", newBalance: 0}); 
         sessionStorage.removeItem("userData");
     };
 
     return (
         <div className={controlPanelStyle["controlPanelContainer"]}>
-            <h1 title="Вы авторизованы как:">{userName}</h1>
-                <button onClick={() => navigate(-1)}>
-                    <img title="Назад" src={backNavigation} alt="logo" />
-                </button>
+            <h1 title="Вы авторизованы как:">{userRole !== "3" ? (userName) : ("Гость")}</h1>
+            <h1 title="Ваш баланс:"> ${userBalance}</h1>
+            <button onClick={() => navigate(-1)}>
+                <img title="Назад" src={backNavigation} alt="logo" />
+            </button>
             {(userRole === "2" || userRole === "1" || userRole === "0") && (
                 <Link to="/hotels">
                     <button title="Доступные номера">

@@ -5,7 +5,12 @@ import {
     appReducer,
     getAllHotels,
     isLoading,
-    getHotelById
+    getHotelById,
+    getRoomsByHotelId,
+    newBalance,
+    refreshPage,
+    errors
+
 } from "./reducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -14,7 +19,11 @@ const reducer = combineReducers({
     app: appReducer,
     hotels: getAllHotels,
     isLoading: isLoading,
-    hotel: getHotelById
+    hotel: getHotelById,
+    rooms: getRoomsByHotelId,
+    newBalance: newBalance,
+    refreshPage: refreshPage,
+    errors: errors
 });
 export const store = createStore(
     reducer,

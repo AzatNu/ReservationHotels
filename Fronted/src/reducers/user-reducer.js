@@ -4,6 +4,7 @@ const initialUserState = {
     login: null,
     role_id: "3",
     session: null,
+    balance: 0,
 };
 export const userReducer = (state = initialUserState, action) => {
     switch (action.type) {

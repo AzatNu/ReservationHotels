@@ -40,9 +40,13 @@ export const Auth = () => {
             }
             dispatch({ type: "SET_USER", payload: res });
             sessionStorage.setItem("userData", JSON.stringify(res));
+            dispatch({type: "SET_NEW_BALANCE", newBalance: res.balance});
             navigate("/hotels");
+        }).finally(() => {
             dispatch({ type: "SET_IS_LOADING", isLoading: false });
+
         });
+
     };
     const formError =
         serverError || errors?.login?.message || errors?.password?.message;
