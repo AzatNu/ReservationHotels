@@ -1,5 +1,6 @@
+import { generateRandomCode } from "../../App/utils/generate-random-code.js";
 export const patchReserveRoom = (roomId, startDate, endDate, user) => (dispatch) => {
-
+    const code = generateRandomCode();
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
     fetch(`http://localhost:3005/rooms/${roomId}`, {
         method: "PATCH",
@@ -12,6 +13,7 @@ export const patchReserveRoom = (roomId, startDate, endDate, user) => (dispatch)
                     start: startDate,
                     end: endDate,
                     user,
+                    code: code
                 },
             ],
         }),

@@ -11,7 +11,10 @@ export const getRoomsByHotelId = (hotelId) => async (dispatch) => {
             rooms: rooms.filter(room => room.hotel_id === hotelId && room.reservation.length === 0)
         });
     } catch (error) {
-        console.error("Failed to fetch rooms", error);
+        dispatch({
+            type: "SET_ERROR",
+            error: error
+        })
     } finally {
         dispatch({
             type: "SET_IS_LOADING",

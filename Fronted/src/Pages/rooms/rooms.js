@@ -22,7 +22,8 @@ import {
     PageTitle,
     Warning,
     ImageCarousel,
-    ErrorAlert
+    ErrorAlert,
+    CustomSelect
 } from "../components";
 import { getRoomsByHotelId, patchReserveRoom } from "../../requests";
 
@@ -40,13 +41,15 @@ export const Rooms = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState("");
+    const [sortQuery, setSortQuery] = useState("");
     const [startDate, setStartDate] = useState(null);
-    const [flag, setFlag] = useState(false);
     const [endDate, setEndDate] = useState(null);
+    const [flag, setFlag] = useState(false);
 
     useEffect(() => {
         dispatch(getRoomsByHotelId(id));
     }, [dispatch, id, refreshPage]);
+
     const handleReserve = (roomId, startDate, endDate, user, roomNumber, roomPrice) => {
         if (startDate && endDate) {
             let daysReserved = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
@@ -54,7 +57,7 @@ export const Rooms = () => {
             if (newUserBalance < (roomPrice * daysReserved)) {
                 toast.error(`Ошибка! Недостаточно средств на балансе!`, {
                     position: "bottom-right",
-                    autoClose: 6000,
+                    autoClose: 10000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -117,7 +120,6 @@ export const Rooms = () => {
             }
         }
     };
-    console.log(errors)
     return (
         <>
             {userRole !== "3" ? (
@@ -127,18 +129,48 @@ export const Rooms = () => {
                     <div>
                         <div className={roomsStyle["roomsHeader"]}>
                             <PageTitle>Доступные номера </PageTitle>
+                            <CustomSelect
+                                options={[{ value: "default", label: "Без сортировки" },
+                                { value: "priceAsc", label: "Cначала дешевые" },
+                                { value: "priceDesc", label: "Cначала дорогие" },
+                                { value: "single", label: "Сначала одиночные" },
+                                { value: "double", label: "Сначала двухместные" },
+                                { value: "triple", label: "Сначала трехместные" },
+                                ]}
+                                onChange={(e) => setSortQuery(e.value)}
+                                value={sortQuery}
+                            />
                             <Search
                                 placeholder="Поиск номера"
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 value={searchQuery}
+                                buttonTitle="Сбросить поиск"
+                                onClickButton={() => setSearchQuery("")}
                             />
                         </div>
                         <div className={roomsStyle["roomsContainer"]}>
                             {rooms?.length > 0 ? (
                                 rooms
                                     ?.filter((room) =>
-                                        room.number.toLowerCase().includes(searchQuery.toLowerCase())
+                                        room.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                        room.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                        room.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                        room.price.toString().includes(searchQuery)
                                     )
+                                    .sort((a, b) => {
+                                        if (sortQuery === "priceAsc") {
+                                            return a.price - b.price;
+                                        } else if (sortQuery === "priceDesc") {
+                                            return b.price - a.price;
+                                        } else if (sortQuery === "single") {
+                                            return a.type === "одиночный" ? -1 : 1;
+                                        } else if (sortQuery === "double") {
+                                            return a.type === "двойной" ? -1 : 1;
+                                        } else if (sortQuery === "triple") {
+                                            return a.type === "тройной" ? -1 : 1;
+                                        }
+                                        return 0;
+                                    })
                                     .map((room) => (
                                         <div key={room.id} className={roomsStyle["roomCard"]}>
                                             <h2>Номер: {room.number}</h2>
@@ -178,8 +210,7 @@ export const Rooms = () => {
                                                         min={startDate ? new Date(startDate.getTime() + 86400000).toISOString().split("T")[0] : new Date().toISOString().split("T")[0]}
                                                         value={endDate ? endDate.toISOString().split("T")[0] : ''}
                                                         onChange={(e) => setEndDate(e.target.value ? new Date(e.target.value) : null)}
-                                                        onClick={(e) => { if (e.target.value) e.target.value = ''; setEndDate(null); }
-                                                    }
+                                                        onClick={(e) => { if (e.target.value) e.target.value = ''; setEndDate(null); }}
                                                     />
                                                 </div>
                                                 {startDate && endDate && (
@@ -187,16 +218,21 @@ export const Rooms = () => {
                                                         {endDate < startDate || endDate === startDate ? (
                                                             <ErrorAlert >Дата выезда не может  равнятся  или быть меньше даты заезда</ErrorAlert>
                                                         ) : (
-                                                            <button
-                                                                className={roomsStyle["roomReserveButton"]}
-                                                                onClick={() => {
-                                                                    handleReserve(room.id, startDate, endDate, user, room.number, room.price);
-                                                                }}
-                                                            >
-                                                                Забронировать за ${((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) * room.price}
-                                                            </button>
+                                                            <div className={roomsStyle["roomReserveButtonContainer"]}>
+                                                                <button
+                                                                    className={roomsStyle["roomReserveButton"]}
+                                                                    onClick={() => {
+                                                                        handleReserve(room.id, startDate, endDate, user, room.number, room.price);
+                                                                    }}
+                                                                >
+                                                                    Забронировать за ${((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) * room.price}
+                                                                </button>
+                                                                <button className={roomsStyle["roomReserveButton"]} onClick={() => { setStartDate(null); setEndDate(null); }}>Отменить</button>
+                                                            </div>
                                                         )}
                                                         <p>*Отсчет начинается с момента получения ключей на ресепшене</p>
+                                                        <p>*Количество людей в номерах ограничено типом номера</p>
+                                                        <p>*Для подтверждения брони необходимо на ресепшене предьявить уникальный код, который вы сможете найти  во вкладке "Ваши заброрнированные номера"</p>
                                                     </div>
                                                 )}
                                             </div>
@@ -215,4 +251,5 @@ export const Rooms = () => {
         </>
     );
 };
+
 

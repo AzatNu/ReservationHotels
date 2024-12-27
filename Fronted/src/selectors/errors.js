@@ -1,1 +1,2 @@
-export const errorsSelector = (state) => state.errors.error;
+export const errorsSelector = ({ errors }) => errors.error;
+

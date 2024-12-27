@@ -6,7 +6,7 @@
       "password": "123456",
       "role_id": "0",
       "registred_at": "2022-01-01 00:00:00",
-      "balance": 19931500
+      "balance": 19878500
     },
     {
       "id": "2",
@@ -92,14 +92,15 @@
       "id": "1",
       "hotel_id": "1",
       "number": "101",
-      "type": "single",
+      "type": "одиночный",
       "price": 1000,
       "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [],
+      "reservation": [
+      ],
       "images": [
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Single-room10.jpg",
+        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Twin-room1.jpg",
+        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Twin-room6.jpg",
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
       ]
@@ -108,23 +109,23 @@
       "id": "2",
       "hotel_id": "1",
       "number": "102",
-      "type": "double",
+      "type": "двойной",
       "price": 1500,
       "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
       "reservation": [],
       "images": [
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
+        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-classic-room-7829-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-twin-guest-bathroom-5925-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-guest-bathroom-7013-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-glorietta-suite-0409-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
+        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-executive-7689-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
       ]
     },
     {
       "id": "3",
       "hotel_id": "1",
       "number": "103",
-      "type": "triple",
+      "type": "тройной",
       "price": 2000,
       "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
       "reservation": [],
@@ -140,16 +141,10 @@
       "id": "7",
       "hotel_id": "3",
       "number": "201",
-      "type": "single",
+      "type": "одиночный",
       "price": 1000,
       "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [
-        {
-          "start": "2024-12-28T00:00:00.000Z",
-          "end": "2025-01-05T00:00:00.000Z",
-          "user": "admin"
-        }
-      ],
+      "reservation": [],
       "images": [
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
@@ -162,16 +157,10 @@
       "id": "8",
       "hotel_id": "3",
       "number": "202",
-      "type": "double",
+      "type": "двойной",
       "price": 1500,
       "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [
-        {
-          "start": "2024-12-29T00:00:00.000Z",
-          "end": "2025-01-05T00:00:00.000Z",
-          "user": "admin"
-        }
-      ],
+      "reservation": [],
       "images": [
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
@@ -184,16 +173,16 @@
       "id": "9",
       "hotel_id": "3",
       "number": "203",
-      "type": "triple",
+      "type": "тройной",
       "price": 2000,
-      "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+      "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
       "reservation": [],
       "images": [
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
+        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room.jpg",
+        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room1.jpg",
+        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room3.jpg",
+        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room5.jpg",
+        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room6.jpg"
       ]
     }
   ]
