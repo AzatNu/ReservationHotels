@@ -9,7 +9,11 @@ import {
     getRoomsByHotelId,
     newBalance,
     refreshPage,
-    errors
+    errors,
+    getReservationByRoomId,
+    getReservationRoomsByUserLogin,
+    deleteReservationByIdSuccess,
+
 
 } from "./reducers";
 
@@ -23,7 +27,10 @@ const reducer = combineReducers({
     rooms: getRoomsByHotelId,
     newBalance: newBalance,
     refreshPage: refreshPage,
-    errors: errors
+    errors: errors,
+    reservationRooms: getReservationRoomsByUserLogin,
+    deleteReservationByIdSuccess: deleteReservationByIdSuccess,
+    reservationByRoomId: getReservationByRoomId
 });
 export const store = createStore(
     reducer,

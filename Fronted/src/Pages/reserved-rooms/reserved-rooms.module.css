@@ -1,6 +1,171 @@
 .reservedRoomsContainer {
-    padding: 120px 0px 120px;
+    padding: 250px 0px 140px;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 30px;
+    justify-items: center;
+    align-items: center;
+    min-height: 800px;
+    margin: 25px;
+}
+
+.reservedRoomsHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 120px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #f7f7f794;
+}
+
+.reservedRoomsCard {
+    width: 100%;
+    min-height: 800px;
+    border-radius: 10px;
+    background-color: #ffffff50;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    padding: 0 0 140px 0px;
+
+}
+
+.reservedRoomsCard h2 {
+    margin: 0;
+    width: 50%;
+    font-size: 40px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+    text-align: center;
+}
+
+.roomInfo {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+    padding: 20px;
+    margin: 40px 20px 10px 0px;
+    width: 90%;
+}
+
+.roomInfoTitle {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.roomInfoText {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.roomData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a0a0a;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.roomData input {
+    width: 50%;
+    height: 60px;
+    border-radius: 5px;
+    border: none;
+    background-color: #d4d0d0a2;
+    margin: 30px;
+    padding: 10px;
+    outline: none;
+    font-size: 30px;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+}
+
+
+
+.reservationCode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a0a0a;
+}
+
+.reservationCode h3 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    background-color: #3ddaeb9f;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.reservationCode button {
+    background-color: yellow;
+    width: 20%;
+    height: 60px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+
+}
+
+.reservationCode button:hover {
+    animation: scale 0.2s linear forwards;
+    background-color: #3DD9EB;
+}
+
+.cancelReservationButtonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a0a0a;
+}
+
+.cancelReservationButtonContainer button {
+    background-color: red;
+    width: 20%;
+    height: 60px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+}
+
+.cancelReservationButtonContainer button:hover {
+    animation: scale 0.2s linear forwards;
+    background-color: #3DD9EB;
+}
+
+@keyframes scale {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
 }

@@ -1,7 +1,7 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import roomsStyle from "./rooms.module.css";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
     userRoleSelector,
@@ -12,7 +12,9 @@ import {
     userBalanceSelector,
     newBalanceSelector,
     refreshPageSelector,
-    errorsSelector
+    errorsSelector,
+    getReservationByRoomIdSelector,
+    getHotelByIdSelector
 } from "../../selectors";
 import { updateUserBalance } from "../../bff/api/users-hook/update-user-balance"
 import { useEffect, useState } from "react";
@@ -25,7 +27,7 @@ import {
     ErrorAlert,
     CustomSelect
 } from "../components";
-import { getRoomsByHotelId, patchReserveRoom } from "../../requests";
+import { getRoomsByHotelId, getReservationByRoomId, getHotelById, patchReserveRoom } from "../../requests";
 
 
 export const Rooms = () => {
@@ -38,23 +40,30 @@ export const Rooms = () => {
     const rooms = useSelector(getRoomsByHotelIdSelector);
     const isLoading = useSelector(isLoadingSelector);
     const user = useSelector(userloginSelector);
+    const reservation = useSelector(getReservationByRoomIdSelector);
+    const hotel = useSelector(getHotelByIdSelector);
     const { id } = useParams();
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState("");
     const [sortQuery, setSortQuery] = useState("");
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [peoples, setPeoples] = useState(1);
     const [flag, setFlag] = useState(false);
 
     useEffect(() => {
-        dispatch(getRoomsByHotelId(id));
+        Promise.all([
+            dispatch(getHotelById(id)),
+            dispatch(getRoomsByHotelId(id)),
+            dispatch(getReservationByRoomId())
+        ]);
     }, [dispatch, id, refreshPage]);
-
-    const handleReserve = (roomId, startDate, endDate, user, roomNumber, roomPrice) => {
+    const handleReserve = (roomId, startDate, endDate, user, roomNumber, roomPrice, peoples, description, type) => {
         if (startDate && endDate) {
-            let daysReserved = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
-            let newBalance = Number((userBalance - (roomPrice * daysReserved)).toFixed(2));
-            if (newUserBalance < (roomPrice * daysReserved)) {
+            const daysReserved = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
+            const reservationPrice = roomPrice * daysReserved;
+            const newBalance = Number((userBalance - reservationPrice).toFixed(2));
+            if (newUserBalance < reservationPrice) {
                 toast.error(`Ошибка! Недостаточно средств на балансе!`, {
                     position: "bottom-right",
                     autoClose: 10000,
@@ -75,10 +84,9 @@ export const Rooms = () => {
                 setEndDate(null);
                 setFlag(false);
                 return;
-            }
-            else if (!errors) {
+            } else if (!errors) {
                 dispatch(updateUserBalance(userId, newBalance));
-                dispatch(patchReserveRoom(roomId, startDate, endDate, user));
+                dispatch(patchReserveRoom(roomId, startDate, endDate, user, reservationPrice, peoples, roomNumber, description, type, hotel.hotel.name, hotel.hotel.address));
                 dispatch({ type: "SET_NEW_BALANCE", newBalance: newBalance });
                 setStartDate(null);
                 setEndDate(null);
@@ -120,6 +128,7 @@ export const Rooms = () => {
             }
         }
     };
+    console.log(reservation);
     return (
         <>
             {userRole !== "3" ? (
@@ -184,6 +193,14 @@ export const Rooms = () => {
                                                             <h3>Описание</h3>
                                                         </div>
                                                         <p>{room.description}</p>
+                                                        <div className={roomsStyle["roomReservationDate"]}>
+                                                            <p>Данный номер забронирован на:</p>
+                                                            {reservation.filter((res) => res.room_id === room.id).map((reservation) => (
+                                                                <div key={reservation.id}>
+                                                                    <p>{new Date(reservation.start_date).toLocaleDateString('ru')} - {new Date(reservation.end_date).toLocaleDateString('ru')}</p>
+                                                                </div>
+                                                            ))}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -195,43 +212,101 @@ export const Rooms = () => {
                                                 style={{ display: flag ? "block" : "none" }}>
                                                 <div className={roomsStyle["roomData"]}>
                                                     <h2>Выберите дату заезда и выезда</h2>
-                                                    <h3>Дата заезда:</h3>
+                                                    <h3>Укажите дату заезда:</h3>
                                                     <input
                                                         type="date"
                                                         min={new Date().toISOString().split("T")[0]}
-                                                        value={startDate ? startDate.toISOString().split("T")[0] : ''}
-                                                        onChange={(e) => setStartDate(e.target.value ? new Date(e.target.value) : null)}
-                                                        onClick={(e) => { if (e.target.value) e.target.value = ''; setStartDate(null); }}
+                                                        value={startDate ? startDate.toISOString().split("T")[0] : ""}
+                                                        onChange={(e) => {
+                                                            const selectedDate = new Date(e.target.value);
+                                                            if (reservation && reservation.some(res => (new Date(res.start_date) <= selectedDate && new Date(res.end_date) > selectedDate) && res.room_id === room.id)) {
+                                                                e.target.value = '';
+                                                                setStartDate(null);
+                                                                toast.error("Выбранная дата заезда занята", {
+                                                                    position: "bottom-right",
+                                                                    autoClose: 6000,
+                                                                    hideProgressBar: false,
+                                                                    closeOnClick: true,
+                                                                    pauseOnHover: true,
+                                                                    draggable: true,
+                                                                    progress: undefined,
+                                                                    theme: "colored",
+                                                                    style: {
+                                                                        fontSize: "2rem",
+                                                                        minWidth: "600px",
+                                                                        color: "#0a0a0a",
+                                                                        marginBottom: "130px",
+                                                                    },
+                                                                });
+                                                            } else {
+                                                                setStartDate(selectedDate);
+                                                            }
+                                                        }}
                                                     />
-                                                    <h3>Дата выезда:</h3>
+                                                    <h3>Укажите дату выезда:</h3>
                                                     <input
-                                                        disabled={startDate === null}
                                                         type="date"
                                                         min={startDate ? new Date(startDate.getTime() + 86400000).toISOString().split("T")[0] : new Date().toISOString().split("T")[0]}
-                                                        value={endDate ? endDate.toISOString().split("T")[0] : ''}
-                                                        onChange={(e) => setEndDate(e.target.value ? new Date(e.target.value) : null)}
-                                                        onClick={(e) => { if (e.target.value) e.target.value = ''; setEndDate(null); }}
+                                                        value={endDate ? endDate.toISOString().split("T")[0] : ""}
+                                                        onChange={(e) => {
+                                                            const selectedDate = new Date(e.target.value);
+                                                            if (reservation && reservation.some(res => (new Date(res.start_date) <= selectedDate && new Date(res.end_date) > selectedDate) && res.room_id === room.id)) {
+                                                                e.target.value = '';
+                                                                setEndDate(null);
+                                                                toast.error("Выбранная дата выезда занята", {
+                                                                    position: "bottom-right",
+                                                                    autoClose: 6000,
+                                                                    hideProgressBar: false,
+                                                                    closeOnClick: true,
+                                                                    pauseOnHover: true,
+                                                                    draggable: true,
+                                                                    progress: undefined,
+                                                                    theme: "colored",
+                                                                    style: {
+                                                                        fontSize: "2rem",
+                                                                        minWidth: "600px",
+                                                                        color: "#0a0a0a",
+                                                                        marginBottom: "130px",
+                                                                    },
+                                                                });
+                                                            } else {
+                                                                setEndDate(selectedDate);
+                                                            }
+                                                        }}
+                                                        disabled={startDate === null}
+                                                    />
+                                                    <h3>Укажите количество человек:</h3>
+                                                    <input
+                                                        disabled={startDate === null || endDate === null || (reservation && reservation.some(reservation => (reservation.start_date <= endDate && reservation.end_date > endDate) || (reservation.start_date < startDate && reservation.end_date >= startDate)))}
+                                                        onChange={(e) => setPeoples(e.target.value)}
+                                                        placeholder={`Количество человек`}
+                                                        type="number"
                                                     />
                                                 </div>
                                                 {startDate && endDate && (
                                                     <div className={roomsStyle["roomData"]}>
-                                                        {endDate < startDate || endDate === startDate ? (
-                                                            <ErrorAlert >Дата выезда не может  равнятся  или быть меньше даты заезда</ErrorAlert>
+                                                        {(endDate <= startDate || peoples <= 0 || peoples > (room.type === "одиночный" ? 1 : room.type === "двойной" ? 2 : room.type === "тройной" ? 3 : 0)) ? (
+                                                            <>
+                                                                {endDate <= startDate && <ErrorAlert>Дата выезда не может быть равной или меньше даты заезда</ErrorAlert>}
+                                                                {peoples <= 0 && <ErrorAlert>Количество человек не может быть равно или меньше нуля</ErrorAlert>}
+                                                                {peoples > (room.type === "одиночный" ? 1 : room.type === "двойной" ? 3 : room.type === "тройной") && <ErrorAlert>Количество человек не соответствует типу номера</ErrorAlert>}
+                                                            </>
                                                         ) : (
-                                                            <div className={roomsStyle["roomReserveButtonContainer"]}>
+                                                            <div className={roomsStyle["roomReserveButtonContainer"]}
+                                                                style={{ display: startDate === null || endDate === null || peoples === null ? "none" : "flex" }}>
                                                                 <button
                                                                     className={roomsStyle["roomReserveButton"]}
                                                                     onClick={() => {
-                                                                        handleReserve(room.id, startDate, endDate, user, room.number, room.price);
+                                                                        handleReserve(room.id, startDate, endDate, user, room.number, room.price, peoples, room.description, room.type);
                                                                     }}
                                                                 >
-                                                                    Забронировать за ${((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) * room.price}
+                                                                    Забронировать за ${((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)).toFixed(2) * room.price}
                                                                 </button>
                                                                 <button className={roomsStyle["roomReserveButton"]} onClick={() => { setStartDate(null); setEndDate(null); }}>Отменить</button>
                                                             </div>
                                                         )}
                                                         <p>*Отсчет начинается с момента получения ключей на ресепшене</p>
-                                                        <p>*Количество людей в номерах ограничено типом номера</p>
+                                                        <p>*Количество людей в номерах строго ограничено типом номера</p>
                                                         <p>*Для подтверждения брони необходимо на ресепшене предьявить уникальный код, который вы сможете найти  во вкладке "Ваши заброрнированные номера"</p>
                                                     </div>
                                                 )}
@@ -251,5 +326,4 @@ export const Rooms = () => {
         </>
     );
 };
-
 

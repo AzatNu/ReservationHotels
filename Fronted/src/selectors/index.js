@@ -10,3 +10,7 @@ export * from "./user-id-selector"
 export * from "./new-balance-selector"
 export * from "./refresh-page-selector"
 export * from "./errors"
+export * from "./delete-reservation-by-id-success"
+export * from "./get-reservation-by-room-id"
+export * from "./get-reservations-rooms-by-user-login"
+

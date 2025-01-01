@@ -7,3 +7,6 @@ export * from './get-rooms-by-hotel-id';
 export * from './new-balance';
 export * from './refresh-page';
 export * from "./errors-reducer";
+export * from "./get-reservation-rooms-by-user-login"
+export * from "./delete-reservation-by-id-success"
+export * from "./get-reservation-by-room-id"

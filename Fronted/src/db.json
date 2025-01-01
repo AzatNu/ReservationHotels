@@ -6,7 +6,7 @@
       "password": "123456",
       "role_id": "0",
       "registred_at": "2022-01-01 00:00:00",
-      "balance": 19878500
+      "balance": 2137500
     },
     {
       "id": "2",
@@ -14,7 +14,7 @@
       "password": "123456",
       "role_id": "0",
       "registred_at": "2022-01-01 00:00:00",
-      "balance": 10000
+      "balance": 8500
     },
     {
       "id": "3",
@@ -95,8 +95,6 @@
       "type": "одиночный",
       "price": 1000,
       "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [
-      ],
       "images": [
         "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Single-room10.jpg",
         "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Twin-room1.jpg",
@@ -112,7 +110,6 @@
       "type": "двойной",
       "price": 1500,
       "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [],
       "images": [
         "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-classic-room-7829-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
         "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-twin-guest-bathroom-5925-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
@@ -128,7 +125,6 @@
       "type": "тройной",
       "price": 2000,
       "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [],
       "images": [
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
@@ -144,7 +140,6 @@
       "type": "одиночный",
       "price": 1000,
       "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [],
       "images": [
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
@@ -160,7 +155,6 @@
       "type": "двойной",
       "price": 1500,
       "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [],
       "images": [
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
         "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
@@ -176,7 +170,6 @@
       "type": "тройной",
       "price": 2000,
       "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "reservation": [],
       "images": [
         "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room.jpg",
         "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room1.jpg",
@@ -184,6 +177,76 @@
         "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room5.jpg",
         "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room6.jpg"
       ]
+    }
+  ],
+  "reservations": [
+    {
+      "room_id": "2",
+      "start_date": "2025-01-02T00:00:00.000Z",
+      "end_date": "2025-02-07T00:00:00.000Z",
+      "user": "admin",
+      "code": "NWYjU-ncJrB-oeZsb-rMSxa",
+      "peoples": "2",
+      "number": "102",
+      "price": 54000,
+      "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+      "type": "двойной",
+      "id": 2
+    },
+    {
+      "room_id": "9",
+      "start_date": "2025-01-05T00:00:00.000Z",
+      "end_date": "2025-01-31T00:00:00.000Z",
+      "user": "admin",
+      "code": "GCXC4-jHFP4-QsmhJ-pdab1",
+      "peoples": "1",
+      "number": "203",
+      "price": 52000,
+      "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+      "type": "тройной",
+      "id": 4
+    },
+    {
+      "room_id": "1",
+      "start_date": "2025-01-23T00:00:00.000Z",
+      "end_date": "2025-02-05T00:00:00.000Z",
+      "user": "admin",
+      "code": "JL0Hc-URiZ6-knOpM-movQx",
+      "peoples": "1",
+      "number": "101",
+      "price": 13000,
+      "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+      "type": "одиночный",
+      "id": 5
+    },
+    {
+      "room_id": "1",
+      "start_date": "2025-02-06T00:00:00.000Z",
+      "end_date": "2025-03-07T00:00:00.000Z",
+      "user": "admin",
+      "code": "4uZA3-C26lq-1gArx-ZUl9p",
+      "peoples": "1",
+      "number": "101",
+      "price": 29000,
+      "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+      "type": "одиночный",
+      "hotel_name": "Бристоль",
+      "id": 6
+    },
+    {
+      "room_id": "1",
+      "start_date": "2025-04-01T00:00:00.000Z",
+      "end_date": "2025-07-02T00:00:00.000Z",
+      "user": "admin",
+      "code": "9UkzN-hW8tk-9k9Dp-26D0Y",
+      "peoples": "1",
+      "number": "101",
+      "price": 92000,
+      "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+      "type": "одиночный",
+      "hotel_name": "Бристоль",
+      "hotel_adress": "ul. Marsza kowska 94/98, 00-693 Warszawa, Polska",
+      "id": 7
     }
   ]
 }

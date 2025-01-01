@@ -11,7 +11,10 @@ export const getAllHotels = () => async (dispatch) => {
             posts: await response.json(),
         });
     } catch (error) {
-        console.error("Failed to fetch posts", error);
+        dispatch({
+            type: "SET_ERROR",
+            error
+        })
     }
     finally {
         dispatch({
@@ -20,4 +23,3 @@ export const getAllHotels = () => async (dispatch) => {
         });
     }
 };
-        
