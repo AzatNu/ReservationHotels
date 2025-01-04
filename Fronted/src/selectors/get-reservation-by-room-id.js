@@ -1,1 +1,2 @@
-export const getReservationByRoomIdSelector = (state) => state.reservationByRoomId.reservationByRoomId;
+export const getReservationByRoomIdSelector = (state) => state.reservation.reservationByRoomId;
+

@@ -7,12 +7,15 @@ import {
     isLoading,
     getHotelById,
     getRoomsByHotelId,
-    newBalance,
     refreshPage,
     errors,
     getReservationByRoomId,
     getReservationRoomsByUserLogin,
     deleteReservationByIdSuccess,
+    getAllReservationReducer,
+    deleteRoomSuccess,
+    postRoomSuccess,
+    updateReservationByIdSuccess
 
 
 } from "./reducers";
@@ -25,12 +28,16 @@ const reducer = combineReducers({
     isLoading: isLoading,
     hotel: getHotelById,
     rooms: getRoomsByHotelId,
-    newBalance: newBalance,
     refreshPage: refreshPage,
     errors: errors,
     reservationRooms: getReservationRoomsByUserLogin,
     deleteReservationByIdSuccess: deleteReservationByIdSuccess,
-    reservationByRoomId: getReservationByRoomId
+    reservation: getReservationByRoomId,
+    allReservation:getAllReservationReducer,
+    deleteRoomSuccess:deleteRoomSuccess,
+    postRoomSuccess:postRoomSuccess,
+    updateReservationByIdSuccess:updateReservationByIdSuccess
+
 });
 export const store = createStore(
     reducer,

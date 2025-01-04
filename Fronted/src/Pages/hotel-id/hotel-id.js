@@ -2,20 +2,26 @@ import { useEffect } from "react";
 import hotelIdStyle from "./hotel-id.module.css";
 import { PageTitle } from "../components/page-title";
 import { useDispatch, useSelector } from "react-redux";
-import { Warning, LoadingSpinner, Search } from "../components";
+import { Warning, LoadingSpinner, ErrorToast } from "../components";
 import { getHotelById } from "../../requests";
 import { Link, useParams } from "react-router-dom";
-import { userRoleSelector, getHotelByIdSelector, isLoadingSelector } from "../../selectors"
+import { userRoleSelector, getHotelByIdSelector, isLoadingSelector, errorsSelector } from "../../selectors"
 export const HotelId = () => {
     const dispatch = useDispatch();
     const hotel = useSelector(getHotelByIdSelector);
     const isLoading = useSelector(isLoadingSelector);
     const userRole = useSelector(userRoleSelector);
+    const errors = useSelector(errorsSelector);
     const { id } = useParams();
+
 
     useEffect(() => {
         dispatch(getHotelById(id))
     }, []);
+    if (errors) {
+        ErrorToast(errors);
+        dispatch({ type: "SET_ERROR", error: null });
+    }
     return (
         userRole !== "3" ? (
             isLoading ? (
@@ -39,7 +45,7 @@ export const HotelId = () => {
                     </div>
                     <div className={hotelIdStyle["hotelIdRoomsContainer"]}>
                         <Link to={`/hotels/${hotel.hotel.id}/rooms`}>
-                        <button className={hotelIdStyle["hotelIdButton"]}>Номера </button>
+                            <button className={hotelIdStyle["hotelIdButton"]}>Номера </button>
                         </Link>
                     </div>
                 </div>

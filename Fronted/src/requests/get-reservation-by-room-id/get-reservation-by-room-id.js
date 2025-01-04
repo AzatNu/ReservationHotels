@@ -1,4 +1,4 @@
-export const getReservationByRoomId = (roomId) => async (dispatch) => {
+export const getReservationByRoomId = () => async (dispatch) => {
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
     try {
         const response = await fetch(`http://localhost:3005/reservations`   , {

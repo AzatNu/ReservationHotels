@@ -211,3 +211,24 @@
     color: #0a0a0a;
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
+.deleteRoomButton {
+    background-color: red;
+    width: 400px;
+    height: 60px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+}
+.deleteRoomButton:hover {
+    background-color: #3DD9EB;
+    animation: scale 0.2s linear forwards;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}

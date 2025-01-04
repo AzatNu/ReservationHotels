@@ -133,9 +133,9 @@
     background-color: #3DD9EB;
 }
 
-.cancelReservationButtonContainer {
+.reservationButtonContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     margin: 30px;
@@ -144,20 +144,48 @@
     color: #0a0a0a;
 }
 
-.cancelReservationButtonContainer button {
+.deleteReservationButton {
     background-color: red;
-    width: 20%;
+    width: 400px;
     height: 60px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
     font-size: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
 }
 
-.cancelReservationButtonContainer button:hover {
-    animation: scale 0.2s linear forwards;
+.deleteReservationButton:hover {
     background-color: #3DD9EB;
+    animation: scale 0.2s linear forwards;
+}
+
+.editReservationButton {
+    background-color: yellow;
+    width: 400px;
+    height: 60px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+}
+
+.editReservationButton:hover {
+    background-color: #3DD9EB;
+    animation: scale 0.2s linear forwards;
 }
 
 @keyframes scale {
@@ -168,4 +196,25 @@
     100% {
         transform: scale(1.1);
     }
+}
+.saveReservationButton {
+    background-color: yellow;
+    width: 400px;
+    height: 60px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+
+}
+.saveReservationButton:hover {
+    background-color: #3DD9EB;
+    animation: scale 0.2s linear forwards;
 }

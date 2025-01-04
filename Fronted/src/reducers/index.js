@@ -4,9 +4,12 @@ export * from './is-loading';
 export * from './get-all-hotels';
 export * from './get-hotel-by-id';
 export * from './get-rooms-by-hotel-id';
-export * from './new-balance';
 export * from './refresh-page';
 export * from "./errors-reducer";
 export * from "./get-reservation-rooms-by-user-login"
 export * from "./delete-reservation-by-id-success"
 export * from "./get-reservation-by-room-id"
+export * from "./get-all-reservation"
+export * from "./delete-room-succes"
+export * from "./post-room-success"
+export * from "./udpate-reservation-by-id-success"

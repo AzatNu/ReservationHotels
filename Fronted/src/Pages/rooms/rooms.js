@@ -9,14 +9,12 @@ import {
     isLoadingSelector,
     userloginSelector,
     userIdSelector,
-    userBalanceSelector,
-    newBalanceSelector,
     refreshPageSelector,
     errorsSelector,
     getReservationByRoomIdSelector,
-    getHotelByIdSelector
+    getHotelByIdSelector,
+    deleteRoomSuccessSelector
 } from "../../selectors";
-import { updateUserBalance } from "../../bff/api/users-hook/update-user-balance"
 import { useEffect, useState } from "react";
 import {
     Search,
@@ -25,17 +23,17 @@ import {
     Warning,
     ImageCarousel,
     ErrorAlert,
-    CustomSelect
+    CustomSelect,
+    ErrorToast, SuccessToast
 } from "../components";
-import { getRoomsByHotelId, getReservationByRoomId, getHotelById, patchReserveRoom } from "../../requests";
+import { getRoomsByHotelId, getReservationByRoomId, getHotelById, patchReserveRoom, deleteRoom } from "../../requests";
 
 
 export const Rooms = () => {
     const errors = useSelector(errorsSelector);
     const refreshPage = useSelector(refreshPageSelector);
     const userRole = useSelector(userRoleSelector);
-    const newUserBalance = useSelector(newBalanceSelector);
-    const userBalance = useSelector(userBalanceSelector);
+    const deleteRoomSuccess = useSelector(deleteRoomSuccessSelector);
     const userId = useSelector(userIdSelector);
     const rooms = useSelector(getRoomsByHotelIdSelector);
     const isLoading = useSelector(isLoadingSelector);
@@ -48,7 +46,7 @@ export const Rooms = () => {
     const [sortQuery, setSortQuery] = useState("");
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
-    const [peoples, setPeoples] = useState(1);
+    const [peoples, setPeoples] = useState(null);
     const [flag, setFlag] = useState(false);
 
     useEffect(() => {
@@ -58,77 +56,27 @@ export const Rooms = () => {
             dispatch(getReservationByRoomId())
         ]);
     }, [dispatch, id, refreshPage]);
+    if (deleteRoomSuccess) {
+        SuccessToast("Номер успешно удален!");
+        dispatch({ type: "SET_DELETE_ROOM_SUCCESS", payload: false });
+    }
+
     const handleReserve = (roomId, startDate, endDate, user, roomNumber, roomPrice, peoples, description, type) => {
         if (startDate && endDate) {
             const daysReserved = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
             const reservationPrice = roomPrice * daysReserved;
-            const newBalance = Number((userBalance - reservationPrice).toFixed(2));
-            if (newUserBalance < reservationPrice) {
-                toast.error(`Ошибка! Недостаточно средств на балансе!`, {
-                    position: "bottom-right",
-                    autoClose: 10000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    style: {
-                        fontSize: "2rem",
-                        minWidth: "600px",
-                        color: "#0a0a0a",
-                        marginBottom: "130px",
-                    },
-                });
-                setStartDate(null);
-                setEndDate(null);
-                setFlag(false);
-                return;
-            } else if (!errors) {
-                dispatch(updateUserBalance(userId, newBalance));
-                dispatch(patchReserveRoom(roomId, startDate, endDate, user, reservationPrice, peoples, roomNumber, description, type, hotel.hotel.name, hotel.hotel.address));
-                dispatch({ type: "SET_NEW_BALANCE", newBalance: newBalance });
-                setStartDate(null);
-                setEndDate(null);
-                setFlag(false);
-                toast.success(`Номер ${roomNumber} успешно забронирован! Дата заезда: ${startDate.toLocaleDateString('ru')}`, {
-                    position: "bottom-right",
-                    autoClose: 6000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    style: {
-                        fontSize: "2rem",
-                        minWidth: "600px",
-                        backgroundColor: "#3DD9EB",
-                        color: "#0a0a0a",
-                        marginBottom: "130px",
-                    },
-                });
-            } else {
-                toast.error(`${errors}`, {
-                    position: "bottom-right",
-                    autoClose: 6000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    style: {
-                        fontSize: "2rem",
-                        minWidth: "600px",
-                        color: "#0a0a0a",
-                        marginBottom: "130px",
-                    },
-                });
-            }
+            dispatch(patchReserveRoom(roomId, startDate, endDate, user, reservationPrice, peoples, roomNumber, description, type, hotel.hotel.name, hotel.hotel.address));
+            setStartDate(null);
+            setEndDate(null);
+            setFlag(false);
+            SuccessToast(`Номер ${roomNumber} успешно забронирован!`);
         }
-    };
-    console.log(reservation);
+    }
+    if (errors) {
+        ErrorToast(errors);
+    }
+
+
     return (
         <>
             {userRole !== "3" ? (
@@ -195,9 +143,9 @@ export const Rooms = () => {
                                                         <p>{room.description}</p>
                                                         <div className={roomsStyle["roomReservationDate"]}>
                                                             <p>Данный номер забронирован на:</p>
-                                                            {reservation.filter((res) => res.room_id === room.id).map((reservation) => (
+                                                            {reservation?.filter((res) => res.room_id === room.id).map((reservation) => (
                                                                 <div key={reservation.id}>
-                                                                    <p>{new Date(reservation.start_date).toLocaleDateString('ru')} - {new Date(reservation.end_date).toLocaleDateString('ru')}</p>
+                                                                    <p>{new Date(reservation.start_date).toLocaleDateString('ru')} - {new Date(reservation.end_date).toLocaleDateString('ru')} {reservation.user}</p>
                                                                 </div>
                                                             ))}
                                                         </div>
@@ -208,6 +156,8 @@ export const Rooms = () => {
                                                 onClick={() => setFlag(!flag)} style={flag ? { backgroundColor: "red" } : {}}>
                                                 {flag ? '✖' : 'Забронировать'}
                                             </button>
+                                            {userRole === "0" && <button onClick={() => dispatch(deleteRoom(room.id))} className={roomsStyle["deleteRoomButton"]}>Удалить номер</button>
+                                            }
                                             <div className={roomsStyle["roomReservationContainer"]}
                                                 style={{ display: flag ? "block" : "none" }}>
                                                 <div className={roomsStyle["roomData"]}>
@@ -222,22 +172,7 @@ export const Rooms = () => {
                                                             if (reservation && reservation.some(res => (new Date(res.start_date) <= selectedDate && new Date(res.end_date) > selectedDate) && res.room_id === room.id)) {
                                                                 e.target.value = '';
                                                                 setStartDate(null);
-                                                                toast.error("Выбранная дата заезда занята", {
-                                                                    position: "bottom-right",
-                                                                    autoClose: 6000,
-                                                                    hideProgressBar: false,
-                                                                    closeOnClick: true,
-                                                                    pauseOnHover: true,
-                                                                    draggable: true,
-                                                                    progress: undefined,
-                                                                    theme: "colored",
-                                                                    style: {
-                                                                        fontSize: "2rem",
-                                                                        minWidth: "600px",
-                                                                        color: "#0a0a0a",
-                                                                        marginBottom: "130px",
-                                                                    },
-                                                                });
+                                                                ErrorToast("Выбранная дата заезда занята");
                                                             } else {
                                                                 setStartDate(selectedDate);
                                                             }
@@ -253,22 +188,7 @@ export const Rooms = () => {
                                                             if (reservation && reservation.some(res => (new Date(res.start_date) <= selectedDate && new Date(res.end_date) > selectedDate) && res.room_id === room.id)) {
                                                                 e.target.value = '';
                                                                 setEndDate(null);
-                                                                toast.error("Выбранная дата выезда занята", {
-                                                                    position: "bottom-right",
-                                                                    autoClose: 6000,
-                                                                    hideProgressBar: false,
-                                                                    closeOnClick: true,
-                                                                    pauseOnHover: true,
-                                                                    draggable: true,
-                                                                    progress: undefined,
-                                                                    theme: "colored",
-                                                                    style: {
-                                                                        fontSize: "2rem",
-                                                                        minWidth: "600px",
-                                                                        color: "#0a0a0a",
-                                                                        marginBottom: "130px",
-                                                                    },
-                                                                });
+                                                                ErrorToast("Выбранная дата выезда занята");
                                                             } else {
                                                                 setEndDate(selectedDate);
                                                             }
@@ -325,5 +245,7 @@ export const Rooms = () => {
             <ToastContainer />
         </>
     );
-};
+}
+
+
 

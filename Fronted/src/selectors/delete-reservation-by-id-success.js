@@ -1,2 +1,2 @@
-export const deleteReservationByIdSuccessSelector = ({ deleteReservationByIdSuccess }) => deleteReservationByIdSuccess.deleteReservationByIdSuccess;    
+export const deleteReservationByIdSuccessSelector = ({ deleteReservationByIdSuccess }) => deleteReservationByIdSuccess.deleteReservationByIdSuccess;
 

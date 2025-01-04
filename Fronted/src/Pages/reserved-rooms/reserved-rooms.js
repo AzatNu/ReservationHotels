@@ -1,71 +1,48 @@
 import reservedRoomsStyle from "./reserved-rooms.module.css";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { userloginSelector, userIdSelector, newBalanceSelector } from "../../selectors";
-import { Warning, LoadingSpinner, PageTitle, Search, CustomSelect } from "../components";
-import { refreshPageSelector, getReservationsRoomsByUserLoginSelector, errorsSelector, isLoadingSelector, userRoleSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
-import { getReservationRoomsByUserLogin, deleteReservationById } from "../../requests";
-import { useDispatch } from "react-redux";
-
-import { ToastContainer, toast } from 'react-toastify';
+import { useSelector, useDispatch } from "react-redux";
+import { userloginSelector, userIdSelector, getAllReservationSelector, refreshPageSelector, getReservationsRoomsByUserLoginSelector, errorsSelector, isLoadingSelector, userRoleSelector, updateReservationByIdSuccessSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
+import { Warning, LoadingSpinner, PageTitle, Search, CustomSelect, ErrorToast, SuccessToast } from "../components";
+import { getReservationRoomsByUserLogin, deleteReservationById, updateReservationById, getAllReservation } from "../../requests";
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { newBalance } from "../../reducers";
 
 export const ReservedRooms = () => {
     const dispatch = useDispatch();
-    const balance = useSelector(newBalanceSelector);
     const isLoading = useSelector(isLoadingSelector);
     const userRole = useSelector(userRoleSelector);
     const userLogin = useSelector(userloginSelector);
     const refreshPage = useSelector(refreshPageSelector);
     const reservationRooms = useSelector(getReservationsRoomsByUserLoginSelector);
     const deleteReservationByIdSuccess = useSelector(deleteReservationByIdSuccessSelector);
+    const updateReservationByIdSuccess = useSelector(updateReservationByIdSuccessSelector);
     const errors = useSelector(errorsSelector);
     const userId = useSelector(userIdSelector);
+    const allReservation = useSelector(getAllReservationSelector);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortQuery, setSortQuery] = useState("priceAsc");
     const [flag, setFlag] = useState(false);
+    const [updateFlag, setUpdateFlag] = useState(false);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+
     useEffect(() => {
         dispatch(getReservationRoomsByUserLogin(userLogin));
-    }, [userLogin, refreshPage]);
+        dispatch(getAllReservation());
+    }, [dispatch, userLogin, refreshPage]);
+
     if (errors) {
-        toast.error(`${errors}`, {
-            position: "bottom-right",
-            autoClose: 6000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            style: {
-                fontSize: "2rem",
-                minWidth: "600px",
-                color: "#0a0a0a",
-                marginBottom: "130px",
-            },
-        });
+        ErrorToast(errors);
         dispatch({ type: "SET_ERROR", error: null });
     } else if (deleteReservationByIdSuccess) {
-        toast.success(`Бронь успешно удалена, возвратные средства поступят на баланс в течение 24 часов`, {
-            position: "bottom-right",
-            autoClose: 6000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            style: {
-                backgroundColor: "#3DD9EB",
-                fontSize: "2rem",
-                minWidth: "600px",
-                color: "#0a0a0a",
-                marginBottom: "130px",
-            },
-        });
+        SuccessToast("Номер успешно удален!");
         dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
     }
+    if (updateReservationByIdSuccess) {
+        SuccessToast("Даты бронирования успешно изменены!");
+        dispatch({ type: "SET_UPDATE_RESERVATION_BY_ID_SUCCESS", updateReservationByIdSuccess: false });
+    }
+
     return (
         <>
             {userRole !== "3" ? (
@@ -116,7 +93,7 @@ export const ReservedRooms = () => {
                                         })
                                         .map((room) => (
                                             <>
-                                                <div key={room.id} className={reservedRoomsStyle["reservedRoomsCard"]}>
+                                                <div key={`${room.id}-${room.number}`} className={reservedRoomsStyle["reservedRoomsCard"]}>
                                                     <h2>Номер: {room.number}</h2>
                                                     <div className={reservedRoomsStyle["roomInfo"]}>
                                                         <div className={reservedRoomsStyle["roomInfoText"]}>
@@ -125,6 +102,16 @@ export const ReservedRooms = () => {
                                                             <h3>Адрес отеля: {room.hotel_adress}</h3>
                                                             <h3>Цена бронирования: ${room.price}</h3>
                                                             <h3>Тип номера: {room.type}</h3>
+                                                            <div>
+                                                                <h3>Брони других пользователей: </h3>
+                                                                {allReservation
+                                                                    .filter((res, index) => res.user !== userLogin)
+                                                                    .map((res, index) => (
+                                                                        <span key={`${res.id}-${index}`}>
+                                                                            {new Date(res.start_date).toLocaleDateString("ru")} - {new Date(res.end_date).toLocaleDateString("ru")} {res.user}
+                                                                        </span>
+                                                                    ))}
+                                                            </div>
                                                             <div className={reservedRoomsStyle["roomInfoTitle"]}>
                                                                 <h3>Описание</h3>
                                                             </div>
@@ -139,20 +126,42 @@ export const ReservedRooms = () => {
                                                             <h3>Дата заезда:</h3>
                                                             <input
                                                                 type="date"
-                                                                defaultValue={room.start_date?.split("T")[0]}
-                                                                disabled={true}
+                                                                defaultValue={new Date(room.start_date).toISOString().split("T")[0]}
+                                                                disabled={!updateFlag}
+                                                                onChange={(e) => setStartDate(new Date(e.target.value))}
+                                                                value={startDate ? startDate.toISOString().split("T")[0] : undefined}
                                                             />
                                                             <h3>Дата выезда:</h3>
                                                             <input
-                                                                disabled={true}
+                                                                disabled={!updateFlag}
                                                                 type="date"
-                                                                defaultValue={room.end_date?.split("T")[0]}
+                                                                defaultValue={new Date(room.end_date).toISOString().split("T")[0]}
+                                                                onChange={(e) => setEndDate(new Date(e.target.value))}
+                                                                value={endDate ? endDate.toISOString().split("T")[0] : undefined}
                                                             />
                                                         </div>
-                                                        <div className={reservedRoomsStyle["cancelReservationButtonContainer"]}><button
-                                                            onClick={() => dispatch(deleteReservationById(room.id, room.price, balance, userId))}>Удалить бронь </button></div>
+                                                        <div className={reservedRoomsStyle["reservationButtonContainer"]}>
+                                                            <button className={reservedRoomsStyle["deleteReservationButton"]}
+                                                                onClick={() => dispatch(deleteReservationById(room.id, room.price, userId))}>Удалить бронь </button>
+                                                            <button className={reservedRoomsStyle["editReservationButton"]} onClick={() => setUpdateFlag(!updateFlag)}  >{updateFlag ? "Выйти из редактирования" : "Изменить бронь"}</button>
+                                                        </div>
+                                                        {updateFlag && (
+                                                            <button className={reservedRoomsStyle["saveReservationButton"]}
+                                                                onClick={() => {
+                                                                    if (startDate && endDate && startDate < endDate) {
+                                                                        const isReserved = allReservation.some(res => res.room_id === room.room_id && res.user !== userLogin && new Date(res.start_date) < endDate && new Date(res.end_date) > startDate);
+                                                                        if (isReserved) {
+                                                                            ErrorToast("Дата бронирования занята");
+                                                                        } else {
+                                                                            dispatch(updateReservationById(room.id, startDate, endDate));
+                                                                        }
+                                                                    } else {
+                                                                        ErrorToast("Дата выезда не может быть раньше даты заезда");
+                                                                    }
+                                                                }} >Сохранить изменения </button>
+                                                        )}
                                                     </div>
-                                                </div>
+                                                </div >
                                             </>
                                         ))
                                 ) : (
@@ -160,6 +169,7 @@ export const ReservedRooms = () => {
                                 )}
                             </div>
                         </>
+
                     )}
                 </>
             ) : (
@@ -169,6 +179,7 @@ export const ReservedRooms = () => {
             )}
             <ToastContainer />
         </>
-    )
+    );
 }
+
 
