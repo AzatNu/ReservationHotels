@@ -1,7 +1,7 @@
 import allRoomsStatusStyle from "./all-rooms-status.module.css";
-import { getAllReservationSelector, isLoadingSelector, userRoleSelector, newBalanceSelector, refreshPageSelector, errorsSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
+import { getAllReservationSelector, isLoadingSelector, userRoleSelector, refreshPageSelector, errorsSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
 import { useEffect } from "react";
-import { Warning, LoadingSpinner, PageTitle, ErrorToast, SuccessToast } from "../components";
+import { ErrorNotAvailable, Warning, LoadingSpinner, PageTitle, ErrorToast, SuccessToast } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllReservation, deleteReservationById } from "../../requests";
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,7 +23,9 @@ export const AllRoomStatus = () => {
         ErrorToast(errors);
     } else if (deleteReservationByIdSuccess) {
         SuccessToast("Бронь успешно удалена!");
-        dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
+        setTimeout(() => {
+            dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
+        }, 2000);
     }
 
     return (
@@ -85,9 +87,7 @@ export const AllRoomStatus = () => {
                     <ToastContainer />
                 </>
             ) : (
-                <Warning style={{ color: "red" }}>
-                    Ошибка 403. У гостей нет доступа к этой странице, пожалуйста, авторизуйтесь
-                </Warning>
+                <ErrorNotAvailable style={{ color: 'red' }} />
             )}
         </>
     );

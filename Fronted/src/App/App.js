@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { ReservedRooms, AllRoomStatus, Hotels, CreateRooms, HotelId, Error404, Auth, Registartion, Greeting, Rooms } from "../Pages";
+import { ReservedRooms, AllRoomStatus, Hotels, CreateRooms, HotelId, Error404,AllUsers, Auth, Registartion, Greeting, Rooms } from "../Pages";
 import { Header, Footer } from "./components";
 export const App = () => {
     return (
@@ -8,6 +8,7 @@ export const App = () => {
             <Routes>
                 <Route path="/" element={<Greeting />} />
                 <Route path="/hotels" element={<Hotels />} />
+                <Route path="/allUsers" element={<AllUsers />} />
                 <Route path="/login" element={<Auth />} />
                 <Route path="/register" element={< Registartion />} />
                 <Route

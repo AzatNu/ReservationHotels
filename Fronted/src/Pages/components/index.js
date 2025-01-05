@@ -7,3 +7,4 @@ export * from "./image-carusel";
 export * from "./custom-select";
 export * from "./error-toast"
 export * from "./success-toast"
+export * from "./error-not-available"

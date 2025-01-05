@@ -15,9 +15,10 @@ import {
     getAllReservationReducer,
     deleteRoomSuccess,
     postRoomSuccess,
-    updateReservationByIdSuccess
-
-
+    updateReservationByIdSuccess,
+    getAllUsersSuccess,
+    deleteUserByIdSuccess,
+    updateRoleByIdSuccess
 } from "./reducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -33,11 +34,13 @@ const reducer = combineReducers({
     reservationRooms: getReservationRoomsByUserLogin,
     deleteReservationByIdSuccess: deleteReservationByIdSuccess,
     reservation: getReservationByRoomId,
-    allReservation:getAllReservationReducer,
-    deleteRoomSuccess:deleteRoomSuccess,
-    postRoomSuccess:postRoomSuccess,
-    updateReservationByIdSuccess:updateReservationByIdSuccess
-
+    allReservation: getAllReservationReducer,
+    deleteRoomSuccess: deleteRoomSuccess,
+    postRoomSuccess: postRoomSuccess,
+    updateReservationByIdSuccess: updateReservationByIdSuccess,
+    allUsers: getAllUsersSuccess,
+    deleteUserByIdSuccess: deleteUserByIdSuccess,
+    updateUserRoleByIdSuccess: updateRoleByIdSuccess,
 });
 export const store = createStore(
     reducer,

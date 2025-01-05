@@ -1,7 +1,6 @@
 import { generateRandomCode } from "../../App/utils/generate-random-code.js";
 export const patchReserveRoom = (roomId, startDate, endDate, user, reservationPrice, peoples, number, description, type, hotelName, hotelAdress) => (dispatch) => {
     const code = generateRandomCode();
-    console.log(hotelAdress, hotelName);
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
     fetch(`http://localhost:3005/reservations`, {
         method: "POST",

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import hotelIdStyle from "./hotel-id.module.css";
 import { PageTitle } from "../components/page-title";
 import { useDispatch, useSelector } from "react-redux";
-import { Warning, LoadingSpinner, ErrorToast } from "../components";
+import {  ErrorNotAvailable, LoadingSpinner, ErrorToast } from "../components";
 import { getHotelById } from "../../requests";
 import { Link, useParams } from "react-router-dom";
 import { userRoleSelector, getHotelByIdSelector, isLoadingSelector, errorsSelector } from "../../selectors"
@@ -20,7 +20,9 @@ export const HotelId = () => {
     }, []);
     if (errors) {
         ErrorToast(errors);
-        dispatch({ type: "SET_ERROR", error: null });
+        setTimeout(() => {
+            dispatch({ type: "SET_ERROR", error: null });
+        }, 2000);
     }
     return (
         userRole !== "3" ? (
@@ -52,9 +54,7 @@ export const HotelId = () => {
             </>
             )
         ) : (
-            <Warning style={{ color: "red" }}>
-                Ошибка 403. У гостей нет доступа к данной странице, пожалуйста, зарегистрируйтесь или войдите
-            </Warning>
+            <ErrorNotAvailable style={{ color: 'red'}} />
         )
     );
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import hotelsStyle from "./hotels.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllHotels } from "../../requests";
-import { Warning, LoadingSpinner, Search, PageTitle, ErrorToast } from "../components"
+import { Warning, ErrorNotAvailable, LoadingSpinner, Search, PageTitle, ErrorToast } from "../components"
 import { userRoleSelector, getAllHotelsSelector, isLoadingSelector, errorsSelector } from "../../selectors";
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,9 @@ export const Hotels = () => {
     const filteredHotels = searchHotel(serchQuery);
     if (errors) {
         ErrorToast(errors);
-        dispatch({ type: "SET_ERROR", error: null });
+        setTimeout(() => {
+            dispatch({ type: "SET_ERROR", error: null });
+        }, 2000);
     }
     return (
         userRole !== "3" ? (
@@ -55,7 +57,7 @@ export const Hotels = () => {
                 </>
             )
         ) : (
-            <Warning style={{ color: "red" }}>Ошибка 403. У гостей нет доступа к данной странцие, пожалуйста, зарегистрируйтесь или войдите</Warning>
+            <ErrorNotAvailable style={{ color: 'red' }} />
         )
     );
 };

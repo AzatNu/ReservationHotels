@@ -21,6 +21,7 @@ import {
     LoadingSpinner,
     PageTitle,
     Warning,
+    ErrorNotAvailable,
     ImageCarousel,
     ErrorAlert,
     CustomSelect,
@@ -58,7 +59,9 @@ export const Rooms = () => {
     }, [dispatch, id, refreshPage]);
     if (deleteRoomSuccess) {
         SuccessToast("Номер успешно удален!");
-        dispatch({ type: "SET_DELETE_ROOM_SUCCESS", payload: false });
+        setTimeout(() => {
+            dispatch({ type: "SET_DELETE_ROOM_SUCCESS", payload: false });
+        }, 2000);
     }
 
     const handleReserve = (roomId, startDate, endDate, user, roomNumber, roomPrice, peoples, description, type) => {
@@ -74,6 +77,9 @@ export const Rooms = () => {
     }
     if (errors) {
         ErrorToast(errors);
+        setTimeout(() => {
+            dispatch({ type: "SET_ERROR", error: null });
+        }, 2000);
     }
 
 
@@ -240,7 +246,7 @@ export const Rooms = () => {
                     </div>
                 )
             ) : (
-                <Warning style={{ color: "red" }}  > Ошибка 403. У гостей нет доступа к этой странице, пожалуйста, авторизуйтесь</Warning>
+                <ErrorNotAvailable style={{ color: 'red' }} />
             )}
             <ToastContainer />
         </>

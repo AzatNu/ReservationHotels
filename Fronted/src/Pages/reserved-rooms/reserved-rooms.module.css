@@ -1,4 +1,4 @@
-.reservedRoomsContainer {
+.reservedRoomsContainer .reservedRoomsContainer {
     padding: 250px 0px 140px;
     display: flex;
     flex-direction: column;

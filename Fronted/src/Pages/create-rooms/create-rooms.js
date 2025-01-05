@@ -1,5 +1,5 @@
 import createRoomsStyle from "./create-rooms.module.css"
-import { Warning, LoadingSpinner, PageTitle, ErrorToast, SuccessToast } from "../components"
+import { Warning, ErrorNotAvailable, LoadingSpinner, PageTitle, ErrorToast, SuccessToast } from "../components"
 import { userRoleSelector, isLoadingSelector, postRoomSuccessSelector, errorsSelector } from "../../selectors"
 import { useSelector, useDispatch } from "react-redux"
 import { ToastContainer } from 'react-toastify';
@@ -33,7 +33,9 @@ export const CreateRooms = () => {
     }
     if(errors) {
         ErrorToast(errors);
-        dispatch({ type: "SET_ERROR", error: null });
+        setTimeout(() => {
+            dispatch({ type: "SET_ERROR", error: null });
+        }, 2000);
     }
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -97,7 +99,7 @@ export const CreateRooms = () => {
                     </>
                 )
             ) : (
-                <Warning>Ошибка 403. Доступ к данной странице есть только у администратора</Warning>
+                <ErrorNotAvailable style={{ color: 'red'}} />
             )}
         </>
     )

@@ -5,14 +5,16 @@ import roomsStatus from "../../../../assets/header-Icons/control-panel-Icons/ico
 import createRooms from "../../../../assets/header-Icons/control-panel-Icons/icons8-плюс-24.png";
 import login from "../../../../assets/header-Icons/control-panel-Icons/icons8-вход-100.png";
 import logout from "../../../../assets/header-Icons/control-panel-Icons/icons8-выход-100.png";
+import allUsers from "../../../../assets/header-Icons/control-panel-Icons/icons8-очередь-64.png";
 import backNavigation from "../../../../assets/header-Icons/control-panel-Icons/icons8-длинная-стрелка-влево-100.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { userloginSelector, userRoleSelector } from "../../../../selectors";
+import { userloginSelector, userRoleSelector, isLoadingSelector } from "../../../../selectors";
 
 export const ControlPanel = () => {
     const userName = useSelector(userloginSelector);
     const userRole = useSelector(userRoleSelector);
+    const isLoading = useSelector(isLoadingSelector);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,33 +27,40 @@ export const ControlPanel = () => {
     return (
         <div className={controlPanelStyle["controlPanelContainer"]}>
             <h1 title="Вы авторизованы как:">{userRole !== "3" ? (userName) : ("Гость")}</h1>
-            <button onClick={() => navigate(-1)}>
+            <button onClick={() => navigate(-1)} disabled={isLoading}>
                 <img title="Назад" src={backNavigation} alt="logo" />
             </button>
+            {(userRole === "0") && (
+                <Link to="/allUsers">
+                    <button title="Все пользователи" disabled={isLoading}>
+                        <img src={allUsers} alt="logo" />
+                    </button>
+                </Link>
+            )}
             {(userRole === "2" || userRole === "1" || userRole === "0") && (
                 <Link to="/hotels">
-                    <button title="Доступные номера">
+                    <button title="Доступные номера" disabled={isLoading}>
                         <img src={mainPageLogo} alt="logo" />
                     </button>
                 </Link>
             )}
             {(userRole === "2" || userRole === "1" || userRole === "0") && (
                 <Link to="/reservedRooms">
-                    <button title="Ваши забронированные номера">
+                    <button title="Ваши забронированные номера" disabled={isLoading}>
                         <img src={rservationLogo} alt="logo" />
                     </button>
                 </Link>
             )}
             {(userRole === "0" || userRole === "1") && (
                 <Link to="/allRoomStatus">
-                    <button title="Статусы всех номеров">
+                    <button title="Статусы всех номеров" disabled={isLoading}>
                         <img src={roomsStatus} alt="logo" />
                     </button>
                 </Link>
             )}
             {(userRole === "1" || userRole === "0") && (
                 <Link to="/roomCreate">
-                    <button title="Создание доступных номеров">
+                    <button title="Создание доступных номеров" disabled={isLoading}>
                         <img src={createRooms} alt="logo" />
                     </button>
                 </Link>
@@ -61,6 +70,7 @@ export const ControlPanel = () => {
                     title="Выход"
                     onClick={onLogout}
                     style={{ backgroundColor: "red" }}
+                    disabled={isLoading}
                 >
                     <img src={logout} alt="logo" />
                 </button>
@@ -69,6 +79,7 @@ export const ControlPanel = () => {
                     <button
                         title="Авторизация"
                         style={{ backgroundColor: "green" }}
+                        disabled={isLoading}
                     >
                         <img src={login} alt="logo" />
                     </button>

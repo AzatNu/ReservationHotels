@@ -2,7 +2,7 @@ import reservedRoomsStyle from "./reserved-rooms.module.css";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userloginSelector, userIdSelector, getAllReservationSelector, refreshPageSelector, getReservationsRoomsByUserLoginSelector, errorsSelector, isLoadingSelector, userRoleSelector, updateReservationByIdSuccessSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
-import { Warning, LoadingSpinner, PageTitle, Search, CustomSelect, ErrorToast, SuccessToast } from "../components";
+import { Warning, ErrorNotAvailable, LoadingSpinner, PageTitle, Search, CustomSelect, ErrorToast, SuccessToast } from "../components";
 import { getReservationRoomsByUserLogin, deleteReservationById, updateReservationById, getAllReservation } from "../../requests";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,14 +33,20 @@ export const ReservedRooms = () => {
 
     if (errors) {
         ErrorToast(errors);
-        dispatch({ type: "SET_ERROR", error: null });
+        setTimeout(() => {
+            dispatch({ type: "SET_ERROR", error: null });
+        }, 2000);
     } else if (deleteReservationByIdSuccess) {
         SuccessToast("Номер успешно удален!");
-        dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
+        setTimeout(() => {
+            dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
+        }, 2000);
     }
     if (updateReservationByIdSuccess) {
         SuccessToast("Даты бронирования успешно изменены!");
-        dispatch({ type: "SET_UPDATE_RESERVATION_BY_ID_SUCCESS", updateReservationByIdSuccess: false });
+        setTimeout(() => {
+            dispatch({ type: "SET_UPDATE_RESERVATION_BY_ID_SUCCESS", updateReservationByIdSuccess: false });
+        }, 2000);
     }
 
     return (
@@ -173,9 +179,7 @@ export const ReservedRooms = () => {
                     )}
                 </>
             ) : (
-                <Warning style={{ color: "red" }}>
-                    Ошибка 403. У гостей нет доступа к этой странице, пожалуйста авторизуйтесь.
-                </Warning>
+                <ErrorNotAvailable style={{ color: 'red' }} />
             )}
             <ToastContainer />
         </>
