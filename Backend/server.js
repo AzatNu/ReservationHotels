@@ -1,1 +1,0 @@
-const azat = require("./api/azat");
