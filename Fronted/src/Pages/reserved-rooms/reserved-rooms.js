@@ -17,7 +17,6 @@ export const ReservedRooms = () => {
     const deleteReservationByIdSuccess = useSelector(deleteReservationByIdSuccessSelector);
     const updateReservationByIdSuccess = useSelector(updateReservationByIdSuccessSelector);
     const errors = useSelector(errorsSelector);
-    const userId = useSelector(userIdSelector);
     const allReservation = useSelector(getAllReservationSelector);
     const [searchQuery, setSearchQuery] = useState("");
     const [sortQuery, setSortQuery] = useState("priceAsc");
@@ -33,21 +32,16 @@ export const ReservedRooms = () => {
 
     if (errors) {
         ErrorToast(errors);
-        setTimeout(() => {
             dispatch({ type: "SET_ERROR", error: null });
-        }, 2000);
     } else if (deleteReservationByIdSuccess) {
-        SuccessToast("Номер успешно удален!");
-        setTimeout(() => {
+        SuccessToast("Бронирование успешно удалено!");  
             dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
-        }, 2000);
     }
     if (updateReservationByIdSuccess) {
         SuccessToast("Даты бронирования успешно изменены!");
-        setTimeout(() => {
-            dispatch({ type: "SET_UPDATE_RESERVATION_BY_ID_SUCCESS", updateReservationByIdSuccess: false });
-        }, 2000);
+        dispatch({ type: "SET_UPDATE_RESERVATION_BY_ID_SUCCESS", updateReservationByIdSuccess: false });
     }
+    console.log(updateReservationByIdSuccess);
 
     return (
         <>
@@ -148,7 +142,7 @@ export const ReservedRooms = () => {
                                                         </div>
                                                         <div className={reservedRoomsStyle["reservationButtonContainer"]}>
                                                             <button className={reservedRoomsStyle["deleteReservationButton"]}
-                                                                onClick={() => dispatch(deleteReservationById(room.id, room.price, userId))}>Удалить бронь </button>
+                                                                onClick={() => dispatch(deleteReservationById(room.id))}>Удалить бронь </button>
                                                             <button className={reservedRoomsStyle["editReservationButton"]} onClick={() => setUpdateFlag(!updateFlag)}  >{updateFlag ? "Выйти из редактирования" : "Изменить бронь"}</button>
                                                         </div>
                                                         {updateFlag && (

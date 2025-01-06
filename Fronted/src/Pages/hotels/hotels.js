@@ -22,9 +22,7 @@ export const Hotels = () => {
     const filteredHotels = searchHotel(serchQuery);
     if (errors) {
         ErrorToast(errors);
-        setTimeout(() => {
             dispatch({ type: "SET_ERROR", error: null });
-        }, 2000);
     }
     return (
         userRole !== "3" ? (

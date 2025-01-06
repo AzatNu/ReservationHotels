@@ -33,9 +33,7 @@ export const CreateRooms = () => {
     }
     if(errors) {
         ErrorToast(errors);
-        setTimeout(() => {
             dispatch({ type: "SET_ERROR", error: null });
-        }, 2000);
     }
     const handleSubmit = (e) => {
         e.preventDefault();

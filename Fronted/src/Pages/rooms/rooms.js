@@ -59,9 +59,7 @@ export const Rooms = () => {
     }, [dispatch, id, refreshPage]);
     if (deleteRoomSuccess) {
         SuccessToast("Номер успешно удален!");
-        setTimeout(() => {
-            dispatch({ type: "SET_DELETE_ROOM_SUCCESS", payload: false });
-        }, 2000);
+        dispatch({ type: "SET_DELETE_ROOM_SUCCESS", payload: false });
     }
 
     const handleReserve = (roomId, startDate, endDate, user, roomNumber, roomPrice, peoples, description, type) => {
@@ -77,9 +75,7 @@ export const Rooms = () => {
     }
     if (errors) {
         ErrorToast(errors);
-        setTimeout(() => {
-            dispatch({ type: "SET_ERROR", error: null });
-        }, 2000);
+        dispatch({ type: "SET_ERROR", error: null });
     }
 
 

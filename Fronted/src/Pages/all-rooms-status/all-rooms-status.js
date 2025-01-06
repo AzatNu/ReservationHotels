@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { ErrorNotAvailable, Warning, LoadingSpinner, PageTitle, ErrorToast, SuccessToast } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllReservation, deleteReservationById } from "../../requests";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 export const AllRoomStatus = () => {
     const reservations = useSelector(getAllReservationSelector);
@@ -23,9 +23,7 @@ export const AllRoomStatus = () => {
         ErrorToast(errors);
     } else if (deleteReservationByIdSuccess) {
         SuccessToast("Бронь успешно удалена!");
-        setTimeout(() => {
-            dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
-        }, 2000);
+        dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
     }
 
     return (

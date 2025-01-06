@@ -20,9 +20,7 @@ export const HotelId = () => {
     }, []);
     if (errors) {
         ErrorToast(errors);
-        setTimeout(() => {
             dispatch({ type: "SET_ERROR", error: null });
-        }, 2000);
     }
     return (
         userRole !== "3" ? (

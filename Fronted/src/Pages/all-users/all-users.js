@@ -29,15 +29,11 @@ export const AllUsers = () => {
     }
     if (deleteUserByIdSuccess) {
         SuccessToast("Пользователь успешно удален!");
-        setTimeout(() => {
-            dispatch({ type: "SET_DELETE_USER_BY_ID_SUCCESS", deleteUserByIdSuccess: false });
-        }, 2000);
+        dispatch({ type: "SET_DELETE_USER_BY_ID_SUCCESS", deleteUserByIdSuccess: false });
     }
     if (updateUserRoleByIdSuccess) {
         SuccessToast("Роль пользователя успешно изменена!");
-        setTimeout(() => {
-            dispatch({ type: "SET_UPDATE_USER_ROLE_SUCCESS", updateRoleByIdSuccess: false });
-        }, 2000);
+        dispatch({ type: "SET_UPDATE_USER_ROLE_SUCCESS", updateRoleByIdSuccess: false });
     }
     console.log(updateUserRoleByIdSuccess);
 

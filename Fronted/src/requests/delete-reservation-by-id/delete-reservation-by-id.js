@@ -1,6 +1,6 @@
 
 
-export const deleteReservationById = (roomId,userId) => async (dispatch) => {
+export const deleteReservationById = (roomId) => async (dispatch) => {
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
     try {
         const response = await fetch(`http://localhost:3005/reservations/${roomId}`, {
