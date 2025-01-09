@@ -1,1 +1,1 @@
-export const  getAllUsersSuccessSelector = ({ allUsers }) => allUsers.allUsers;
+export const  getAllUsersSuccessSelector = ({ allUsers }) => allUsers.allUsers.data

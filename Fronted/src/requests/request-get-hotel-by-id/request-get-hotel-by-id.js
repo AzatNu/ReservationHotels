@@ -1,16 +1,22 @@
+import { request } from "../../App/utils";
 export const getHotelById = (id) => async (dispatch) => {
     dispatch({
         type: "SET_IS_LOADING",
         isLoading: true
     });
     try {
-        const response = await fetch(`http://localhost:3005/hotels/${id}`);
+        const response = await request(`/hotels/${id}`);
         dispatch({
             type: "SET_HOTEL_BY_ID_SUCCESS",
-            hotel:  await response.json(),
+            hotel: await response
         });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
     } catch (error) {
-        console.error("Failed to fetch posts", error);
+        dispatch({
+            type: "SET_ERROR",
+            error: error
+        })
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
     }
     finally {
         dispatch({

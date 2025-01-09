@@ -68,6 +68,24 @@
     font-size: 30px;
     margin-bottom: 5px;
 }
+.roomInfoText  ul{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a0a0a;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.roomInfoText li{
+    margin-bottom: 40px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a0a0a;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+}
 
 .roomData {
     display: flex;

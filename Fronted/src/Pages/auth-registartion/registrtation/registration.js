@@ -9,6 +9,7 @@ import { useDispatch, useStore, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ErrorAlert, LoadingSpinner } from "../../components";
 import { isLoadingSelector } from "../../../selectors";
+import { request } from "../../../App/utils";
 
 export const Registartion= () => {
     const dispatch = useDispatch();
@@ -33,13 +34,13 @@ export const Registartion= () => {
 
     const onSubmit = ({ login, password }) => {
         dispatch({ type: "SET_IS_LOADING", isLoading: true });
-        server.registred(login, password).then(({ error, res }) => {
+        request("/register", "POST", { login, password }).then(({ error, user}) => {
             if (error) {
                 setServerError(`${error}`);
                 return;
             }
-            dispatch({ type: "SET_USER", payload: res });
-            sessionStorage.setItem("userData", JSON.stringify(res));
+            dispatch({ type: "SET_USER", payload: user });
+            sessionStorage.setItem("userData", JSON.stringify(user));
             navigate("/hotels");
         }).finally(() => {
             dispatch({ type: "SET_IS_LOADING", isLoading: false });

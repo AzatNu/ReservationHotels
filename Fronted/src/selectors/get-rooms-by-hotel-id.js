@@ -1,2 +1,2 @@
-export const getRoomsByHotelIdSelector = (state) => state.rooms.rooms;
+export const getRoomsByHotelIdSelector = (state) => state.rooms.rooms
 

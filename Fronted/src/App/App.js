@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { ReservedRooms, AllRoomStatus, Hotels, CreateRooms, HotelId, Error404,AllUsers, Auth, Registartion, Greeting, Rooms } from "../Pages";
+import { ReservedRooms, AllRoomStatus, Hotels, CreateRooms, HotelId, Error404, AllUsers, Auth, Registartion, Greeting, Rooms } from "../Pages";
 import { Header, Footer } from "./components";
 export const App = () => {
     return (

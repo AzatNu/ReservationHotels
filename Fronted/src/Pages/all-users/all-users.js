@@ -16,7 +16,6 @@ export const AllUsers = () => {
     const refreshPage = useSelector(refreshPageSelector);
     const deleteUserByIdSuccess = useSelector(deleteUserByIdSuccessSelector);
     const updateUserRoleByIdSuccess = useSelector(updateUserRoleByIdSuccessSelector);
-
     const userlogin = useSelector(userloginSelector);
     const [serchQuery, setSerchQuery] = useState("");
 
@@ -29,18 +28,21 @@ export const AllUsers = () => {
     }
     if (deleteUserByIdSuccess) {
         SuccessToast("Пользователь успешно удален!");
-        dispatch({ type: "SET_DELETE_USER_BY_ID_SUCCESS", deleteUserByIdSuccess: false });
+        setTimeout(() => {
+            dispatch({ type: "SET_DELETE_USER_BY_ID_SUCCESS", deleteUserByIdSuccess: false });
+        }, 2000)
     }
     if (updateUserRoleByIdSuccess) {
         SuccessToast("Роль пользователя успешно изменена!");
-        dispatch({ type: "SET_UPDATE_USER_ROLE_SUCCESS", updateRoleByIdSuccess: false });
+        setTimeout(() => {
+            dispatch({ type: "SET_UPDATE_USER_ROLE_SUCCESS", updateRoleByIdSuccess: false });
+        }, 2000)
     }
-    console.log(updateUserRoleByIdSuccess);
+
 
     const handleRoleChange = (id, value) => {
         dispatch(updateUserRoleById(id, value))
     }
-
     return userRole === "0" ? (
         isLoading ? (
             <LoadingSpinner />
@@ -52,7 +54,7 @@ export const AllUsers = () => {
                 </div>
                 <div className={allUsersStyles["usersContainer"]}>
                     <div className={allUsersStyles["usersTable"]}>
-                        {allUsers.length > 0 ? (
+                        {allUsers?.length > 0 ? (
                             <table>
                                 <thead>
                                     <tr>
@@ -63,12 +65,12 @@ export const AllUsers = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {allUsers.filter(user => user.login.toLowerCase().includes(serchQuery.toLowerCase())).map((user) => (
-                                        <tr key={user.id}>
-                                            <td>{userlogin === user.login ? <span style={{ color: "green" }}>Вы</span> : user.login}</td>
-                                            <td>{user.registred_at}</td>
+                                    {allUsers?.filter(user => user?.login?.toLowerCase().includes(serchQuery.toLowerCase())).map((user) => (
+                                        <tr key={user?.id}>
+                                            <td>{userlogin === user?.login ? <span style={{ color: "green" }}>Вы</span> : user?.login}</td>
+                                            <td>{user?.registred_at}</td>
                                             <td>
-                                                <select className={allUsersStyles["roleSelect"]} value={user.role_id} onChange={(e) => handleRoleChange(user.id, e.target.value)}>
+                                                <select className={allUsersStyles["roleSelect"]} value={user?.role_id} onChange={(e) => handleRoleChange(user?.id, e.target.value)}>
                                                     <option value="0">Администратор</option>
                                                     <option value="1">Модератор</option>
                                                     <option value="2">Пользователь</option>

@@ -3,7 +3,6 @@ export * from "./request-get-hotel-by-id";
 export * from "./get-rooms-by-hotel-id";
 export * from "./patch-reserve-room"
 export * from "./delete-reservation-by-id"
-export * from "./get-reservation-rooms-by-user-login"
 export * from "./get-reservation-by-room-id"
 export * from "./get-all-reservation"
 export * from "./post-room"
@@ -12,3 +11,4 @@ export * from "./update-reservation-by-id"
 export * from "./delete-user-by-id"
 export * from "./get-all-users"
 export * from "./update-user-role-id-by-id"
+export * from "./get-hotel-by-id-get-rooms-by-hotel-id-get-reservation"

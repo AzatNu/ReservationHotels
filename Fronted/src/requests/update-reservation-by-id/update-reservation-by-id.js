@@ -11,9 +11,11 @@ export const updateReservationById = (id, newStartDate, newEndDate) => (dispatch
         })
     }).then(() => {
         dispatch({ type: "SET_UPDATE_RESERVATION_BY_ID_SUCCESS", updateReservationByIdSuccess: true });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
     })
         .catch((error) => {
             dispatch({ type: "SET_ERROR", error: error.message });
+            dispatch({ type: "SET_IS_LOADING", isLoading: false });
         })
         .finally(() => {
             dispatch({ type: "SET_IS_LOADING", isLoading: false });

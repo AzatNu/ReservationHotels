@@ -2,7 +2,6 @@ import loginRegistartionStyle from "../login-registartion.module.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { server } from "../../../bff/api/server";
 import { authFormSchema } from "../validation-schema";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useStore,useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import { useEffect } from "react";
 import { ErrorAlert,  Warning, LoadingSpinner } from "../../components";
 import {userRoleSelector, userloginSelector, isLoadingSelector} from "../../../selectors"
 import logout from "../../../assets/header-Icons/control-panel-Icons/icons8-выход-100.png";
+import { request } from "../../../App/utils";
 
 export const Auth = () => {
     const dispatch = useDispatch();
@@ -33,14 +33,13 @@ export const Auth = () => {
     const [serverError, setServerError] = useState(null);
     const onSubmit = ({ login, password }) => {
         dispatch({ type: "SET_IS_LOADING", isLoading: true });
-        server.authorize(login, password).then(({ error, res }) => {
+        request("/login", "POST", { login, password }).then(({ error, user}) => {
             if (error) {
                 setServerError(`${error}`);
                 return;
             }
-            dispatch({ type: "SET_USER", payload: res });
-            sessionStorage.setItem("userData", JSON.stringify(res));
-            dispatch({type: "SET_NEW_BALANCE", newBalance: res.balance});
+            dispatch({ type: "SET_USER", payload: user });
+            sessionStorage.setItem("userData", JSON.stringify(user));
             navigate("/hotels");
         }).finally(() => {
             dispatch({ type: "SET_IS_LOADING", isLoading: false });

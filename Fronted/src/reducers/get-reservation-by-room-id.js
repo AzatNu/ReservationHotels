@@ -1,12 +1,12 @@
 const initialState = {
-    reservationByRoomId: [],
+    reservation: [],
 };
-export const getReservationByRoomId = (state = initialState, action) => {
+export const getReservation = (state = initialState, action) => {
     switch (action.type) {
-        case "SET_RESERVATION_BY_ROOM_ID_SUCCESS":
+        case "SET_RESERVATION_SUCCESS":
             return {
                 ...state,
-                reservationByRoomId: action.reservationByRoomId,
+                reservation: action.reservation,
             };
         default:
             return state;

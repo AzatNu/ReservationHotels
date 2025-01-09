@@ -20,7 +20,7 @@ const roomSchema = new mongoose.Schema({
         required: true
     },
     price: {
-        type: Number,
+        type:  String,
         required: true
     },
     description: {
@@ -31,7 +31,7 @@ const roomSchema = new mongoose.Schema({
         type: [String],
         required: true,
     }
-});
+}, { timestamps: true });
 
 
 

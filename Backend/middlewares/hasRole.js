@@ -1,11 +1,8 @@
-
-module.exports = async (roles) => {
-
-    return async (req, res, next) => {
+module.exports = (roles) => {
+    return (req, res, next) => {
         if (!roles.includes(req.user.role_id)) {
-            res.send({ error: "Доступ запрещен" });
-            return;
+            return res.status(403).send({ error: "Доступ запрещен" });
         }
         next();
-    }
-}
+    };
+};

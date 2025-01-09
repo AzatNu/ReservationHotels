@@ -7,11 +7,11 @@ const reservationSchema = new mongoose.Schema({
         required: true
     },
     start_date: {
-        type: Date,
+        type: String,
         required: true
     },
     end_date: {
-        type: Date,
+        type: String,
         required: true
     },
     user: {
@@ -51,11 +51,7 @@ const reservationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    id: {
-        type: Number,
-        required: true,
-        unique: true
-    }
+
 }, { timestamps: true });
 
 

@@ -1,7 +1,7 @@
 import reservedRoomsStyle from "./reserved-rooms.module.css";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { userloginSelector, userIdSelector, getAllReservationSelector, refreshPageSelector, getReservationsRoomsByUserLoginSelector, errorsSelector, isLoadingSelector, userRoleSelector, updateReservationByIdSuccessSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
+import { userloginSelector, getAllReservationSelector, refreshPageSelector, getReservationsRoomsByUserLoginSelector, errorsSelector, isLoadingSelector, userRoleSelector, updateReservationByIdSuccessSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
 import { Warning, ErrorNotAvailable, LoadingSpinner, PageTitle, Search, CustomSelect, ErrorToast, SuccessToast } from "../components";
 import { getReservationRoomsByUserLogin, deleteReservationById, updateReservationById, getAllReservation } from "../../requests";
 import { ToastContainer } from 'react-toastify';
@@ -13,7 +13,6 @@ export const ReservedRooms = () => {
     const userRole = useSelector(userRoleSelector);
     const userLogin = useSelector(userloginSelector);
     const refreshPage = useSelector(refreshPageSelector);
-    const reservationRooms = useSelector(getReservationsRoomsByUserLoginSelector);
     const deleteReservationByIdSuccess = useSelector(deleteReservationByIdSuccessSelector);
     const updateReservationByIdSuccess = useSelector(updateReservationByIdSuccessSelector);
     const errors = useSelector(errorsSelector);
@@ -26,22 +25,20 @@ export const ReservedRooms = () => {
     const [endDate, setEndDate] = useState(null);
 
     useEffect(() => {
-        dispatch(getReservationRoomsByUserLogin(userLogin));
         dispatch(getAllReservation());
-    }, [dispatch, userLogin, refreshPage]);
+    }, [ refreshPage]);
 
     if (errors) {
         ErrorToast(errors);
-            dispatch({ type: "SET_ERROR", error: null });
+        dispatch({ type: "SET_ERROR", error: null });
     } else if (deleteReservationByIdSuccess) {
-        SuccessToast("Бронирование успешно удалено!");  
-            dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
+        SuccessToast("Бронирование успешно удалено!");
+        dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
     }
     if (updateReservationByIdSuccess) {
         SuccessToast("Даты бронирования успешно изменены!");
         dispatch({ type: "SET_UPDATE_RESERVATION_BY_ID_SUCCESS", updateReservationByIdSuccess: false });
     }
-    console.log(updateReservationByIdSuccess);
 
     return (
         <>
@@ -69,13 +66,15 @@ export const ReservedRooms = () => {
                                 <Search placeholder="Поиск номера" buttonTitle="Сбросить поиск" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onClickButton={() => setSearchQuery("")} />
                             </div>
                             <div className={reservedRoomsStyle["reservedRoomsContainer"]}>
-                                {reservationRooms?.length > 0 ? (
-                                    reservationRooms
+                                {allReservation?.length > 0 ? (
+                                    allReservation
                                         .filter((room) =>
-                                            room.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            room.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            room.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                            room.price.toString().includes(searchQuery)
+                                            room?.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                            room?.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                            room?.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                            room?.price.toString().includes(searchQuery) ||
+                                            room?.peoples.toString().includes(searchQuery) ||
+                                            room?.hotel_name.toLowerCase().includes(searchQuery.toLowerCase())
                                         )
                                         .sort((a, b) => {
                                             if (sortQuery === "priceAsc") {
@@ -93,40 +92,45 @@ export const ReservedRooms = () => {
                                         })
                                         .map((room) => (
                                             <>
-                                                <div key={`${room.id}-${room.number}`} className={reservedRoomsStyle["reservedRoomsCard"]}>
-                                                    <h2>Номер: {room.number}</h2>
+                                                <div key={`${room?.id}-${room?.number}`} className={reservedRoomsStyle["reservedRoomsCard"]}>
+                                                    <h2>Номер: {room?.number}</h2>
                                                     <div className={reservedRoomsStyle["roomInfo"]}>
                                                         <div className={reservedRoomsStyle["roomInfoText"]}>
-                                                            <h3>Количество людей: {room.peoples}</h3>
-                                                            <h3>Название отеля: {room.hotel_name}</h3>
-                                                            <h3>Адрес отеля: {room.hotel_adress}</h3>
-                                                            <h3>Цена бронирования: ${room.price}</h3>
-                                                            <h3>Тип номера: {room.type}</h3>
+                                                            <h3>Количество людей: {room?.peoples}</h3>
+                                                            <h3>Название отеля: {room?.hotel_name}</h3>
+                                                            <h3>Адрес отеля: {room?.hotel_adress}</h3>
+                                                            <h3>Цена бронирования: ${room?.price}</h3>
+                                                            <h3>Тип номера: {room?.type}</h3>
+                                                            <div className={reservedRoomsStyle["roomInfoTitle"]}>
+                                                                <h3>Описание</h3>
+                                                            </div> <p>{room?.description}</p>
                                                             <div>
                                                                 <h3>Брони других пользователей: </h3>
                                                                 {allReservation
-                                                                    .filter((res, index) => res.user !== userLogin)
-                                                                    .map((res, index) => (
-                                                                        <span key={`${res.id}-${index}`}>
-                                                                            {new Date(res.start_date).toLocaleDateString("ru")} - {new Date(res.end_date).toLocaleDateString("ru")} {res.user}
-                                                                        </span>
-                                                                    ))}
+                                                                    .filter((reservation) => reservation?.number === room?.number && reservation?.user !== userLogin)
+                                                                    .length > 0 ? (
+                                                                        <ul>
+                                                                            {allReservation
+                                                                                .filter((reservation) => reservation?.number === room?.number && reservation?.user !== userLogin)
+                                                                                .map((reservation) => (
+                                                                                    <li key={reservation?.id}>{new Date(reservation?.start_date).toLocaleDateString()} - {new Date(reservation?.end_date).toLocaleDateString()} {reservation?.user}</li>
+                                                                                ))}
+                                                                        </ul>
+                                                                    ) : (
+                                                                        <p>Нет броней</p>
+                                                                    )}
                                                             </div>
-                                                            <div className={reservedRoomsStyle["roomInfoTitle"]}>
-                                                                <h3>Описание</h3>
-                                                            </div>
-                                                            <p>{room.description}</p>
                                                         </div>
                                                         <div className={reservedRoomsStyle["reservationCode"]}>
                                                             {flag ? (<button onClick={() => setFlag(!flag)}>Скрыть</button>) :
                                                                 <button onClick={() => setFlag(!flag)}>Показать код</button>}
-                                                            {flag && <h3>Код бронирования: {room.code}</h3>}
+                                                            {flag && <h3>Код бронирования: {room?.code}</h3>}
                                                         </div>
                                                         <div className={reservedRoomsStyle["roomData"]}>
                                                             <h3>Дата заезда:</h3>
                                                             <input
                                                                 type="date"
-                                                                defaultValue={new Date(room.start_date).toISOString().split("T")[0]}
+                                                                defaultValue={new Date(room?.start_date).toISOString().split("T")[0]}
                                                                 disabled={!updateFlag}
                                                                 onChange={(e) => setStartDate(new Date(e.target.value))}
                                                                 value={startDate ? startDate.toISOString().split("T")[0] : undefined}
@@ -135,14 +139,14 @@ export const ReservedRooms = () => {
                                                             <input
                                                                 disabled={!updateFlag}
                                                                 type="date"
-                                                                defaultValue={new Date(room.end_date).toISOString().split("T")[0]}
+                                                                defaultValue={new Date(room?.end_date).toISOString().split("T")[0]}
                                                                 onChange={(e) => setEndDate(new Date(e.target.value))}
                                                                 value={endDate ? endDate.toISOString().split("T")[0] : undefined}
                                                             />
                                                         </div>
                                                         <div className={reservedRoomsStyle["reservationButtonContainer"]}>
                                                             <button className={reservedRoomsStyle["deleteReservationButton"]}
-                                                                onClick={() => dispatch(deleteReservationById(room.id))}>Удалить бронь </button>
+                                                                onClick={() => dispatch(deleteReservationById(room?.id))}>Удалить бронь </button>
                                                             <button className={reservedRoomsStyle["editReservationButton"]} onClick={() => setUpdateFlag(!updateFlag)}  >{updateFlag ? "Выйти из редактирования" : "Изменить бронь"}</button>
                                                         </div>
                                                         {updateFlag && (

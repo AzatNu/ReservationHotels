@@ -1,24 +1,17 @@
-
-
-export const deleteReservationById = (roomId) => async (dispatch) => {
+import { request } from "../../App/utils";
+export const deleteReservationById = (id) => async (dispatch) => {
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
     try {
-        const response = await fetch(`http://localhost:3005/reservations/${roomId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        if (response.ok) {
-            dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: true });
-        }
+        request(`/reservations/${id}`, "DELETE");
+        dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: true });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
     } catch (error) {
         dispatch({ type: "SET_ERROR", error: error.message });
-        dispatch({ type: "SET_REFRESH_PAGE", refreshPage: true });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
     } finally {
+        dispatch({ type: "SET_REFRESH_PAGE", refreshPage: true });
         dispatch({ type: "SET_IS_LOADING", isLoading: false });
         dispatch({ type: "SET_REFRESH_PAGE", refreshPage: false });
-
     }
 };
 

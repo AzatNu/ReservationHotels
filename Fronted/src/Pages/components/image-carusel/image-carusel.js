@@ -5,15 +5,12 @@ import imageCaruselStyle from "./image-carusel.module.css";
 
 export const ImageCarousel = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
-
     const prevImage = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
     };
-
     const nextImage = () => {
         setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
     };
-
     return (
         <div className={imageCaruselStyle["roomImageCarusel"]}>
             <button className={`${imageCaruselStyle["arrow-left"]}`} onClick={prevImage}><img src={arrow} alt="logo" /></button>

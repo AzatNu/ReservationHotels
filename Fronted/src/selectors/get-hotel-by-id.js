@@ -1,1 +1,1 @@
-export const getHotelByIdSelector = (state) => state.hotel;
+export const getHotelByIdSelector = (state) => state.hotel?.hotel?.data

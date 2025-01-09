@@ -17,13 +17,14 @@ export const Hotels = () => {
         dispatch(getAllHotels())
     }, []);
     const searchHotel = (query) => {
-        return hotels.hotels.filter(hotel => hotel.name.toLowerCase().includes(query.toLowerCase()));
+        return hotels?.filter(hotel => hotel.name.toLowerCase().includes(query.toLowerCase()));
     }
     const filteredHotels = searchHotel(serchQuery);
     if (errors) {
         ErrorToast(errors);
-            dispatch({ type: "SET_ERROR", error: null });
+        dispatch({ type: "SET_ERROR", error: null });
     }
+
     return (
         userRole !== "3" ? (
             isLoading === true ? (
@@ -35,9 +36,9 @@ export const Hotels = () => {
                         <Search placeholder="Поиск отеля" value={serchQuery} onChange={(e) => setSerchQuery(e.target.value)} onClickButton={() => setSerchQuery("")} buttonTitle="Сбросить поиск" />
                     </div>
                     <div className={hotelsStyle["hotelsContainer"]}>
-                        {filteredHotels.length > 0 ? (
+                        {filteredHotels?.length > 0 ? (
                             filteredHotels.map((hotel, index) => (
-                                <Link key={index} to={`/hotels/${hotel.id}`}>
+                                <Link key={index} to={`/hotels/${hotel._id}`}>
                                     <div style={{ backgroundImage: `url(${hotel.images})` }} className={hotelsStyle["hotelCard"]}>
                                         <h2>"{hotel.name}"</h2>
                                         <div title="Класс отеля" className={hotelsStyle["hotelStars"]}>
@@ -56,7 +57,7 @@ export const Hotels = () => {
             )
         ) : (
             <ErrorNotAvailable style={{ color: 'red' }} />
-        )
+            )
     );
 };
 

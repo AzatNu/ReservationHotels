@@ -1,187 +1,187 @@
 {
-  "users": [
-    {
-      "id": "1",
-      "login": "admin",
-      "password": "123456",
-      "role_id": "0",
-      "registred_at": "2022-01-01 00:00:00"
-    },
-    {
-      "id": "2",
-      "login": "user",
-      "password": "123456",
-      "role_id": "2",
-      "registred_at": "2022-01-01 00:00:00"
-    },
-    {
-      "id": "3",
-      "login": "moderator",
-      "password": "123456",
-      "role_id": "1",
-      "registred_at": "2022-01-01 00:00:00"
-    }
-  ],
-  "role": [
-    {
-      "id": "0",
-      "name": "admin"
-    },
-    {
-      "id": "1",
-      "name": "moderator"
-    },
-    {
-      "id": "2",
-      "name": "user"
-    },
-    {
-      "id": "3",
-      "name": "guest"
-    }
-  ],
-  "hotels": [
-    {
-      "id": "1",
-      "name": "Бристоль",
-      "address": "ul. Marsza kowska 94/98, 00-693 Warszawa, Polska",
-      "stars": "5",
-      "description": "Отель Бристоль - это 5-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы. Отель Бристоль - это идеальное место для отдыха в Варшаве. Отель Бристоль - это 5-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы. Отель Бристоль - это идеальное место для отдыха в Варшаве.",
-      "profileImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Warsaw_2023_096.jpg/1200px-Warsaw_2023_096.jpg?20240214155946",
-      "images": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Hotel_Bristol_w_Warszawie.JPG/1200px-Hotel_Bristol_w_Warszawie.JPG"
-    },
-    {
-      "id": "3",
-      "name": "Europa",
-      "address": "ul. Krucza 28, 00-522 Warszawa, Polska",
-      "stars": "4",
-      "description": "Hotel Europa - это 4-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы. Hotel Europa - это идеальное место для отдыха в Варшаве.",
-      "profileImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Hotel_Europa_Warsaw.jpg/1200px-Hotel_Europa_Warsaw.jpg",
-      "images": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Hotel_Imperial_Bulgaria_Sunny_Beach.jpg/1200px-Hotel_Imperial_Bulgaria_Sunny_Beach.jpg"
-    }
-  ],
-  "rooms": [
-    {
-      "id": "1",
-      "hotel_id": "1",
-      "number": "101",
-      "type": "одиночный",
-      "price": 1000,
-      "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "images": [
-        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Single-room10.jpg",
-        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Twin-room1.jpg",
-        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Twin-room6.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
-      ]
-    },
-    {
-      "id": "2",
-      "hotel_id": "1",
-      "number": "102",
-      "type": "двойной",
-      "price": 1500,
-      "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "images": [
-        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-classic-room-7829-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
-        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-twin-guest-bathroom-5925-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
-        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-guest-bathroom-7013-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
-        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-glorietta-suite-0409-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
-        "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-executive-7689-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
-      ]
-    },
-    {
-      "id": "3",
-      "hotel_id": "1",
-      "number": "103",
-      "type": "тройной",
-      "price": 2000,
-      "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "images": [
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
-      ]
-    },
-    {
-      "id": "7",
-      "hotel_id": "3",
-      "number": "201",
-      "type": "одиночный",
-      "price": 1000,
-      "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "images": [
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
-      ]
-    },
-    {
-      "id": "8",
-      "hotel_id": "3",
-      "number": "202",
-      "type": "двойной",
-      "price": 1500,
-      "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "images": [
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
-        "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
-      ]
-    },
-    {
-      "id": "9",
-      "hotel_id": "3",
-      "number": "203",
-      "type": "тройной",
-      "price": 2000,
-      "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "images": [
-        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room.jpg",
-        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room1.jpg",
-        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room3.jpg",
-        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room5.jpg",
-        "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room6.jpg"
-      ]
-    }
-  ],
-  "reservations": [
-    {
-      "room_id": "1",
-      "start_date": "2025-01-29T00:00:00.000Z",
-      "end_date": "2025-02-04T00:00:00.000Z",
-      "user": "user",
-      "code": "Tlg2y-JgyOC-8ame4-qGjJh",
-      "peoples": "1",
-      "number": "101",
-      "price": 6000,
-      "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "type": "одиночный",
-      "hotel_name": "Бристоль",
-      "hotel_adress": "ul. Marsza kowska 94/98, 00-693 Warszawa, Polska",
-      "id": 12
-    },
-    {
-      "room_id": "2",
-      "start_date": "2025-01-08T00:00:00.000Z",
-      "end_date": "2025-01-22T00:00:00.000Z",
-      "user": "admin",
-      "code": "donXN-U73Yx-y5rCn-LZPe6",
-      "peoples": "2",
-      "number": "102",
-      "price": 21000,
-      "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
-      "type": "двойной",
-      "hotel_name": "Бристоль",
-      "hotel_adress": "ul. Marsza kowska 94/98, 00-693 Warszawa, Polska",
-      "id": 16
-    }
-  ]
+    "users": [
+        {
+            "id": "1",
+            "login": "admin",
+            "password": "123456",
+            "role_id": "0",
+            "registred_at": "2022-01-01 00:00:00"
+        },
+        {
+            "id": "2",
+            "login": "user",
+            "password": "123456",
+            "role_id": "2",
+            "registred_at": "2022-01-01 00:00:00"
+        },
+        {
+            "id": "3",
+            "login": "moderator",
+            "password": "123456",
+            "role_id": "1",
+            "registred_at": "2022-01-01 00:00:00"
+        }
+    ],
+    "role": [
+        {
+            "id": "0",
+            "name": "admin"
+        },
+        {
+            "id": "1",
+            "name": "moderator"
+        },
+        {
+            "id": "2",
+            "name": "user"
+        },
+        {
+            "id": "3",
+            "name": "guest"
+        }
+    ],
+    "hotels": [
+        {
+            "id": "1",
+            "name": "Бристоль",
+            "address": "ul. Marsza kowska 94/98, 00-693 Warszawa, Polska",
+            "stars": "5",
+            "description": "Отель Бристоль - это 5-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы. Отель Бристоль - это идеальное место для отдыха в Варшаве. Отель Бристоль - это 5-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы. Отель Бристоль - это идеальное место для отдыха в Варшаве.",
+            "profileImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Warsaw_2023_096.jpg/1200px-Warsaw_2023_096.jpg?20240214155946",
+            "images": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Hotel_Bristol_w_Warszawie.JPG/1200px-Hotel_Bristol_w_Warszawie.JPG"
+        },
+        {
+            "id": "3",
+            "name": "Europa",
+            "address": "ul. Krucza 28, 00-522 Warszawa, Polska",
+            "stars": "4",
+            "description": "Hotel Europa - это 4-звездочный отель, расположенный в центре города, в Польше, Варшава. Он предлагает комфортные номера с кондиционером, плоским телевизором и бесплатным Wi-Fi. В отеле есть ресторан, бар и фитнес-центр. Отель находится недалеко от туристического центра Варшавы. Hotel Europa - это идеальное место для отдыха в Варшаве.",
+            "profileImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Hotel_Europa_Warsaw.jpg/1200px-Hotel_Europa_Warsaw.jpg",
+            "images": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Hotel_Imperial_Bulgaria_Sunny_Beach.jpg/1200px-Hotel_Imperial_Bulgaria_Sunny_Beach.jpg"
+        }
+    ],
+    "rooms": [
+        {
+            "id": "1",
+            "hotel_id": "1",
+            "number": "101",
+            "type": "одиночный",
+            "price": 1000,
+            "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+            "images": [
+                "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Single-room10.jpg",
+                "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Twin-room1.jpg",
+                "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Twin-room6.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
+            ]
+        },
+        {
+            "id": "2",
+            "hotel_id": "1",
+            "number": "102",
+            "type": "двойной",
+            "price": 1500,
+            "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+            "images": [
+                "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-classic-room-7829-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
+                "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-twin-guest-bathroom-5925-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
+                "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-guest-bathroom-7013-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
+                "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-glorietta-suite-0409-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*",
+                "https://cache.marriott.com/content/dam/marriott-renditions/WAWLC/wawlc-executive-7689-hor-wide.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1336px:*"
+            ]
+        },
+        {
+            "id": "3",
+            "hotel_id": "1",
+            "number": "103",
+            "type": "тройной",
+            "price": 2000,
+            "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+            "images": [
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
+            ]
+        },
+        {
+            "id": "7",
+            "hotel_id": "3",
+            "number": "201",
+            "type": "одиночный",
+            "price": 1000,
+            "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+            "images": [
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
+            ]
+        },
+        {
+            "id": "8",
+            "hotel_id": "3",
+            "number": "202",
+            "type": "двойной",
+            "price": 1500,
+            "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+            "images": [
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg",
+                "https://www.vampir.com.br/wp-content/uploads/2014/05/hotelroom-1536x1024.jpg"
+            ]
+        },
+        {
+            "id": "9",
+            "hotel_id": "3",
+            "number": "203",
+            "type": "тройной",
+            "price": 2000,
+            "description": "Тройной номер с тремя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+            "images": [
+                "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room.jpg",
+                "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room1.jpg",
+                "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room3.jpg",
+                "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room5.jpg",
+                "https://www.hotelportuense.com/wp-content/uploads/sites/41/2019/05/gallery_Triple-room6.jpg"
+            ]
+        }
+    ],
+    "reservations": [
+        {
+            "room_id": "1",
+            "start_date": "2025-01-29T00:00:00.000Z",
+            "end_date": "2025-02-04T00:00:00.000Z",
+            "user": "user",
+            "code": "Tlg2y-JgyOC-8ame4-qGjJh",
+            "peoples": "1",
+            "number": "101",
+            "price": 6000,
+            "description": "Одиночный номер с одной кроватью и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+            "type": "одиночный",
+            "hotel_name": "Бристоль",
+            "hotel_adress": "ul. Marsza kowska 94/98, 00-693 Warszawa, Polska",
+            "id": 12
+        },
+        {
+            "room_id": "2",
+            "start_date": "2025-01-08T00:00:00.000Z",
+            "end_date": "2025-01-22T00:00:00.000Z",
+            "user": "admin",
+            "code": "donXN-U73Yx-y5rCn-LZPe6",
+            "peoples": "2",
+            "number": "102",
+            "price": 21000,
+            "description": "Двойной номер с двумя отдельными кроватями и частной ванной. В номере также есть стол, стул, шкаф и телевизор. В ванной комнате есть душевая кабина, туалет, умывальник и халат.",
+            "type": "двойной",
+            "hotel_name": "Бристоль",
+            "hotel_adress": "ul. Marsza kowska 94/98, 00-693 Warszawa, Polska",
+            "id": 16
+        }
+    ]
 }

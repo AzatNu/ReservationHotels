@@ -1,10 +1,10 @@
+import { request } from "../../App/utils";
 export const getRoomsByHotelId = (hotelId) => async (dispatch) => {
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
     try {
-        const response = await fetch(`http://localhost:3005/rooms?hotel_id=${hotelId}`);
-        const rooms = await response.json();
-
-        dispatch({ type: "SET_ROOMS_BY_HOTEL_ID_SUCCESS", rooms: rooms });
+        const response = await request(`/rooms`);
+        const filteredRooms = response?.data.filter(room => room.hotel_id === hotelId);
+        dispatch({ type: "SET_ROOMS_BY_HOTEL_ID_SUCCESS", rooms: filteredRooms });
     } catch (error) {
         dispatch({ type: "SET_ERROR", error });
     } finally {

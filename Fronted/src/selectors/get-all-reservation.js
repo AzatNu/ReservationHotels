@@ -1,1 +1,1 @@
-export const getAllReservationSelector = (state) => state.allReservation.allReservation
+export const getAllReservationSelector = (state) => state.allReservation.allReservation.data

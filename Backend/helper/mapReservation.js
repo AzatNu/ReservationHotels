@@ -1,0 +1,15 @@
+module.exports = (reservation) => ({
+    id: reservation._id,
+    roomId: reservation.roomId,
+    startDate: reservation.startDate,
+    endDate: reservation.endDate,
+    user: reservation.user,
+    code: reservation.code,
+    peoples: reservation.peoples,
+    number: reservation.number,
+    price: reservation.price,
+    description: reservation.description,
+    type: reservation.type,
+    hotelName: reservation.hotelName,
+    hotelAddress: reservation.hotelAddress,
+});

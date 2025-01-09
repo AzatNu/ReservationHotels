@@ -1,16 +1,14 @@
-export const getReservationByRoomId = () => async (dispatch) => {
+import { request } from "../../App/utils";
+export const getReservation = () => async (dispatch) => {
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
     try {
-        const response = await fetch(`http://localhost:3005/reservations`   , {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const reservation = await response.json();
-        dispatch({ type: "SET_RESERVATION_BY_ROOM_ID_SUCCESS", reservationByRoomId: reservation });
+        const response = await request(`/reservations`);
+        const reservation = await response
+        dispatch({ type: "SET_RESERVATION_SUCCESS", reservation: reservation });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
     } catch (error) {
         dispatch({ type: "SET_ERROR", error: error.message });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
     } finally {
         dispatch({ type: "SET_IS_LOADING", isLoading: false });
     }

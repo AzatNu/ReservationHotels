@@ -1,5 +1,5 @@
 import createRoomsStyle from "./create-rooms.module.css"
-import { Warning, ErrorNotAvailable, LoadingSpinner, PageTitle, ErrorToast, SuccessToast } from "../components"
+import { ErrorNotAvailable, LoadingSpinner, PageTitle, ErrorToast, SuccessToast } from "../components"
 import { userRoleSelector, isLoadingSelector, postRoomSuccessSelector, errorsSelector } from "../../selectors"
 import { useSelector, useDispatch } from "react-redux"
 import { ToastContainer } from 'react-toastify';
@@ -31,32 +31,28 @@ export const CreateRooms = () => {
         setImageUrls([""]);
         return
     }
-    if(errors) {
+    if (errors) {
         ErrorToast(errors);
-            dispatch({ type: "SET_ERROR", error: null });
+        dispatch({ type: "SET_ERROR", error: null });
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (description.length < 300) {
             return;
         } else if (imageUrls.some(url => !/^(ftp|http|https):\/\/[^ "]+$/.test(url))) {
             ErrorToast("Некорректная ссылка на фотографию");
             return
         }
-        dispatch(postRoom(hotelName, roomName, type, price, description, imageUrls));
+        dispatch(postRoom(hotelName, roomName, type, price, description, imageUrls));;
     };
-
     const handleImageUrlChange = (index, value) => {
         const newImageUrls = [...imageUrls];
         newImageUrls[index] = value;
         setImageUrls(newImageUrls);
     };
-
     const addImageUrl = () => {
         setImageUrls([...imageUrls, ""]);
     };
-
     return (
         <>
             {userRole === "0" ? (
@@ -97,7 +93,7 @@ export const CreateRooms = () => {
                     </>
                 )
             ) : (
-                <ErrorNotAvailable style={{ color: 'red'}} />
+                <ErrorNotAvailable style={{ color: 'red' }} />
             )}
         </>
     )

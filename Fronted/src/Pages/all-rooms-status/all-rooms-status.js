@@ -11,7 +11,6 @@ export const AllRoomStatus = () => {
     const isLoading = useSelector(isLoadingSelector);
     const userRole = useSelector(userRoleSelector);
     const refreshPage = useSelector(refreshPageSelector);
-
     const errors = useSelector(errorsSelector);
     const deleteReservationByIdSuccess = useSelector(deleteReservationByIdSuccessSelector);
     const dispatch = useDispatch();
@@ -25,7 +24,7 @@ export const AllRoomStatus = () => {
         SuccessToast("Бронь успешно удалена!");
         dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
     }
-
+    console.log(refreshPage.refreshPage)
     return (
         <>
             {userRole !== "3" ? (
@@ -38,7 +37,7 @@ export const AllRoomStatus = () => {
                             <LoadingSpinner />
                         ) : (
                             <div className={allRoomsStatusStyle["allRoomsStatusCard"]}>
-                                {reservations.length > 0 ? (
+                                {reservations?.length > 0 ? (
                                     <table className={allRoomsStatusStyle["allRoomsStatusTable"]}>
                                         <thead>
                                             <tr>
@@ -54,21 +53,19 @@ export const AllRoomStatus = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {reservations.map((reservation, index) => (
+                                            {reservations?.map((reservation, index) => (
                                                 <tr key={index}>
-                                                    <td>{reservation.number}</td>
-                                                    <td>{reservation.hotel_name}</td>
-                                                    <td>{new Date(reservation.start_date).toLocaleDateString('ru')}</td>
-                                                    <td>{new Date(reservation.end_date).toLocaleDateString('ru')}</td>
-                                                    <td>${reservation.price}</td>
-                                                    <td>{reservation.peoples}</td>
-                                                    <td>{reservation.user}</td>
-                                                    <td>{reservation.type}</td>
+                                                    <td>{reservation?.number}</td>
+                                                    <td>{reservation?.hotel_name}</td>
+                                                    <td>{reservation?.start_date ? new Date(reservation?.start_date).toLocaleDateString('ru') : ""}</td>
+                                                    <td>{reservation?.end_date ? new Date(reservation?.end_date).toLocaleDateString('ru') : ""}</td>
+                                                    <td>${reservation?.price}</td>
+                                                    <td>{reservation?.peoples}</td>
+                                                    <td>{reservation?.user}</td>
+                                                    <td>{reservation?.type }</td>
                                                     <td>
                                                         <button onClick={() =>
-                                                            dispatch(deleteReservationById
-                                                                (reservation.id,
-                                                                    reservation.user))} title="Удалить бронь">✖</button>
+                                                            dispatch(deleteReservationById(reservation?._id))} title="Удалить бронь">✖</button>
                                                     </td>
                                                 </tr>
                                             ))}

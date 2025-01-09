@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const sign = process.env.SECRET_KEY || "easyReservation";
+const sign = "azattix";
 
 
 module.exports.generate = (data) => {
@@ -7,6 +7,6 @@ module.exports.generate = (data) => {
 }
 
 module.exports.verify = (token) => {
-    return jwt.verify(token, sign)
+    return jwt.verify(token, sign) 
 }
 

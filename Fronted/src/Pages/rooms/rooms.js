@@ -8,12 +8,12 @@ import {
     getRoomsByHotelIdSelector,
     isLoadingSelector,
     userloginSelector,
-    userIdSelector,
     refreshPageSelector,
     errorsSelector,
-    getReservationByRoomIdSelector,
+    getReservationSelector,
     getHotelByIdSelector,
-    deleteRoomSuccessSelector
+    deleteRoomSuccessSelector,
+
 } from "../../selectors";
 import { useEffect, useState } from "react";
 import {
@@ -27,7 +27,7 @@ import {
     CustomSelect,
     ErrorToast, SuccessToast
 } from "../components";
-import { getRoomsByHotelId, getReservationByRoomId, getHotelById, patchReserveRoom, deleteRoom } from "../../requests";
+import { getHotelAndRoomsAndReservation, patchReserveRoom, deleteRoom } from "../../requests";
 
 
 export const Rooms = () => {
@@ -35,11 +35,10 @@ export const Rooms = () => {
     const refreshPage = useSelector(refreshPageSelector);
     const userRole = useSelector(userRoleSelector);
     const deleteRoomSuccess = useSelector(deleteRoomSuccessSelector);
-    const userId = useSelector(userIdSelector);
     const rooms = useSelector(getRoomsByHotelIdSelector);
     const isLoading = useSelector(isLoadingSelector);
     const user = useSelector(userloginSelector);
-    const reservation = useSelector(getReservationByRoomIdSelector);
+    const reservation = useSelector(getReservationSelector);
     const hotel = useSelector(getHotelByIdSelector);
     const { id } = useParams();
     const dispatch = useDispatch();
@@ -51,12 +50,9 @@ export const Rooms = () => {
     const [flag, setFlag] = useState(false);
 
     useEffect(() => {
-        Promise.all([
-            dispatch(getHotelById(id)),
-            dispatch(getRoomsByHotelId(id)),
-            dispatch(getReservationByRoomId())
-        ]);
-    }, [dispatch, id, refreshPage]);
+        dispatch(getHotelAndRoomsAndReservation(id));
+    }, [ refreshPage]);
+
     if (deleteRoomSuccess) {
         SuccessToast("Номер успешно удален!");
         dispatch({ type: "SET_DELETE_ROOM_SUCCESS", payload: false });
@@ -66,7 +62,7 @@ export const Rooms = () => {
         if (startDate && endDate) {
             const daysReserved = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
             const reservationPrice = roomPrice * daysReserved;
-            dispatch(patchReserveRoom(roomId, startDate, endDate, user, reservationPrice, peoples, roomNumber, description, type, hotel.hotel.name, hotel.hotel.address));
+            dispatch(patchReserveRoom(roomId, startDate, endDate, user, reservationPrice, peoples, roomNumber, description, type, hotel.name, hotel.address));
             setStartDate(null);
             setEndDate(null);
             setFlag(false);
@@ -77,7 +73,6 @@ export const Rooms = () => {
         ErrorToast(errors);
         dispatch({ type: "SET_ERROR", error: null });
     }
-
 
     return (
         <>
@@ -90,8 +85,8 @@ export const Rooms = () => {
                             <PageTitle>Доступные номера </PageTitle>
                             <CustomSelect
                                 options={[{ value: "default", label: "Без сортировки" },
-                                { value: "priceAsc", label: "Cначала дешевые" },
-                                { value: "priceDesc", label: "Cначала дорогие" },
+                                { value: "priceAsc", label: "По возрастанию цены" },
+                                { value: "priceDesc", label: "По убыванию цены" },
                                 { value: "single", label: "Сначала одиночные" },
                                 { value: "double", label: "Сначала двухместные" },
                                 { value: "triple", label: "Сначала трехместные" },
@@ -111,10 +106,10 @@ export const Rooms = () => {
                             {rooms?.length > 0 ? (
                                 rooms
                                     ?.filter((room) =>
-                                        room.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                        room.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                        room.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                        room.price.toString().includes(searchQuery)
+                                        room?.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                        room?.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                        room?.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                        room?.price.toString().includes(searchQuery)
                                     )
                                     .sort((a, b) => {
                                         if (sortQuery === "priceAsc") {
@@ -131,25 +126,31 @@ export const Rooms = () => {
                                         return 0;
                                     })
                                     .map((room) => (
-                                        <div key={room.id} className={roomsStyle["roomCard"]}>
-                                            <h2>Номер: {room.number}</h2>
-                                            <ImageCarousel images={room.images} />
+                                        <div key={room?.id} className={roomsStyle["roomCard"]}>
+                                            <h2>Номер: {room?.number}</h2>
+                                            <ImageCarousel images={room?.images} />
                                             <div className={roomsStyle["roomInfo"]}>
                                                 <div className={roomsStyle["roomInfoContainer"]}>
                                                     <div className={roomsStyle["roomInfoText"]}>
-                                                        <h3>Цена за сутки: ${room.price}</h3>
-                                                        <h3>Тип номера: {room.type}</h3>
+                                                        <h3>Цена за сутки: ${room?.price}</h3>
+                                                        <h3>Тип номера: {room?.type}</h3>
                                                         <div className={roomsStyle["roomInfoTitle"]}>
                                                             <h3>Описание</h3>
                                                         </div>
-                                                        <p>{room.description}</p>
+                                                        <p>{room?.description}</p>
                                                         <div className={roomsStyle["roomReservationDate"]}>
                                                             <p>Данный номер забронирован на:</p>
-                                                            {reservation?.filter((res) => res.room_id === room.id).map((reservation) => (
-                                                                <div key={reservation.id}>
-                                                                    <p>{new Date(reservation.start_date).toLocaleDateString('ru')} - {new Date(reservation.end_date).toLocaleDateString('ru')} {reservation.user}</p>
-                                                                </div>
-                                                            ))}
+                                                            {reservation?.filter((res) => res?.room_id === room?.id).length > 0 ? (
+                                                                reservation?.filter((res) => res?.room_id === room?.id).map((reservation) => (
+                                                                    <ul>
+                                                                        <li key={reservation?.id}>
+                                                                            <p>{new Date(reservation?.start_date).toLocaleDateString('ru')} - {new Date(reservation?.end_date).toLocaleDateString('ru')} {reservation?.user}</p>
+                                                                        </li>
+                                                                    </ul>
+                                                                ))
+                                                            ) : (
+                                                                <p>Нет броней</p>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -158,7 +159,7 @@ export const Rooms = () => {
                                                 onClick={() => setFlag(!flag)} style={flag ? { backgroundColor: "red" } : {}}>
                                                 {flag ? '✖' : 'Забронировать'}
                                             </button>
-                                            {userRole === "0" && <button onClick={() => dispatch(deleteRoom(room.id))} className={roomsStyle["deleteRoomButton"]}>Удалить номер</button>
+                                            {userRole === "0" && <button onClick={() => dispatch(deleteRoom(room._id))} className={roomsStyle["deleteRoomButton"]}>Удалить номер</button>
                                             }
                                             <div className={roomsStyle["roomReservationContainer"]}
                                                 style={{ display: flag ? "block" : "none" }}>
@@ -171,7 +172,7 @@ export const Rooms = () => {
                                                         value={startDate ? startDate.toISOString().split("T")[0] : ""}
                                                         onChange={(e) => {
                                                             const selectedDate = new Date(e.target.value);
-                                                            if (reservation && reservation.some(res => (new Date(res.start_date) <= selectedDate && new Date(res.end_date) > selectedDate) && res.room_id === room.id)) {
+                                                            if (reservation && reservation?.some(res => (new Date(res.start_date) <= selectedDate && new Date(res.end_date) > selectedDate) && res.room_id === room.id)) {
                                                                 e.target.value = '';
                                                                 setStartDate(null);
                                                                 ErrorToast("Выбранная дата заезда занята");
@@ -187,7 +188,7 @@ export const Rooms = () => {
                                                         value={endDate ? endDate.toISOString().split("T")[0] : ""}
                                                         onChange={(e) => {
                                                             const selectedDate = new Date(e.target.value);
-                                                            if (reservation && reservation.some(res => (new Date(res.start_date) <= selectedDate && new Date(res.end_date) > selectedDate) && res.room_id === room.id)) {
+                                                            if (reservation && reservation?.some(res => (new Date(res.start_date) <= selectedDate && new Date(res.end_date) > selectedDate) && res.room_id === room.id)) {
                                                                 e.target.value = '';
                                                                 setEndDate(null);
                                                                 ErrorToast("Выбранная дата выезда занята");
@@ -199,7 +200,7 @@ export const Rooms = () => {
                                                     />
                                                     <h3>Укажите количество человек:</h3>
                                                     <input
-                                                        disabled={startDate === null || endDate === null || (reservation && reservation.some(reservation => (reservation.start_date <= endDate && reservation.end_date > endDate) || (reservation.start_date < startDate && reservation.end_date >= startDate)))}
+                                                        disabled={startDate === null || endDate === null || (reservation && reservation?.some(reservation => (reservation?.start_date <= endDate && reservation?.end_date > endDate) || (reservation?.start_date < startDate && reservation?.end_date >= startDate)))}
                                                         onChange={(e) => setPeoples(e.target.value)}
                                                         placeholder={`Количество человек`}
                                                         type="number"

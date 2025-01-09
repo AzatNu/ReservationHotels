@@ -1,18 +1,16 @@
-export const deleteUserById = (id) => (dispatch) => {
+import { request } from "../../App/utils";
+export const deleteUserById = (id) => async (dispatch) => {
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
-    fetch(`http://localhost:3005/users/${id}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    }).then((res) => {
+    try {
+        await request(`users/${id}`, "DELETE");
         dispatch({ type: "SET_DELETE_USER_BY_ID_SUCCESS", deleteUserByIdSuccess: true });
-    })
-        .catch((error) => {
-            dispatch({ type: "SET_ERROR", error: error.message });
-        })
-        .finally(() => {
-            dispatch({ type: "SET_IS_LOADING", isLoading: false });
-            dispatch({ type: "SET_REFRESH_PAGE", refreshPage: true });
-        });
-}
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
+    } catch (error) {
+        dispatch({ type: "SET_ERROR", error: error.message });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
+    } finally {
+        dispatch({ type: "SET_REFRESH_PAGE", refreshPage: true });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
+    }
+};
+

@@ -18,6 +18,7 @@ export const HotelId = () => {
     useEffect(() => {
         dispatch(getHotelById(id))
     }, []);
+
     if (errors) {
         ErrorToast(errors);
             dispatch({ type: "SET_ERROR", error: null });
@@ -28,23 +29,23 @@ export const HotelId = () => {
                 <LoadingSpinner />
             ) : (<>
                 <div className={hotelIdStyle["hotelIdHeader"]}>
-                    <PageTitle > "{hotel.hotel.name}" </PageTitle>
+                    <PageTitle > "{hotel?.name}" </PageTitle>
                 </div>
-                <img className={hotelIdStyle["hotelIdImage"]} src={hotel.hotel.profileImage} alt="logo" />
+                <img className={hotelIdStyle["hotelIdImage"]} src={hotel?.profileImage} alt="logo" />
                 <div className={hotelIdStyle["hotelIdRoomsInfo"]}>
                     <div title="Класс отеля" className={hotelIdStyle["hotelIdStars"]}>
-                        {Array.from({ length: hotel.hotel.stars }).map((_, i) => (
+                        {Array.from({ length: hotel?.stars }).map((_, i) => (
                             <span key={i}>&#9733;</span>
                         ))}
                     </div>
                 </div>
                 <div className={hotelIdStyle["hotelIdContainer"]}>
                     <div className={hotelIdStyle["hotelIdDescription"]}>
-                        <h2>Отель расположен по адресу: {hotel.hotel.address}</h2>
-                        <p>{hotel.hotel.description}</p>
+                        <h2>Отель расположен по адресу: {hotel?.address}</h2>
+                        <p>{hotel?.description}</p>
                     </div>
                     <div className={hotelIdStyle["hotelIdRoomsContainer"]}>
-                        <Link to={`/hotels/${hotel.hotel.id}/rooms`}>
+                        <Link to={`/hotels/${hotel?._id}/rooms`}>
                             <button className={hotelIdStyle["hotelIdButton"]}>Номера </button>
                         </Link>
                     </div>

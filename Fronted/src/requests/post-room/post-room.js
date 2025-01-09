@@ -1,32 +1,29 @@
-export const postRoom = (hotel, number, type, price, descriptionm, images) => (dispatch) => {
+import { request } from "../../App/utils";
+
+
+export const postRoom = (hotel, number, type, price, descriptionm, images) => async (dispatch) => {
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
-    let hotelId = 1;
+    let hotelId = "";
     if (hotel === "Бристоль") {
-        hotelId = "1";
-    } else if (hotel === "Europa") {
-        hotelId = "2";
+        hotelId = "677ad05385223cdd1eb851bf"
+    } else if (hotel === "Европа") {
+        hotelId = "677ad0a485223cdd1eb851c1"
     }
-    fetch("http://localhost:3005/rooms", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+    try {
+        await request("/rooms", "POST", {
             hotel_id: hotelId,
             number: number,
             type: type,
             price: price,
             description: descriptionm,
             images: images
-        }),
-
-    }).then((res) => {
-        dispatch({ type: "SET_POST_ROOM_SUCCESS", postRoomSuccess: true });
-    })
-        .catch((error) => {
-            dispatch({ type: "SET_ERROR", error: error.message });
-        })
-        .finally(() => {
-            dispatch({ type: "SET_IS_LOADING", isLoading: false });
         });
+        dispatch({ type: "SET_POST_ROOM_SUCCESS", postRoomSuccess: true });
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
+    } catch (error) {
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
+        dispatch({ type: "SET_ERROR", error: error.message });
+    } finally {
+        dispatch({ type: "SET_IS_LOADING", isLoading: false });
+    }
 };

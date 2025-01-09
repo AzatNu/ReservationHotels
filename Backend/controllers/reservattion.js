@@ -1,4 +1,0 @@
-//get
-//post
-//delete
-//update
