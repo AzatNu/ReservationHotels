@@ -26,7 +26,7 @@ export const ReservedRooms = () => {
 
     useEffect(() => {
         dispatch(getAllReservation());
-    }, [ refreshPage]);
+    }, [refreshPage]);
 
     if (errors) {
         ErrorToast(errors);
@@ -109,16 +109,16 @@ export const ReservedRooms = () => {
                                                                 {allReservation
                                                                     .filter((reservation) => reservation?.number === room?.number && reservation?.user !== userLogin)
                                                                     .length > 0 ? (
-                                                                        <ul>
-                                                                            {allReservation
-                                                                                .filter((reservation) => reservation?.number === room?.number && reservation?.user !== userLogin)
-                                                                                .map((reservation) => (
-                                                                                    <li key={reservation?.id}>{new Date(reservation?.start_date).toLocaleDateString()} - {new Date(reservation?.end_date).toLocaleDateString()} {reservation?.user}</li>
-                                                                                ))}
-                                                                        </ul>
-                                                                    ) : (
-                                                                        <p>Нет броней</p>
-                                                                    )}
+                                                                    <ul>
+                                                                        {allReservation
+                                                                            .filter((reservation) => reservation?.number === room?.number && reservation?.user !== userLogin)
+                                                                            .map((reservation) => (
+                                                                                <li key={reservation?.id}>{new Date(reservation?.start_date).toLocaleDateString()} - {new Date(reservation?.end_date).toLocaleDateString()} {reservation?.user}</li>
+                                                                            ))}
+                                                                    </ul>
+                                                                ) : (
+                                                                    <p>Нет броней</p>
+                                                                )}
                                                             </div>
                                                         </div>
                                                         <div className={reservedRoomsStyle["reservationCode"]}>
@@ -157,7 +157,7 @@ export const ReservedRooms = () => {
                                                                         if (isReserved) {
                                                                             ErrorToast("Дата бронирования занята");
                                                                         } else {
-                                                                            dispatch(updateReservationById(room.id, startDate, endDate));
+                                                                            dispatch(updateReservationById(room._id, startDate, endDate));
                                                                         }
                                                                     } else {
                                                                         ErrorToast("Дата выезда не может быть раньше даты заезда");

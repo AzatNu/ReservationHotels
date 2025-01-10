@@ -10,7 +10,6 @@ const register = async (login, password) => {
     const user = await User.create({ login, password: passwordHash });
     const token = generate({ _id: user._id });
     return { user, token };
-
 }
 const login = async (login, password) => {
     const user = await User.findOne({ login });

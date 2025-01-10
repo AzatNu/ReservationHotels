@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 
 const reservationSchema = new mongoose.Schema({
+    id:{
+        type: String,
+        required: true,
+        unique: true
+    },
     room_id: {
         type: String,
         required: true

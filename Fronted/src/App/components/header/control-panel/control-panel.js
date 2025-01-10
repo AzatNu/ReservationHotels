@@ -39,7 +39,7 @@ export const ControlPanel = () => {
             )}
             {(userRole === "2" || userRole === "1" || userRole === "0") && (
                 <Link to="/hotels">
-                    <button title="Доступные номера" disabled={isLoading}>
+                    <button title="Доступные номера и отели " disabled={isLoading}>
                         <img src={mainPageLogo} alt="logo" />
                     </button>
                 </Link>

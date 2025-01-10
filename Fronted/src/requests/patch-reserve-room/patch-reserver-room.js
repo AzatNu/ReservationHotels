@@ -1,6 +1,6 @@
 import { generateRandomCode } from "../../App/utils/generate-random-code.js";
 import { request } from "../../App/utils";
-export const patchReserveRoom = (roomId, startDate, endDate, user, reservationPrice, peoples, number, description, type, hotelName, hotelAdress) => (dispatch) => {
+export const postReserveRoom = (roomId, startDate, endDate, user, reservationPrice, peoples, number, description, type, hotelName, hotelAdress) => (dispatch) => {
     const code = generateRandomCode();
     dispatch({ type: "SET_IS_LOADING", isLoading: true });
     request(`/reservations`, "POST", {
@@ -25,6 +25,7 @@ export const patchReserveRoom = (roomId, startDate, endDate, user, reservationPr
         .finally(() => {
             dispatch({ type: "SET_REFRESH_PAGE", refreshPage: true });
             dispatch({ type: "SET_IS_LOADING", isLoading: false });
+            dispatch({ type: "SET_REFRESH_PAGE", refreshPage: false });
         });
 };
 

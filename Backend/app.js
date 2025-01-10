@@ -46,7 +46,7 @@ app.post("/register", async (req, res) => {
     }
     catch (error) {
         res.send({
-            error: "Данный логин занят"
+            error: "Логин занят"
         });
     }
 });
@@ -64,7 +64,7 @@ app.post('/reservations', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), a
         res.send({ data: reservation })
     } catch (err) {
         res.send({
-            error: err.message
+            error: "При попытке создать бронь произошла ошибка"
         })
     }
 })
@@ -74,7 +74,7 @@ app.patch('/reservations/:id', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER
         res.send({ data: mapReservation(reservation) })
     } catch (err) {
         res.send({
-            error: err.message
+            error: "При попытке изменить бронь произошла ошибка"
         })
     }
 })
@@ -92,11 +92,11 @@ app.get('/reservations/:id', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER])
 
 app.get('/reservations', hasRole([ROLES.ADMIN, ROLES.MODERATOR, ROLES.USER]), async (req, res) => {
     try {
-        const reservations = await getRservations()
+        const reservations = await getRservations( )
         res.send({ data: reservations })
     } catch (err) {
         res.send({
-            error: "При попытке получить бронирования произошла ошибка"
+            error: "При попытке получить бронь произошла ошибка"
         })
     }
 })
@@ -106,7 +106,7 @@ app.post('/rooms', hasRole([ROLES.ADMIN, ROLES.MODERATOR]), async (req, res) => 
         res.send({ data: room })
     } catch (err) {
         res.send({
-            error: err.message
+            error: "При попытке создать комнату произошла ошибка"
         })
     }
 });
@@ -162,6 +162,10 @@ mongoose.connect('mongodb+srv://azattix:Azattix12@cluster0.oebxh.mongodb.net/eas
         console.log(`База данных подключена на порту ${port}`)
     })
 }).catch((err) => {
-    console.log(err)
+    console.error(err);
+    res.status(500).send({
+        error: "Произошла ошибка на сервере"
+    });
+
 })
 

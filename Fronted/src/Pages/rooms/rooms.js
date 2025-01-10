@@ -27,7 +27,7 @@ import {
     CustomSelect,
     ErrorToast, SuccessToast
 } from "../components";
-import { getHotelAndRoomsAndReservation, patchReserveRoom, deleteRoom } from "../../requests";
+import { getHotelAndRoomsAndReservation, postReserveRoom, deleteRoom } from "../../requests";
 
 
 export const Rooms = () => {
@@ -62,7 +62,7 @@ export const Rooms = () => {
         if (startDate && endDate) {
             const daysReserved = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24);
             const reservationPrice = roomPrice * daysReserved;
-            dispatch(patchReserveRoom(roomId, startDate, endDate, user, reservationPrice, peoples, roomNumber, description, type, hotel.name, hotel.address));
+            dispatch(postReserveRoom(roomId, startDate, endDate, user, reservationPrice, peoples, roomNumber, description, type, hotel.name, hotel.address));
             setStartDate(null);
             setEndDate(null);
             setFlag(false);
@@ -139,7 +139,7 @@ export const Rooms = () => {
                                                         </div>
                                                         <p>{room?.description}</p>
                                                         <div className={roomsStyle["roomReservationDate"]}>
-                                                            <p>Данный номер забронирован на:</p>
+                                                            <h3>Данный номер забронирован на:</h3>
                                                             {reservation?.filter((res) => res?.room_id === room?.id).length > 0 ? (
                                                                 reservation?.filter((res) => res?.room_id === room?.id).map((reservation) => (
                                                                     <ul>

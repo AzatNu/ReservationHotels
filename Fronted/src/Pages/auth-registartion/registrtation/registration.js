@@ -2,16 +2,15 @@ import loginRegistartionStyle from "../login-registartion.module.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { server } from "../../../bff/api/server";
-import { registerFormSchema} from "../validation-schema";
-import {  useNavigate } from "react-router-dom";
+import { registerFormSchema } from "../validation-schema";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useStore, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ErrorAlert, LoadingSpinner } from "../../components";
 import { isLoadingSelector } from "../../../selectors";
 import { request } from "../../../App/utils";
 
-export const Registartion= () => {
+export const Registartion = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLoading = useSelector(isLoadingSelector);
@@ -34,7 +33,7 @@ export const Registartion= () => {
 
     const onSubmit = ({ login, password }) => {
         dispatch({ type: "SET_IS_LOADING", isLoading: true });
-        request("/register", "POST", { login, password }).then(({ error, user}) => {
+        request("/register", "POST", { login, password }).then(({ error, user }) => {
             if (error) {
                 setServerError(`${error}`);
                 return;
@@ -64,41 +63,41 @@ export const Registartion= () => {
         <div className={loginRegistartionStyle["loginRegistartionContainer"]}>
             <h2>Регистрация</h2>
 
-                <form onSubmit={handleSubmit(onSubmit)} className={loginRegistartionStyle["loginRegistartionForm"]}>
-                    {isLoading ? (
-                        <LoadingSpinner />
-                    ) : (
-                        <>
-                            <input
-                                type="text"
-                                placeholder="Логин"
-                                {...register("login", {
-                                    onChange: () => setServerError(null),
-                                })}
-                            />
-                            <input
-                                type="password"
-                                placeholder="Пароль"
-                                {...register("password", {
-                                    onChange: () => setServerError(null),
-                                })}
-                            />
-                            <input
-                                type="password"
-                                placeholder="Повторите пароль"
-                                {...register("passwordRepeat", {
-                                    onChange: () => setServerError(null),
-                                })}
-                            />
-                            <p>
-                                {formError && <ErrorAlert>{formError}</ErrorAlert>}
-                            </p>
-                            <button type="submit" disabled={formError || isLoading}>
-                                Зарегистрироваться
-                            </button>
-                        </>
-                    )}
-                </form>
+            <form onSubmit={handleSubmit(onSubmit)} className={loginRegistartionStyle["loginRegistartionForm"]}>
+                {isLoading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <>
+                        <input
+                            type="text"
+                            placeholder="Логин"
+                            {...register("login", {
+                                onChange: () => setServerError(null),
+                            })}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Пароль"
+                            {...register("password", {
+                                onChange: () => setServerError(null),
+                            })}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Повторите пароль"
+                            {...register("passwordRepeat", {
+                                onChange: () => setServerError(null),
+                            })}
+                        />
+                        <p>
+                            {formError && <ErrorAlert>{formError}</ErrorAlert>}
+                        </p>
+                        <button type="submit" disabled={formError || isLoading}>
+                            Зарегистрироваться
+                        </button>
+                    </>
+                )}
+            </form>
 
         </div>
     );
