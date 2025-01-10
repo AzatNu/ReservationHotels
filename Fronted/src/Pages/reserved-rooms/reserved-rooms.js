@@ -146,7 +146,7 @@ export const ReservedRooms = () => {
                                                         </div>
                                                         <div className={reservedRoomsStyle["reservationButtonContainer"]}>
                                                             <button className={reservedRoomsStyle["deleteReservationButton"]}
-                                                                onClick={() => dispatch(deleteReservationById(room?.id))}>Удалить бронь </button>
+                                                                onClick={() => dispatch(deleteReservationById(room?._id))}>Удалить бронь </button>
                                                             <button className={reservedRoomsStyle["editReservationButton"]} onClick={() => setUpdateFlag(!updateFlag)}  >{updateFlag ? "Выйти из редактирования" : "Изменить бронь"}</button>
                                                         </div>
                                                         {updateFlag && (

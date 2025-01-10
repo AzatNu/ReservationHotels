@@ -4,7 +4,6 @@ const generateId = require("../helper/generateId");
 
 const getRservations = async () => {
     return Reservation.find();
-
 }
 
 const getReservationByRoomId = async (RoomId) => {
