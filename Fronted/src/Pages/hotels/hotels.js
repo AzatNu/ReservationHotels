@@ -13,6 +13,14 @@ export const Hotels = () => {
     const isLoading = useSelector(isLoadingSelector);
     const userRole = useSelector(userRoleSelector);
     const errors = useSelector(errorsSelector);
+
+    useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
+
     useEffect(() => {
         dispatch(getAllHotels())
     }, []);

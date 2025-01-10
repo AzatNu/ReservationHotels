@@ -49,6 +49,14 @@ export const Rooms = () => {
     const [peoples, setPeoples] = useState(null);
     const [flag, setFlag] = useState(false);
 
+
+    useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
+
     useEffect(() => {
         dispatch(getHotelAndRoomsAndReservation(id));
     }, [ refreshPage]);

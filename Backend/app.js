@@ -19,8 +19,5 @@ mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {
     })
 }).catch((err) => {
     console.error(err);
-    res.status(500).send({
-        error: "Произошла ошибка на сервере"
-    });
 })
 

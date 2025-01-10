@@ -7,6 +7,6 @@ module.exports.generate = (data) => {
 }
 
 module.exports.verify = (token) => {
-    return jwt.verify(token, sign) 
+    return jwt.verify(token, sign)
 }
 

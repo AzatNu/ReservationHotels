@@ -25,6 +25,13 @@ export const ReservedRooms = () => {
     const [endDate, setEndDate] = useState(null);
 
     useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
         dispatch(getAllReservation());
     }, [refreshPage]);
 

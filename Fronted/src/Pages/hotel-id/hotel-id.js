@@ -14,6 +14,12 @@ export const HotelId = () => {
     const errors = useSelector(errorsSelector);
     const { id } = useParams();
 
+    useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getHotelById(id))

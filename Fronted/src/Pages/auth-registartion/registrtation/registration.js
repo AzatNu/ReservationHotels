@@ -4,17 +4,17 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerFormSchema } from "../validation-schema";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useStore, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ErrorAlert, LoadingSpinner } from "../../components";
-import { isLoadingSelector } from "../../../selectors";
+import { isLoadingSelector, userloginSelector } from "../../../selectors";
 import { request } from "../../../App/utils";
 
 export const Registartion = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLoading = useSelector(isLoadingSelector);
-
+    const userLogin = useSelector(userloginSelector);
 
     const {
         register,
@@ -23,7 +23,7 @@ export const Registartion = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            login: "",
+            login: userLogin || "",
             password: "",
             passwordRepeat: "",
         },
@@ -47,18 +47,12 @@ export const Registartion = () => {
     };
     const formError =
         serverError || errors?.login?.message || errors?.password?.message || errors?.passwordRepeat?.message;
-    const store = useStore();
     useEffect(() => {
-        let currentWasLogout = store.getState().app.wasLogout;
-        return () =>
-            store.subscribe(() => {
-                let prevWasLogout = currentWasLogout;
-                prevWasLogout = store.getState().app.wasLogout;
-                if (prevWasLogout !== currentWasLogout) {
-                    reset();
-                }
-            });
-    }, [reset, store]);
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
     return (
         <div className={loginRegistartionStyle["loginRegistartionContainer"]}>
             <h2>Регистрация</h2>
@@ -102,3 +96,4 @@ export const Registartion = () => {
         </div>
     );
 };
+

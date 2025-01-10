@@ -16,6 +16,12 @@ export const AllRoomStatus = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
+    useEffect(() => {
         dispatch(getAllReservation());
     }, [dispatch, refreshPage]);
     if (errors) {
@@ -62,7 +68,7 @@ export const AllRoomStatus = () => {
                                                     <td>${reservation?.price}</td>
                                                     <td>{reservation?.peoples}</td>
                                                     <td>{reservation?.user}</td>
-                                                    <td>{reservation?.type }</td>
+                                                    <td>{reservation?.type}</td>
                                                     <td>
                                                         <button onClick={() =>
                                                             dispatch(deleteReservationById(reservation?._id))} title="Удалить бронь">✖</button>

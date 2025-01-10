@@ -5,7 +5,9 @@ import { useSelector, useDispatch } from "react-redux"
 import { ToastContainer } from 'react-toastify';
 import { useState } from "react";
 import { postRoom } from "../../requests";
-;
+import { useEffect } from "react";
+
+
 export const CreateRooms = () => {
     const dispatch = useDispatch();
     const errors = useSelector(errorsSelector);
@@ -19,6 +21,14 @@ export const CreateRooms = () => {
     const [imageUrl, setImageUrl] = useState("");
     const [description, setDescription] = useState("");
     const [imageUrls, setImageUrls] = useState([""]);
+
+
+    useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
     if (postRoomSuccess) {
         SuccessToast("Номер успешно добавлен!");
         dispatch({ type: "SET_POST_ROOM_SUCCESS", postRoomSuccess: false });

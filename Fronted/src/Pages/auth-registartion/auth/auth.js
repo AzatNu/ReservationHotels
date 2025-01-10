@@ -1,15 +1,14 @@
 import loginRegistartionStyle from "../login-registartion.module.css";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { authFormSchema } from "../validation-schema";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useStore,useSelector } from "react-redux";
-import { useEffect } from "react";
-import { ErrorAlert,  Warning, LoadingSpinner } from "../../components";
-import {userRoleSelector, userloginSelector, isLoadingSelector} from "../../../selectors"
-import logout from "../../../assets/header-Icons/control-panel-Icons/icons8-выход-100.png";
+import { useDispatch, useSelector } from "react-redux";
 import { request } from "../../../App/utils";
+import { ErrorAlert, LoadingSpinner, Warning } from "../../components";
+import { userRoleSelector, userloginSelector, isLoadingSelector } from "../../../selectors"
+import logout from "../../../assets/header-Icons/control-panel-Icons/icons8-выход-100.png";
 
 export const Auth = () => {
     const dispatch = useDispatch();
@@ -20,7 +19,6 @@ export const Auth = () => {
 
     const {
         register,
-        reset,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -31,9 +29,17 @@ export const Auth = () => {
         resolver: yupResolver(authFormSchema),
     });
     const [serverError, setServerError] = useState(null);
+
+    useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
+
     const onSubmit = ({ login, password }) => {
         dispatch({ type: "SET_IS_LOADING", isLoading: true });
-        request("/login", "POST", { login, password }).then(({ error, user}) => {
+        request("/login", "POST", { login, password }).then(({ error, user }) => {
             if (error) {
                 setServerError(`${error}`);
                 return;
@@ -43,35 +49,21 @@ export const Auth = () => {
             navigate("/hotels");
         }).finally(() => {
             dispatch({ type: "SET_IS_LOADING", isLoading: false });
-
         });
-
     };
     const formError =
         serverError || errors?.login?.message || errors?.password?.message;
-    const store = useStore();
-    useEffect(() => {
-        let currentWasLogout = store.getState().app.wasLogout;
-        return () =>
-            store.subscribe(() => {
-                let prevWasLogout = currentWasLogout;
-                prevWasLogout = store.getState().app.wasLogout;
-                if (prevWasLogout !== currentWasLogout) {
-                    reset();
-                }
-            });
-    }, [reset, store]);
     return (
         <div className={loginRegistartionStyle["loginRegistartionContainer"]}>
             {userRole !== "3" ? (
                 <Warning>Вы уже авторизованы как: {userLogin}, желаете выйти или сменить аккаунт?
-                    <button style={{backgroundColor: "red"}} onClick={() => {
+                    <button style={{ backgroundColor: "red" }} onClick={() => {
                         dispatch({ type: "LOGOUT" });
                         sessionStorage.removeItem("userData");
                     }}> <img title="Выйти" src={logout} alt="logo" /></button>
                 </Warning>
             ) : (
-                <>
+                <div>
                     <h2>Вход</h2>
                     <form
                         onSubmit={handleSubmit(onSubmit)}
@@ -111,8 +103,9 @@ export const Auth = () => {
                             </>
                         )}
                     </form>
-                </>
+                </div>
             )}
         </div>
     );
 };
+

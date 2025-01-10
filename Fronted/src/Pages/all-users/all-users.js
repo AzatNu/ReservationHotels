@@ -20,6 +20,13 @@ export const AllUsers = () => {
     const [serchQuery, setSerchQuery] = useState("");
 
     useEffect(() => {
+        const storedUser = JSON.parse(sessionStorage.getItem("userData"));
+        if (storedUser) {
+            dispatch({ type: "SET_USER", payload: storedUser });
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
         dispatch(getAllUsers());
     }, [refreshPage]);
     if (errors) {
