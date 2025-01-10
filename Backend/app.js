@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -13,7 +13,7 @@ app.use(express.json())
 
 app.use('/', routes);
 
-mongoose.connect('mongodb+srv://azattix:Azattix12@cluster0.oebxh.mongodb.net/easyReservation?retryWrites=true&w=majority').then(() => {
+mongoose.connect(process.env.DB_CONNECTION_STRING).then(() => {
     app.listen(port, () => {
         console.log(`База данных подключена на порту ${port}`)
     })
