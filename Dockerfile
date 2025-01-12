@@ -12,6 +12,6 @@ WORKDIR /usr/src/app/Backend
 RUN npm i
 
 
-EXPOSE 3000
+EXPOSE 3005
 
 CMD ["node","app.js"]

@@ -30,7 +30,6 @@ export const AllRoomStatus = () => {
         SuccessToast("Бронь успешно удалена!");
         dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
     }
-    console.log(refreshPage.refreshPage)
     return (
         <>
             {userRole !== "3" ? (

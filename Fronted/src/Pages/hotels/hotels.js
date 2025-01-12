@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import hotelsStyle from "./hotels.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllHotels } from "../../requests";
-import { Warning, ErrorNotAvailable, LoadingSpinner, Search, PageTitle, ErrorToast } from "../components"
+import { Warning, ErrorNotAvailable, LoadingSpinner, Search, PageTitle, ErrorToast, CustomSelect } from "../components";
 import { userRoleSelector, getAllHotelsSelector, isLoadingSelector, errorsSelector } from "../../selectors";
 import { Link } from "react-router-dom";
 
 export const Hotels = () => {
-    const [serchQuery, setSerchQuery] = useState("");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [cityFilter, setCityFilter] = useState("");
     const dispatch = useDispatch();
     const hotels = useSelector(getAllHotelsSelector);
     const isLoading = useSelector(isLoadingSelector);
@@ -22,12 +23,18 @@ export const Hotels = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        dispatch(getAllHotels())
-    }, []);
-    const searchHotel = (query) => {
-        return hotels?.filter(hotel => hotel.name.toLowerCase().includes(query.toLowerCase()));
-    }
-    const filteredHotels = searchHotel(serchQuery);
+        dispatch(getAllHotels());
+    }, [dispatch]);
+
+    const filterHotels = (query, city) => {
+        return hotels?.filter(hotel =>
+            hotel.name.toLowerCase().includes(query.toLowerCase()) &&
+            (city === "" || hotel.city === city)
+        );
+    };
+
+    const filteredHotels = filterHotels(searchQuery, cityFilter);
+
     if (errors) {
         ErrorToast(errors);
         dispatch({ type: "SET_ERROR", error: null });
@@ -35,13 +42,29 @@ export const Hotels = () => {
 
     return (
         userRole !== "3" ? (
-            isLoading === true ? (
+            isLoading ? (
                 <LoadingSpinner />
             ) : (
                 <>
                     <div className={hotelsStyle["hotelsHeader"]}>
                         <PageTitle>Доступные отели</PageTitle>
-                        <Search placeholder="Поиск отеля" value={serchQuery} onChange={(e) => setSerchQuery(e.target.value)} onClickButton={() => setSerchQuery("")} buttonTitle="Сбросить поиск" />
+                        <CustomSelect
+                            options={[
+                                { value: "", label: "Все  города" },
+                                { value: "Москва", label: "Москва" },
+                                { value: "Нью-Йорк", label: "Нью-Йорк" },
+                                { value: "Варшава", label: "Варшава" },
+                            ]}
+                            onChange={(option) => setCityFilter(option.value)}
+                            value={{ value: cityFilter, label: cityFilter ? cityFilter : "Все города" }}
+                        />
+                        <Search
+                            placeholder="Поиск отеля"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onClickButton={() => setSearchQuery("")}
+                            buttonTitle="Сбросить поиск"
+                        />
                     </div>
                     <div className={hotelsStyle["hotelsContainer"]}>
                         {filteredHotels?.length > 0 ? (
@@ -65,7 +88,7 @@ export const Hotels = () => {
             )
         ) : (
             <ErrorNotAvailable style={{ color: 'red' }} />
-            )
+        )
     );
 };
 
