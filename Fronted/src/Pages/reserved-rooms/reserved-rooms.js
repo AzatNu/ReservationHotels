@@ -34,6 +34,7 @@ export const ReservedRooms = () => {
     useEffect(() => {
         dispatch(getAllReservation());
     }, [refreshPage]);
+
     if (errors) {
         ErrorToast(errors);
         dispatch({ type: "SET_ERROR", error: null });
@@ -110,6 +111,16 @@ export const ReservedRooms = () => {
                                                             <div className={reservedRoomsStyle["roomInfoTitle"]}>
                                                                 <h3>Описание</h3>
                                                             </div> <p>{room?.description}</p>
+                                                            <div className={reservedRoomsStyle["allReservations"]}>
+                                                                <h3>Брони других пользователей:</h3>
+                                                                {userReservations
+                                                                    .filter((reservation) => reservation?._id !== room?._id)
+                                                                    .map((reservation) => (
+                                                                        <div key={reservation?._id}>
+                                                                            <h4> {new Date(reservation?.start_date).toLocaleDateString()}-{new Date(reservation?.end_date).toLocaleDateString()} {reservation?.user}</h4>
+                                                                        </div>
+                                                                    ))}
+                                                            </div>
                                                         </div>
                                                         <div className={reservedRoomsStyle["reservationCode"]}>
                                                             {flag ? (<button onClick={() => setFlag(!flag)}>Скрыть</button>) :
