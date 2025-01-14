@@ -1,9 +1,9 @@
 import reservedRoomsStyle from "./reserved-rooms.module.css";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { userloginSelector, getAllReservationSelector, refreshPageSelector, getReservationsRoomsByUserLoginSelector, errorsSelector, isLoadingSelector, userRoleSelector, updateReservationByIdSuccessSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
+import { userloginSelector, getAllReservationSelector, refreshPageSelector, errorsSelector, isLoadingSelector, userRoleSelector, updateReservationByIdSuccessSelector, deleteReservationByIdSuccessSelector } from "../../selectors";
 import { Warning, ErrorNotAvailable, LoadingSpinner, PageTitle, Search, CustomSelect, ErrorToast, SuccessToast } from "../components";
-import { getReservationRoomsByUserLogin, deleteReservationById, updateReservationById, getAllReservation } from "../../requests";
+import { deleteReservationById, updateReservationById, getAllReservation } from "../../requests";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -34,7 +34,6 @@ export const ReservedRooms = () => {
     useEffect(() => {
         dispatch(getAllReservation());
     }, [refreshPage]);
-
     if (errors) {
         ErrorToast(errors);
         dispatch({ type: "SET_ERROR", error: null });
@@ -46,7 +45,7 @@ export const ReservedRooms = () => {
         SuccessToast("Даты бронирования успешно изменены!");
         dispatch({ type: "SET_UPDATE_RESERVATION_BY_ID_SUCCESS", updateReservationByIdSuccess: false });
     }
-
+    const userReservations = allReservation?.filter(reservation => reservation?.user === userLogin);
     return (
         <>
             {userRole !== "3" ? (
@@ -73,8 +72,8 @@ export const ReservedRooms = () => {
                                 <Search placeholder="Поиск номера" buttonTitle="Сбросить поиск" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onClickButton={() => setSearchQuery("")} />
                             </div>
                             <div className={reservedRoomsStyle["reservedRoomsContainer"]}>
-                                {allReservation?.length > 0 ? (
-                                    allReservation
+                                {userReservations?.length > 0 ? (
+                                    userReservations
                                         .filter((room) =>
                                             room?.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
                                             room?.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -111,22 +110,6 @@ export const ReservedRooms = () => {
                                                             <div className={reservedRoomsStyle["roomInfoTitle"]}>
                                                                 <h3>Описание</h3>
                                                             </div> <p>{room?.description}</p>
-                                                            <div>
-                                                                <h3>Брони других пользователей: </h3>
-                                                                {allReservation
-                                                                    .filter((reservation) => reservation?.number === room?.number && reservation?.user !== userLogin)
-                                                                    .length > 0 ? (
-                                                                    <ul>
-                                                                        {allReservation
-                                                                            .filter((reservation) => reservation?.number === room?.number && reservation?.user !== userLogin)
-                                                                            .map((reservation) => (
-                                                                                <li key={reservation?.id}>{new Date(reservation?.start_date).toLocaleDateString()} - {new Date(reservation?.end_date).toLocaleDateString()} {reservation?.user}</li>
-                                                                            ))}
-                                                                    </ul>
-                                                                ) : (
-                                                                    <p>Нет броней</p>
-                                                                )}
-                                                            </div>
                                                         </div>
                                                         <div className={reservedRoomsStyle["reservationCode"]}>
                                                             {flag ? (<button onClick={() => setFlag(!flag)}>Скрыть</button>) :
@@ -160,7 +143,7 @@ export const ReservedRooms = () => {
                                                             <button className={reservedRoomsStyle["saveReservationButton"]}
                                                                 onClick={() => {
                                                                     if (startDate && endDate && startDate < endDate) {
-                                                                        const isReserved = allReservation.some(res => res.room_id === room.room_id && res.user !== userLogin && new Date(res.start_date) < endDate && new Date(res.end_date) > startDate);
+                                                                        const isReserved = userReservations.some(res => res.room_id === room.room_id && res.user !== userLogin && new Date(res.start_date) < endDate && new Date(res.end_date) > startDate);
                                                                         if (isReserved) {
                                                                             ErrorToast("Дата бронирования занята");
                                                                         } else {
@@ -190,5 +173,4 @@ export const ReservedRooms = () => {
         </>
     );
 }
-
 
