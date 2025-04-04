@@ -10,3 +10,11 @@
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
 
+@media (max-width: 768px) {
+    .pageTitle {
+        font-size: 30px;
+        margin: 15px;
+
+    }
+
+}
