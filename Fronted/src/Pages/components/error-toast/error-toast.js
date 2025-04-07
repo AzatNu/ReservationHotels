@@ -1,7 +1,23 @@
 import { toast } from "react-toastify";
 
-
 export const ErrorToast = (message) => {
+    const isMobile = window.innerWidth <= 768;
+
+    const toastStyle = {
+        fontSize: "1.5rem",
+        minWidth: "600px",
+        color: "#0a0a0a",
+        marginBottom: "150px",
+    };
+
+    if (isMobile) {
+        toastStyle.fontSize = "1rem";
+        toastStyle.minWidth = "auto";
+        toastStyle.width = "350px";
+        toastStyle.marginBottom = "70px";
+        toastStyle.marginLeft = "30px";
+    }
+
     return toast.error(message, {
         position: "bottom-right",
         autoClose: 6000,
@@ -11,12 +27,6 @@ export const ErrorToast = (message) => {
         draggable: true,
         progress: undefined,
         theme: "colored",
-        style: {
-            fontSize: "2rem",
-            minWidth: "600px",
-            color: "#0a0a0a",
-            marginBottom: "130px",
-        },
+        style: toastStyle,
     });
 };
-

@@ -45,6 +45,7 @@
     font-size: 20px;
     cursor: pointer;
     background-color: yellow;
+    color: #0a0a0a;
 }
 
 .loginRegistartionForm button:hover {
@@ -57,7 +58,6 @@
     from {
         transform: scale(1);
     }
-
     to {
         transform: scale(1.1);
     }
@@ -68,17 +68,23 @@
     text-align: center;
 }
 
+.loginRegistartionContainer h2 {
+    text-align: center;
+    font-size: 30px;
+    padding-top: 80px  ;
+}
+
 @media (max-width: 768px) {
     .loginRegistartionForm {
-        width: 500px;
+        width: 400px;
         height: 600px;
     }
 
     .loginRegistartionForm input {
-        width: 400px;
+        width: 300px;
     }
 
     .loginRegistartionForm button {
         width: 300px;
     }
-}   
+}

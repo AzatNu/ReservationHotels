@@ -13,7 +13,7 @@ export const Greeting = () => {
     }, [dispatch]);
     return (
         <div className={greetingStyle["greetingContainer"]}>
-            <h1>Добро пожаловать на EasyReservation, мы рады видеть вас!
+            <h1>Добро пожаловать на EasyReservation, мы рады что вы с нами! Данные для входа пользователя с ролью админ: admin/123456
             </h1>
             <Link to="/login"><button> <img src={gettingArrow} alt="logo" /> Давайте начнем!   </button></Link>
         </div>

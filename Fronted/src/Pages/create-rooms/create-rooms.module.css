@@ -121,3 +121,27 @@
     align-items: center;
     justify-content: center;
 }
+
+@media (max-width: 768px) {
+    .createRoomsContainer {
+        padding: 150px 20px;
+    }
+
+    .createRoomsContainer form {
+        width: 100%;
+        margin: 30px;
+    }
+    .createRoomsContainer button {
+        width: 300px;
+        height: 40px;
+        font-size: 20px;
+    }
+    .createRoomsHeader{
+        margin-top: 80px;
+        z-index: 0;
+    }
+    .createRoomsContainer select{
+        font-size: 15px;
+    }
+
+}

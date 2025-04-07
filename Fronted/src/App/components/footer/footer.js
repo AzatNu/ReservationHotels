@@ -4,12 +4,29 @@ import phoneLogo from "../../../assets/footer-icons/icons8-телефон-100.pn
 import whatsAppLogo from "../../../assets/footer-icons/icons8-whatsapp-100.png";
 import telegramLogo from "../../../assets/footer-icons/icons8-телеграмма-100.png";
 import instagramLogo from "../../../assets/footer-icons/icons8-instagram-100.png";
+import { FooterMedia } from "./footer-media";
+import { useEffect, useState } from "react";
 
 export const Footer = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        const closeMediaFooterOnClickOutside = (event) => {
+            const mediaFooter = document.querySelector(`.${footerStyle["footerMediaContacts"]}`);
+            const button = document.querySelector(`.${footerStyle["footerContactsButton"]}`);
+            if (mediaFooter && !mediaFooter.contains(event.target) && !button.contains(event.target)) setIsOpen(false);
+        };
+        document.addEventListener("click", closeMediaFooterOnClickOutside);
+        return () => {
+            document.removeEventListener("click", closeMediaFooterOnClickOutside);
+        }
+    }, [isOpen]);
     return (
         <div className={footerStyle["footerContainer"]}>
             {window.innerWidth < 768 ? (
-                <button className={footerStyle["footerContactsButton"]}>Обратная связь</button>
+                <>
+                    {isOpen && <FooterMedia />}
+                    <button className={footerStyle["footerContactsButton"]} onClick={() => setIsOpen(!isOpen)}>Обратная связь</button>
+                </>
             ) : (
                 <>
                     <div className={footerStyle["footerContactsContainer"]}>

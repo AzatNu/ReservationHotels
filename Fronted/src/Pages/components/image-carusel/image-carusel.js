@@ -14,7 +14,7 @@ export const ImageCarousel = ({ images }) => {
     return (
         <div className={imageCaruselStyle["roomImageCarusel"]}>
             <button className={`${imageCaruselStyle["arrow-left"]}`} onClick={prevImage}><img src={arrow} alt="logo" /></button>
-            <img src={images[currentIndex]} alt={`room-${currentIndex}`} className={imageCaruselStyle["roomImage"]} />
+            <a href={images[currentIndex]}><img src={images[currentIndex]} alt={`room-${currentIndex}`} className={imageCaruselStyle["roomImage"]} /></a>
             <button className={`${imageCaruselStyle["arrow-right"]}`} onClick={nextImage}><img src={arrow} alt="logo" /></button>
         </div>
     );

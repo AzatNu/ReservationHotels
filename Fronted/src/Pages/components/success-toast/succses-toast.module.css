@@ -1,0 +1,7 @@
+@media (max-width: 768px) {
+    .successToastStyle {
+        font-size: 15px;
+        width: 200px;
+        position: top-center;
+    }
+}

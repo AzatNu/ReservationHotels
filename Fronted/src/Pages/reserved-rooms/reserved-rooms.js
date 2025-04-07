@@ -23,6 +23,8 @@ export const ReservedRooms = () => {
     const [updateFlag, setUpdateFlag] = useState(false);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [showAll, setShowAll] = useState(false);
+
 
     useEffect(() => {
         const storedUser = JSON.parse(sessionStorage.getItem("userData"));
@@ -39,7 +41,7 @@ export const ReservedRooms = () => {
         ErrorToast(errors);
         dispatch({ type: "SET_ERROR", error: null });
     } else if (deleteReservationByIdSuccess) {
-        SuccessToast("Бронирование успешно удалено!");
+        SuccessToast("Бронь успешно удалена!");
         dispatch({ type: "SET_DELETE_RESERVATION_BY_ID_SUCCESS", deleteReservationByIdSuccess: false });
     }
     if (updateReservationByIdSuccess) {
@@ -113,17 +115,27 @@ export const ReservedRooms = () => {
                                                             </div> <p>{room?.description}</p>
                                                             <div className={reservedRoomsStyle["allReservations"]}>
                                                                 <h3>Брони других пользователей:</h3>
-                                                               {userReservations
-                                                                    .filter((reservation) => reservation?._id !== room?._id)
+                                                                {allReservation
                                                                     .length > 0 ?
-                                                                    userReservations
-                                                                        .filter((reservation) => reservation?._id !== room?._id)
-                                                                        .map((reservation) => (
-                                                                            <div key={reservation?._id}>
-                                                                                <h4> {new Date(reservation?.start_date).toLocaleDateString()}-{new Date(reservation?.end_date).toLocaleDateString()} {reservation?.user}</h4>
-                                                                            </div>
-                                                                        )) :
-                                                                        <h4>Нет броней</h4>}
+                                                                    showAll ?
+                                                                        allReservation
+                                                                            .filter((reservation) => reservation?.user !== userLogin)
+                                                                            .map((reservation) => (
+                                                                                <div key={reservation?._id}>
+                                                                                    <h4> {new Date(reservation?.start_date).toLocaleDateString()}-{new Date(reservation?.end_date).toLocaleDateString()} {reservation?.user}</h4>
+                                                                                </div>
+                                                                            )) :
+                                                                        allReservation.slice(0, 3)
+                                                                            .filter((reservation) => reservation?.user !== userLogin)
+                                                                            .map((reservation) => (
+                                                                                <div key={reservation?._id}>
+                                                                                    <h4> {new Date(reservation?.start_date).toLocaleDateString()}-{new Date(reservation?.end_date).toLocaleDateString()} {reservation?.user}</h4>
+                                                                                </div>
+                                                                            )) :
+                                                                    <h4>Нет броней</h4>}
+                                                                <button className={reservedRoomsStyle[`showAllButton`]} onClick={() => setShowAll(!showAll)}>
+                                                                    {showAll ? "Скрыть" : "Показать все"}
+                                                                </button>
                                                             </div>
                                                         </div>
                                                         <div className={reservedRoomsStyle["reservationCode"]}>

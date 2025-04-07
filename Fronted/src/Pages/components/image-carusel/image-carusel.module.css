@@ -3,36 +3,35 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    min-height: 400px;
-    min-width: 1000px;
     padding: 10px;
     margin: 20px;
+    background: rgba(255, 255, 255, 0.601);
 }
-
+.roomImageCarusel a {
+    text-decoration: none;
+}
 .roomImage {
-    object-fit: cover;
     border-radius: 10px;
-    width: 1500px;
-    height: 750px;
-    padding: 20px;
+    padding: 10px;
+    margin: 20px;
+    width: 1050px;
+    height: 600px;
 }
 
 .arrow-right {
-
     border-radius: 5px;
-    font-size: 30px;
+    font-size: 20px;
     padding: 10px;
     cursor: pointer;
     background-color: transparent;
     border: none;
-
 }
 
 .arrow-left {
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 20px;
     background-color: transparent;
     border: none;
 }
@@ -43,11 +42,13 @@
 
 .arrow-left:hover {
     animation: scale 0.2s linear forwards;
+    background: aqua
 
 }
 
 .arrow-right:hover {
     animation: scale 0.2s linear forwards;
+    background: aqua
 }
 
 @keyframes scale {
@@ -57,5 +58,37 @@
 
     100% {
         transform: scale(1.2);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .roomImageCarusel {
+        min-height: 200px;
+        min-width: 400px;
+        background: none;
+    }
+    .roomImage {
+        width: 325px;
+        height: 325px;
+    }
+    .arrow-left {
+        font-size: 20px;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .arrow-right {
+        font-size: 20px;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .arrow-right img {
+        width: 40px;
+    }
+    .arrow-left img {
+        width: 40px;
     }
 }

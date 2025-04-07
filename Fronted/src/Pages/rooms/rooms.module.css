@@ -26,9 +26,6 @@
 .roomCard {
     width: 100%;
     min-height: 800px;
-    border-radius: 10px;
-    background-color: #ffffff50;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,8 +46,6 @@
 }
 
 .roomImageCarusel {
-    width: 100%;
-    height: 50%;
     display: block;
     margin: 0 auto;
     border-radius: 5px;
@@ -60,10 +55,7 @@
 }
 
 .roomImageCarusel img {
-    width: 50%;
-    height: 50%;
     border-radius: 5px;
-    object-fit: contain;
     display: block;
     margin: 0 auto;
 }
@@ -75,7 +67,8 @@
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
     padding: 20px;
     margin: 10px;
-    width: 90%;
+    width: 70%;
+    background: rgba(255, 255, 255, 0.491);
 }
 
 .roomInfoTitle {
@@ -91,19 +84,21 @@
 
 .roomReserveButton {
     background-color: yellow;
-    width: 600px;
+    width: 400px;
     height: 60px;
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    font-size: 35px;
+    font-size: 30px;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
     margin: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
+   color: #0a0a0a;
 }
+
 .roomReserveButton:hover {
     animation: scale 0.2s linear forwards;
     background-color: #3DD9EB;
@@ -115,7 +110,8 @@
     align-items: center;
     justify-content: center;
 }
-.roomReservationDate  ul{
+
+.roomReservationDate ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -126,7 +122,8 @@
     color: #0a0a0a;
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
-.roomReservationDate li{
+
+.roomReservationDate li {
     font-size: 30px;
     font-weight: bold;
     color: #0a0a0a;
@@ -137,13 +134,14 @@
     0% {
         transform: scale(1);
     }
+
     100% {
         transform: scale(1.1);
     }
 }
 
 .roomReservationContainer {
-    width: 90%;
+    width: 70%;
     min-height: 500px;
     display: none;
     flex-direction: column;
@@ -152,7 +150,8 @@
     margin: 30px;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
     padding: 20px;
-    border-radius: 10px
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.491);
 }
 
 .roomReservationContainer h3 {
@@ -187,11 +186,13 @@
     text-align: center;
 
 }
+
 .roomData input:hover {
     background-color: #d4d0d0a2;
     animation: scale 0.2s linear forwards;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
+
 .openReservationContainer {
     background-color: yellow;
     width: 400px;
@@ -226,6 +227,7 @@
     color: #0a0a0a;
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
+
 .deleteRoomButton {
     background-color: red;
     width: 400px;
@@ -241,9 +243,92 @@
     justify-content: center;
     text-decoration: none;
     box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.75);
+    color: #0a0a0a;
 }
+
 .deleteRoomButton:hover {
     background-color: #3DD9EB;
     animation: scale 0.2s linear forwards;
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+@media (max-width: 768px) {
+    .roomsHeader {
+        margin-top: 80px;
+        z-index: 0;
+    }
+
+    .roomsContainer {
+        padding: 180px 0px 100px;
+    }
+
+    .roomInfoTitle {
+        font-size: 20px;
+    }
+
+    .roomInfoText {
+        font-size: 20px;
+    }
+
+    .roomReserveButton {
+        width: 150px;
+        height: 40px;
+        font-size: 15px;
+        margin: 5px;
+    }
+
+    .roomCard h2 {
+        font-size: 20px;
+    }
+
+    .roomReservationContainer {
+        padding: 10px;
+        width: 100%;
+
+    }
+
+    .roomReservationContainer h3 {
+        font-size: 20px;
+    }
+
+    .roomData {
+        margin: 10px;
+        font-size: 20px;
+    }
+
+    .roomData input {
+        width: 80%;
+        height: 40px;
+        margin: 10px;
+        padding: 5px;
+        font-size: 20px;
+    }
+
+    .openReservationContainer {
+        width: 200px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .roomReservationData {
+        margin: 10px;
+        font-size: 20px;
+    }
+
+    .deleteRoomButton {
+        width: 200px;
+        height: 40px;
+        font-size: 20px;
+    }
+    .roomInfo {
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.491);
+        width: 100%;
+    }
+    .roomInfo p {
+        font-size: 20px;
+    }
+    .roomInfo h2 {
+        font-size: 20px;
+    }
 }

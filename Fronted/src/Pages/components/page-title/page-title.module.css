@@ -12,9 +12,8 @@
 
 @media (max-width: 768px) {
     .pageTitle {
-        font-size: 30px;
-        margin: 15px;
-
+        font-size: 15px;
+        margin: 20px;
     }
 
 }

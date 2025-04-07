@@ -46,7 +46,6 @@ export const AllUsers = () => {
         }, 2000)
     }
 
-
     const handleRoleChange = (id, value) => {
         dispatch(updateUserRoleById(id, value))
     }
@@ -55,45 +54,44 @@ export const AllUsers = () => {
             <LoadingSpinner />
         ) : (
             <>
-                <div className={allUsersStyles["hotelsHeader"]}>
+                <div className={allUsersStyles["usersHeader"]}>
                     <PageTitle>Все пользователи</PageTitle>
                     <Search placeholder="Поиск по логину пользователя" value={serchQuery} onChange={(e) => setSerchQuery(e.target.value)} onClickButton={() => setSerchQuery("")} buttonTitle="Сбросить поиск" />
                 </div>
-                <div className={allUsersStyles["usersContainer"]}>
-                    <div className={allUsersStyles["usersTable"]}>
-                        {allUsers?.length > 0 ? (
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Логин</th>
-                                        <th>Зарегистрирован</th>
-                                        <th>Роль</th>
-                                        <th>Управление</th>
+                <div className={allUsersStyles["usersTable"]}>
+                    {allUsers?.length > 0 ? (
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Логин</th>
+                                    <th>Зарегистрирован</th>
+                                    <th>Роль</th>
+                                    <th>Управление</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allUsers?.filter(user => user?.login?.toLowerCase().includes(serchQuery.toLowerCase())).map((user) => (
+                                    <tr key={user?.id}>
+                                        <td>{userlogin === user?.login ? <span style={{ color: "green" }}>Вы</span> : user?.login}</td>
+                                        <td>{new Date(user?.registration_at).toLocaleString('ru', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</td>
+                                        <td>
+                                            {userlogin === user?.login ? (null) : <select className={allUsersStyles["roleSelect"]} value={user?.role_id} onChange={(e) => handleRoleChange(user?.id, e.target.value)}>
+                                                <option value="0">Администратор</option>
+                                                <option value="1">Модератор</option>
+                                                <option value="2">Пользователь</option>
+                                            </select>}
+                                        </td>
+                                        <td>{userlogin === user?.login ? (null) : <button className={allUsersStyles["deleteButton"]} onClick={() => dispatch(deleteUserById(user.id))} title="Удалить пользователя">X</button>}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {allUsers?.filter(user => user?.login?.toLowerCase().includes(serchQuery.toLowerCase())).map((user) => (
-                                        <tr key={user?.id}>
-                                            <td>{userlogin === user?.login ? <span style={{ color: "green" }}>Вы</span> : user?.login}</td>
-                                            <td>{user?.registred_at}</td>
-                                            <td>
-                                                <select className={allUsersStyles["roleSelect"]} value={user?.role_id} onChange={(e) => handleRoleChange(user?.id, e.target.value)}>
-                                                    <option value="0">Администратор</option>
-                                                    <option value="1">Модератор</option>
-                                                    <option value="2">Пользователь</option>
-                                                </select>
-                                            </td>
-                                            <td><button className={allUsersStyles["deleteButton"]} onClick={() => dispatch(deleteUserById(user.id))} title="Удалить пользователя">✖</button></td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        ) : (
-                            <Warning>Пользователи отсутствуют</Warning>
-                        )}
-                    </div>
-                    <ToastContainer />
-                </div >
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <Warning>Пользователи отсутствуют</Warning>
+                    )}
+                </div>
+                <ToastContainer />
+
             </>
         )
     ) : (

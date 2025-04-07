@@ -19,7 +19,7 @@ export const Search = ({
             title={buttonTitle}
             onClick={onClickButton}
         >
-            ✖
+            X
         </button>
     </div>
 );

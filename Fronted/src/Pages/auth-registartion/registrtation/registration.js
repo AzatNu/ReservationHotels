@@ -56,7 +56,6 @@ export const Registartion = () => {
     return (
         <div className={loginRegistartionStyle["loginRegistartionContainer"]}>
             <h2>Регистрация</h2>
-
             <form onSubmit={handleSubmit(onSubmit)} className={loginRegistartionStyle["loginRegistartionForm"]}>
                 {isLoading ? (
                     <LoadingSpinner />

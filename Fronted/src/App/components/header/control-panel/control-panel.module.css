@@ -66,13 +66,12 @@
     .controlPanelContainer h1 img {
         width: 30px;
         height: 30px;
-        margin-right: 5px;
     }
 
     .controlPanelContainer button {
         width: 40px;
         height: 40px;
-        margin: 10px;
+        margin: 15px;
     }
 
     .controlPanelContainer button img {
@@ -81,22 +80,33 @@
     }
 }
 
-
-
-.verticalToggleMenu {
+.verticalToggleMenuAppear {
     position: absolute;
-    z-index: 2;
-    top: 110px;
-    right: 10px;
-    width: 70px;
+    top: 100px;
+    right: 15px;
+    width: 60px;
     background-color: #fffffffb;
-    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.75);
     border-radius: 5px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 2;
+    animation: appear 0.3s ease-in-out forwards
 }
 
 
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

@@ -4,17 +4,16 @@
     left: 0;
     width: 100%;
     height: 120px;
-    background-image: linear-gradient(
-        to top,
-        #ffffff,
-        #f7f7f7,
-        #e5e5e5,
-        #e5e5e5
-    );
+    background-image: linear-gradient(to top,
+            #ffffff,
+            #f7f7f7,
+            #e5e5e5,
+            #e5e5e5);
     display: flex;
     flex-direction: row;
     box-shadow: 0px -5px 5px 0px rgba(0, 0, 0, 0.5);
 }
+
 .footerCopyright {
     width: 30%;
     height: 100%;
@@ -25,16 +24,19 @@
 
 
 }
+
 @media (max-width: 768px) {
     .footerContainer {
         height: 60px;
     }
 }
+
 .footerCopyright p {
     margin: 10px;
     font-size: 15px;
     color: #000000;
 }
+
 .footerContactsContainer {
     width: 70%;
     height: 100%;
@@ -44,14 +46,16 @@
     justify-content: center;
 
 }
+
 .footerContactsContainer h2 {
     height: 40%;
-    margin:10px 20px 0 20px;
+    margin: 10px 20px 0 20px;
     font-size: 20px;
     color: #000000;
     display: flex;
 
 }
+
 .footerContacts {
     width: 100%;
     height: 60%;
@@ -61,16 +65,19 @@
     justify-content: start;
     margin-bottom: 5px;
 }
+
 .footerContacts img {
     width: 35px;
     height: 35px;
     margin-right: 10px;
 }
+
 .footerContacts p {
     margin: 20px;
     font-size: 15px;
     color: #000000;
 }
+
 .footerContactsButton {
     width: 100%;
     height: 50%;
@@ -87,9 +94,44 @@
     align-items: center;
     justify-content: center;
 }
+
 .footerContactsButton:hover {
     background-color: #3DD9EB;
 }
 
+@media (max-width: 768px) {
+    .footerMediaContacts {
+        position: fixed;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        z-index: 1000;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        align-items: center;
+        justify-content: center;
+        width: 450px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        background: rgba(255, 255, 255, 0.921)
 
+    }
+    .footerMediaContacts p {
 
+        margin: 10px;
+        font-size: 15px;
+        color: #000000;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 15px;
+
+    }
+    .footerMediaContacts img {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
+
+}

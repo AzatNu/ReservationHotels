@@ -70,7 +70,7 @@ export const AllRoomStatus = () => {
                                                     <td>{reservation?.type}</td>
                                                     <td>
                                                         <button onClick={() =>
-                                                            dispatch(deleteReservationById(reservation?._id))} title="Удалить бронь">✖</button>
+                                                            dispatch(deleteReservationById(reservation?._id))} title="Удалить бронь">X</button>
                                                     </td>
                                                 </tr>
                                             ))}

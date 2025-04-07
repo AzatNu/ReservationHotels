@@ -48,7 +48,7 @@ export const ControlPanel = () => {
                         <img src={menuButton} alt="logo" />
                     </button>
                     {isMenuOpen && (
-                        <div className={controlPanelStyle["verticalToggleMenu"]}>
+                        <div className={controlPanelStyle["verticalToggleMenuAppear"]}>
                             {userRole === "0" && (
                                 <Link to="/allUsers">
                                     <button title="Все пользователи" disabled={isLoading}>
